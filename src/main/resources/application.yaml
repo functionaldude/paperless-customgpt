@@ -1,3 +1,17 @@
 spring:
   application:
     name: paperless-customGPT
+  datasource:
+    url: ${PAPERLESS_DB_URL}
+    username: ${PAPERLESS_DB_USER}
+    password: ${PAPERLESS_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    schemas: paperless_rag
+    default-schema: paperless_rag
