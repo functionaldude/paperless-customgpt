@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS paperless_rag.document_source
     paperless_doc_id      INTEGER     NOT NULL UNIQUE,            -- FK into public.documents_document.id (logically)
     title                 TEXT        NOT NULL,
     correspondent         TEXT,
-    doc_date              TIMESTAMPTZ,
+    doc_date DATE,
 
     paperless_modified_at TIMESTAMPTZ NOT NULL,                   -- snapshot of documents_document.modified
     last_ingested_at      TIMESTAMPTZ,

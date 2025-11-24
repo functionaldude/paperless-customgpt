@@ -1,16 +1,31 @@
-package com.functionaldude.paperless_customGPT.documents.internal
+package com.functionaldude.paperless_customGPT.documents
 
 import com.functionaldude.paperless.jooq.public.tables.references.*
-import com.functionaldude.paperless_customGPT.documents.api.DocumentDto
+import org.jooq.Condition
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.arrayAgg
 import org.springframework.stereotype.Service
+import java.time.LocalDate
+import java.time.OffsetDateTime
+
+data class DocumentDto(
+  val id: Int,
+  val title: String,
+  val documentDate: LocalDate,
+  val modifiedAt: OffsetDateTime?,
+  val mimeType: String,
+  val content: String,
+  val ownerUsername: String?,
+  val note: String?,
+  val correspondentName: String?,
+  val tags: List<String>?,
+)
 
 @Service
 class PaperlessDocumentService(
   private val dsl: DSLContext
 ) {
-  fun findAllDocuments(): List<DocumentDto> {
+  private fun findDocs(vararg conditions: Condition): List<DocumentDto> {
     return dsl
       .select(
         DOCUMENTS_DOCUMENT.ID,
@@ -30,9 +45,7 @@ class PaperlessDocumentService(
       .leftJoin(DOCUMENTS_CORRESPONDENT).on(DOCUMENTS_DOCUMENT.CORRESPONDENT_ID.eq(DOCUMENTS_CORRESPONDENT.ID))
       .leftJoin(DOCUMENTS_DOCUMENT_TAGS).on(DOCUMENTS_DOCUMENT_TAGS.DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
       .leftJoin(DOCUMENTS_TAG).on(DOCUMENTS_TAG.ID.eq(DOCUMENTS_DOCUMENT_TAGS.TAG_ID))
-      .where(
-        DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME)
-      )
+      .where(*conditions)
       .groupBy(
         DOCUMENTS_DOCUMENT.ID,
         AUTH_USER.USERNAME,
@@ -54,6 +67,19 @@ class PaperlessDocumentService(
           tags = record.get("tag_names", Array<String>::class.java)?.filterNotNull()?.toList() ?: emptyList(),
         )
       }
+  }
+
+  fun findAllDocuments(): List<DocumentDto> {
+    return findDocs(
+      DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME)
+    )
+  }
+
+  fun findDocumentById(id: Int): DocumentDto? {
+    return findDocs(
+      DOCUMENTS_DOCUMENT.ID.eq(id),
+      DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME)
+    ).firstOrNull()
   }
 
   companion object {
