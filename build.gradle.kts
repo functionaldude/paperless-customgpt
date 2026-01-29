@@ -125,9 +125,9 @@ jooq {
 
     jdbc {
       driver = "org.postgresql.Driver"
-      url = env("PAPERLESS_DB_URL")
-      user = env("PAPERLESS_DB_USER")
-      password = env("PAPERLESS_DB_PASSWORD")
+      url = env("PAPERLESS_DB_URL", "jdbc:postgresql://localhost:5432/paperless")
+      user = env("PAPERLESS_DB_USER", "paperless")
+      password = env("PAPERLESS_DB_PASSWORD", "paperless")
     }
 
     generator {
@@ -165,4 +165,3 @@ jooq {
     }
   }
 }
-

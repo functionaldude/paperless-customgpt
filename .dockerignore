@@ -1,0 +1,13 @@
+.git
+.gradle
+.idea
+build
+out
+.env
+.env.*
+*.iml
+*.ipr
+*.iws
+HELP.md
+testbed.http
+http-client*.env.json
