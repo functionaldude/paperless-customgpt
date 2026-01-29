@@ -84,11 +84,11 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
+val jooqSources = "src/main/jooq"
+
 sourceSets {
   named("main") {
-    java {
-      srcDir("$buildDir/generated-sources/jooq")
-    }
+    kotlin.srcDir(jooqSources)
   }
 }
 
@@ -152,7 +152,7 @@ jooq {
       target {
         // Where generated code ends up
         packageName = "com.functionaldude.paperless.jooq"
-        directory = "$buildDir/generated-sources/jooq"
+        directory = jooqSources
       }
 
       // optional fine-tuning, good defaults also work
