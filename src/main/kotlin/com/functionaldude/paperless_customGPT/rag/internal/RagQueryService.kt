@@ -6,6 +6,7 @@ import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import com.functionaldude.paperless_customGPT.rag.api.IngestStatus
 import com.functionaldude.paperless_customGPT.rag.api.RagSearchResult
 import com.functionaldude.paperless_customGPT.toDoubleArray
+import com.functionaldude.paperless_customGPT.toPgVectorLiteral
 import dev.langchain4j.model.embedding.EmbeddingModel
 import org.jooq.DSLContext
 import org.jooq.impl.DSL
@@ -19,14 +20,13 @@ class RagQueryService(
 ) {
   fun findDocumentsSimilarTo(query: String, topK: Int): List<RagSearchResult> {
     val queryEmbedding = embeddingModel.embed(query).content()
-    val queryVector: DoubleArray = queryEmbedding.vector().toDoubleArray()
 
     // jooq doesn’t know the <-> operator
     val similarityField = DSL.field(
       "({0} <-> {1})",
       Double::class.java,
       DOCUMENT_CHUNK.EMBEDDING,
-      DSL.field("?::vector", toPgVectorLiteral(queryVector))
+      DSL.`val`(queryEmbedding.vector(), DOCUMENT_CHUNK.EMBEDDING.dataType)
     )
 
     val records = dsl
@@ -55,10 +55,5 @@ class RagQueryService(
       }
 
     return records
-  }
-
-  private fun toPgVectorLiteral(values: DoubleArray): String {
-    // Convert [0.12345, 0.6789, ...] -> '{0.12345,0.6789,...}' with trimmed formatting to avoid scientific notation issues
-    return "{" + values.joinToString(",") { v -> "%.8f".format(v) } + "}"
   }
 }

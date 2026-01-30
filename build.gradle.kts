@@ -41,6 +41,7 @@ dependencies {
 	implementation("org.springframework.modulith:spring-modulith-starter-core")
 
   implementation("org.postgresql:postgresql:42.7.3")
+  implementation("com.pgvector:pgvector:0.1.6")
   implementation("org.flywaydb:flyway-database-postgresql")
   jooqCodegen("org.postgresql:postgresql:42.7.3")
 
@@ -148,6 +149,23 @@ jooq {
         includes = ".*" // What to include (regex).
 
         excludes = "flyway_schema_history"
+
+        forcedTypes {
+          forcedType {
+            // The Java type that generated code will expose.
+            // In Kotlin this shows up as FloatArray.
+            userType = FloatArray::class.simpleName!!
+
+            // Your binding class (FQCN)
+            binding = "com.functionaldude.paperless_customGPT.PGVectorBinding"
+
+            // Match pgvector columns by SQL type name
+            includeTypes = "(?i:vector)"
+
+            // Scope it -> don’t accidentally match other stuff
+            includeExpression = "paperless_rag\\.document_chunk\\.embedding"
+          }
+        }
       }
 
       target {

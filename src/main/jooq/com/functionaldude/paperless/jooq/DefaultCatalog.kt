@@ -5,6 +5,9 @@ package com.functionaldude.paperless.jooq
 
 
 import com.functionaldude.paperless.jooq.paperless_rag.PaperlessRag
+
+import kotlin.collections.List
+
 import org.jooq.Constants
 import org.jooq.Schema
 import org.jooq.impl.CatalogImpl

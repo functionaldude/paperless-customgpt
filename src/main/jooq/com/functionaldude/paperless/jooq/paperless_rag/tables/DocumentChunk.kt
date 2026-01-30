@@ -11,6 +11,7 @@ import com.functionaldude.paperless.jooq.paperless_rag.keys.DOCUMENT_CHUNK__DOCU
 import com.functionaldude.paperless.jooq.paperless_rag.keys.UQ_DOCUMENT_CHUNK_DOC_IDX
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentSource.DocumentSourcePath
 import com.functionaldude.paperless.jooq.paperless_rag.tables.records.DocumentChunkRecord
+import com.functionaldude.paperless_customGPT.PGVectorBinding
 import org.jooq.*
 import org.jooq.impl.*
 import org.jooq.impl.Internal
@@ -78,9 +79,16 @@ open class DocumentChunk(
   val CONTENT: TableField<DocumentChunkRecord, String?> =
     createField(DSL.name("content"), SQLDataType.CLOB.nullable(false), this, "")
 
-  @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
-  val EMBEDDING: TableField<DocumentChunkRecord, Any?> =
-    createField(DSL.name("embedding"), DefaultDataType.getDefaultDataType("\"public\".\"vector\""), this, "")
+  /**
+   * The column <code>paperless_rag.document_chunk.embedding</code>.
+   */
+  val EMBEDDING: TableField<DocumentChunkRecord, FloatArray?> = createField(
+    DSL.name("embedding"),
+    DefaultDataType.getDefaultDataType("\"public\".\"vector\""),
+    this,
+    "",
+    PGVectorBinding()
+  )
 
   /**
    * The column <code>paperless_rag.document_chunk.metadata</code>.

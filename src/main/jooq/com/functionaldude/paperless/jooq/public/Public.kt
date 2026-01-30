@@ -5,6 +5,9 @@ package com.functionaldude.paperless.jooq.`public`
 
 
 import com.functionaldude.paperless.jooq.DefaultCatalog
+
+import kotlin.collections.List
+
 import org.jooq.Catalog
 import org.jooq.Table
 import org.jooq.impl.SchemaImpl

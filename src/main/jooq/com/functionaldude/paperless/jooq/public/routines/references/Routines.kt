@@ -22,7 +22,6 @@ fun arrayToHalfvec1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec1(
   __1: Array<Int?>?, __2: Int?, __3: Boolean?
@@ -34,7 +33,6 @@ fun arrayToHalfvec1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec1(
   __1: Field<Array<Int?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -46,7 +44,6 @@ fun arrayToHalfvec1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec2(
   configuration: Configuration, __1: Array<Float?>?, __2: Int?, __3: Boolean?
@@ -59,7 +56,6 @@ fun arrayToHalfvec2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec2(
   __1: Array<Float?>?, __2: Int?, __3: Boolean?
@@ -71,7 +67,6 @@ fun arrayToHalfvec2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec2(
   __1: Field<Array<Float?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -83,7 +78,6 @@ fun arrayToHalfvec2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec3(
   configuration: Configuration, __1: Array<Double?>?, __2: Int?, __3: Boolean?
@@ -96,7 +90,6 @@ fun arrayToHalfvec3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec3(
   __1: Array<Double?>?, __2: Int?, __3: Boolean?
@@ -108,7 +101,6 @@ fun arrayToHalfvec3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec3(
   __1: Field<Array<Double?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -120,7 +112,6 @@ fun arrayToHalfvec3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec4(
   configuration: Configuration, __1: Array<BigDecimal?>?, __2: Int?, __3: Boolean?
@@ -133,7 +124,6 @@ fun arrayToHalfvec4(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec4(
   __1: Array<BigDecimal?>?, __2: Int?, __3: Boolean?
@@ -145,7 +135,6 @@ fun arrayToHalfvec4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToHalfvec4(
   __1: Field<Array<BigDecimal?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -157,7 +146,6 @@ fun arrayToHalfvec4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec1(
   configuration: Configuration, __1: Array<Int?>?, __2: Int?, __3: Boolean?
@@ -170,7 +158,6 @@ fun arrayToSparsevec1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec1(
   __1: Array<Int?>?, __2: Int?, __3: Boolean?
@@ -182,7 +169,6 @@ fun arrayToSparsevec1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec1(
   __1: Field<Array<Int?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -194,7 +180,6 @@ fun arrayToSparsevec1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec2(
   configuration: Configuration, __1: Array<Float?>?, __2: Int?, __3: Boolean?
@@ -207,7 +192,6 @@ fun arrayToSparsevec2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec2(
   __1: Array<Float?>?, __2: Int?, __3: Boolean?
@@ -219,7 +203,6 @@ fun arrayToSparsevec2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec2(
   __1: Field<Array<Float?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -231,7 +214,6 @@ fun arrayToSparsevec2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec3(
   configuration: Configuration, __1: Array<Double?>?, __2: Int?, __3: Boolean?
@@ -244,7 +226,6 @@ fun arrayToSparsevec3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec3(
   __1: Array<Double?>?, __2: Int?, __3: Boolean?
@@ -256,7 +237,6 @@ fun arrayToSparsevec3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec3(
   __1: Field<Array<Double?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -268,7 +248,6 @@ fun arrayToSparsevec3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec4(
   configuration: Configuration, __1: Array<BigDecimal?>?, __2: Int?, __3: Boolean?
@@ -281,7 +260,6 @@ fun arrayToSparsevec4(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec4(
   __1: Array<BigDecimal?>?, __2: Int?, __3: Boolean?
@@ -293,7 +271,6 @@ fun arrayToSparsevec4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToSparsevec4(
   __1: Field<Array<BigDecimal?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -305,7 +282,6 @@ fun arrayToSparsevec4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector1(
   configuration: Configuration, __1: Array<Int?>?, __2: Int?, __3: Boolean?
@@ -318,7 +294,6 @@ fun arrayToVector1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector1(
   __1: Array<Int?>?, __2: Int?, __3: Boolean?
@@ -330,7 +305,6 @@ fun arrayToVector1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector1(
   __1: Field<Array<Int?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -342,7 +316,6 @@ fun arrayToVector1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector2(
   configuration: Configuration, __1: Array<Float?>?, __2: Int?, __3: Boolean?
@@ -355,7 +328,6 @@ fun arrayToVector2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector2(
   __1: Array<Float?>?, __2: Int?, __3: Boolean?
@@ -367,7 +339,6 @@ fun arrayToVector2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector2(
   __1: Field<Array<Float?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -379,7 +350,6 @@ fun arrayToVector2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector3(
   configuration: Configuration, __1: Array<Double?>?, __2: Int?, __3: Boolean?
@@ -392,7 +362,6 @@ fun arrayToVector3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector3(
   __1: Array<Double?>?, __2: Int?, __3: Boolean?
@@ -404,7 +373,6 @@ fun arrayToVector3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector3(
   __1: Field<Array<Double?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -416,7 +384,6 @@ fun arrayToVector3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector4(
   configuration: Configuration, __1: Array<BigDecimal?>?, __2: Int?, __3: Boolean?
@@ -429,7 +396,6 @@ fun arrayToVector4(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector4(
   __1: Array<BigDecimal?>?, __2: Int?, __3: Boolean?
@@ -441,7 +407,6 @@ fun arrayToVector4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun arrayToVector4(
   __1: Field<Array<BigDecimal?>?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -453,7 +418,6 @@ fun arrayToVector4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun avg1(
   __1: Any?
@@ -463,7 +427,6 @@ fun avg1(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun avg1(
   __1: Field<Any?>
@@ -473,7 +436,6 @@ fun avg1(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun avg2(
   __1: Any?
@@ -483,7 +445,6 @@ fun avg2(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun avg2(
   __1: Field<Any?>
@@ -493,7 +454,6 @@ fun avg2(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun binaryQuantize1(
   configuration: Configuration, __1: Any?
@@ -504,7 +464,6 @@ fun binaryQuantize1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun binaryQuantize1(
   __1: Any?
@@ -514,7 +473,6 @@ fun binaryQuantize1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun binaryQuantize1(
   __1: Field<Any?>
@@ -524,7 +482,6 @@ fun binaryQuantize1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun binaryQuantize2(
   configuration: Configuration, __1: Any?
@@ -535,7 +492,6 @@ fun binaryQuantize2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun binaryQuantize2(
   __1: Any?
@@ -545,7 +501,6 @@ fun binaryQuantize2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun binaryQuantize2(
   __1: Field<Any?>
@@ -555,7 +510,6 @@ fun binaryQuantize2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance1(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -567,7 +521,6 @@ fun cosineDistance1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance1(
   __1: Any?, __2: Any?
@@ -578,7 +531,6 @@ fun cosineDistance1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance1(
   __1: Field<Any?>, __2: Field<Any?>
@@ -589,7 +541,6 @@ fun cosineDistance1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance2(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -601,7 +552,6 @@ fun cosineDistance2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance2(
   __1: Any?, __2: Any?
@@ -612,7 +562,6 @@ fun cosineDistance2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance2(
   __1: Field<Any?>, __2: Field<Any?>
@@ -623,7 +572,6 @@ fun cosineDistance2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance3(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -635,7 +583,6 @@ fun cosineDistance3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance3(
   __1: Any?, __2: Any?
@@ -646,7 +593,6 @@ fun cosineDistance3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun cosineDistance3(
   __1: Field<Any?>, __2: Field<Any?>
@@ -657,7 +603,6 @@ fun cosineDistance3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvec(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -670,7 +615,6 @@ fun halfvec(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvec(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -682,7 +626,6 @@ fun halfvec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvec(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -694,7 +637,6 @@ fun halfvec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAccum(
   configuration: Configuration, __1: Array<Double?>?, __2: Any?
@@ -706,7 +648,6 @@ fun halfvecAccum(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAccum(
   __1: Array<Double?>?, __2: Any?
@@ -717,7 +658,6 @@ fun halfvecAccum(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAccum(
   __1: Field<Array<Double?>?>, __2: Field<Any?>
@@ -728,7 +668,6 @@ fun halfvecAccum(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAdd(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -740,7 +679,6 @@ fun halfvecAdd(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAdd(
   __1: Any?, __2: Any?
@@ -751,7 +689,6 @@ fun halfvecAdd(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAdd(
   __1: Field<Any?>, __2: Field<Any?>
@@ -762,7 +699,6 @@ fun halfvecAdd(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAvg(
   configuration: Configuration, __1: Array<Double?>?
@@ -773,7 +709,6 @@ fun halfvecAvg(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAvg(
   __1: Array<Double?>?
@@ -783,7 +718,6 @@ fun halfvecAvg(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecAvg(
   __1: Field<Array<Double?>?>
@@ -793,7 +727,6 @@ fun halfvecAvg(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecCmp(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -805,7 +738,6 @@ fun halfvecCmp(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecCmp(
   __1: Any?, __2: Any?
@@ -816,7 +748,6 @@ fun halfvecCmp(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecCmp(
   __1: Field<Any?>, __2: Field<Any?>
@@ -867,7 +798,6 @@ fun halfvecCombine(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecConcat(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -879,7 +809,6 @@ fun halfvecConcat(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecConcat(
   __1: Any?, __2: Any?
@@ -890,7 +819,6 @@ fun halfvecConcat(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecConcat(
   __1: Field<Any?>, __2: Field<Any?>
@@ -901,7 +829,6 @@ fun halfvecConcat(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecEq(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -913,7 +840,6 @@ fun halfvecEq(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecEq(
   __1: Any?, __2: Any?
@@ -924,7 +850,6 @@ fun halfvecEq(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecEq(
   __1: Field<Any?>, __2: Field<Any?>
@@ -935,7 +860,6 @@ fun halfvecEq(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecGe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -947,7 +871,6 @@ fun halfvecGe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecGe(
   __1: Any?, __2: Any?
@@ -958,7 +881,6 @@ fun halfvecGe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecGe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -969,7 +891,6 @@ fun halfvecGe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecGt(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -981,7 +902,6 @@ fun halfvecGt(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecGt(
   __1: Any?, __2: Any?
@@ -992,7 +912,6 @@ fun halfvecGt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecGt(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1003,7 +922,6 @@ fun halfvecGt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecIn(
   configuration: Configuration, __1: Any?, __2: Long?, __3: Int?
@@ -1016,7 +934,6 @@ fun halfvecIn(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecIn(
   __1: Any?, __2: Long?, __3: Int?
@@ -1028,7 +945,6 @@ fun halfvecIn(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecIn(
   __1: Field<Any?>, __2: Field<Long?>, __3: Field<Int?>
@@ -1040,7 +956,6 @@ fun halfvecIn(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecL2SquaredDistance(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1052,7 +967,6 @@ fun halfvecL2SquaredDistance(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecL2SquaredDistance(
   __1: Any?, __2: Any?
@@ -1063,7 +977,6 @@ fun halfvecL2SquaredDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecL2SquaredDistance(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1074,7 +987,6 @@ fun halfvecL2SquaredDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecLe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1086,7 +998,6 @@ fun halfvecLe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecLe(
   __1: Any?, __2: Any?
@@ -1097,7 +1008,6 @@ fun halfvecLe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecLe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1108,7 +1018,6 @@ fun halfvecLe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecLt(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1120,7 +1029,6 @@ fun halfvecLt(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecLt(
   __1: Any?, __2: Any?
@@ -1131,7 +1039,6 @@ fun halfvecLt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecLt(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1142,7 +1049,6 @@ fun halfvecLt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecMul(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1154,7 +1060,6 @@ fun halfvecMul(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecMul(
   __1: Any?, __2: Any?
@@ -1165,7 +1070,6 @@ fun halfvecMul(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecMul(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1176,7 +1080,6 @@ fun halfvecMul(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecNe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1188,7 +1091,6 @@ fun halfvecNe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecNe(
   __1: Any?, __2: Any?
@@ -1199,7 +1101,6 @@ fun halfvecNe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecNe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1210,7 +1111,6 @@ fun halfvecNe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecNegativeInnerProduct(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1222,7 +1122,6 @@ fun halfvecNegativeInnerProduct(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecNegativeInnerProduct(
   __1: Any?, __2: Any?
@@ -1233,7 +1132,6 @@ fun halfvecNegativeInnerProduct(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecNegativeInnerProduct(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1244,7 +1142,6 @@ fun halfvecNegativeInnerProduct(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecOut(
   configuration: Configuration, __1: Any?
@@ -1255,7 +1152,6 @@ fun halfvecOut(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecOut(
   __1: Any?
@@ -1265,7 +1161,6 @@ fun halfvecOut(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecOut(
   __1: Field<Any?>
@@ -1275,7 +1170,6 @@ fun halfvecOut(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecRecv(
   configuration: Configuration, __1: Any?, __2: Long?, __3: Int?
@@ -1288,7 +1182,6 @@ fun halfvecRecv(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecRecv(
   __1: Any?, __2: Long?, __3: Int?
@@ -1300,7 +1193,6 @@ fun halfvecRecv(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecRecv(
   __1: Field<Any?>, __2: Field<Long?>, __3: Field<Int?>
@@ -1312,7 +1204,6 @@ fun halfvecRecv(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSend(
   configuration: Configuration, __1: Any?
@@ -1323,7 +1214,6 @@ fun halfvecSend(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSend(
   __1: Any?
@@ -1333,7 +1223,6 @@ fun halfvecSend(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSend(
   __1: Field<Any?>
@@ -1343,7 +1232,6 @@ fun halfvecSend(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSphericalDistance(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1355,7 +1243,6 @@ fun halfvecSphericalDistance(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSphericalDistance(
   __1: Any?, __2: Any?
@@ -1366,7 +1253,6 @@ fun halfvecSphericalDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSphericalDistance(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1377,7 +1263,6 @@ fun halfvecSphericalDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSub(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1389,7 +1274,6 @@ fun halfvecSub(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSub(
   __1: Any?, __2: Any?
@@ -1400,7 +1284,6 @@ fun halfvecSub(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecSub(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1411,7 +1294,6 @@ fun halfvecSub(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToFloat4(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -1424,7 +1306,6 @@ fun halfvecToFloat4(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToFloat4(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -1436,7 +1317,6 @@ fun halfvecToFloat4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToFloat4(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -1448,7 +1328,6 @@ fun halfvecToFloat4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToSparsevec(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -1461,7 +1340,6 @@ fun halfvecToSparsevec(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToSparsevec(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -1473,7 +1351,6 @@ fun halfvecToSparsevec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToSparsevec(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -1485,7 +1362,6 @@ fun halfvecToSparsevec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToVector(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -1498,7 +1374,6 @@ fun halfvecToVector(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToVector(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -1510,7 +1385,6 @@ fun halfvecToVector(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun halfvecToVector(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -1599,7 +1473,6 @@ fun hammingDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswBitSupport(
   configuration: Configuration, __1: Any?
@@ -1610,7 +1483,6 @@ fun hnswBitSupport(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswBitSupport(
   __1: Any?
@@ -1620,7 +1492,6 @@ fun hnswBitSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswBitSupport(
   __1: Field<Any?>
@@ -1630,7 +1501,6 @@ fun hnswBitSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswHalfvecSupport(
   configuration: Configuration, __1: Any?
@@ -1641,7 +1511,6 @@ fun hnswHalfvecSupport(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswHalfvecSupport(
   __1: Any?
@@ -1651,7 +1520,6 @@ fun hnswHalfvecSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswHalfvecSupport(
   __1: Field<Any?>
@@ -1661,7 +1529,6 @@ fun hnswHalfvecSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswSparsevecSupport(
   configuration: Configuration, __1: Any?
@@ -1672,7 +1539,6 @@ fun hnswSparsevecSupport(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswSparsevecSupport(
   __1: Any?
@@ -1682,7 +1548,6 @@ fun hnswSparsevecSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswSparsevecSupport(
   __1: Field<Any?>
@@ -1692,7 +1557,6 @@ fun hnswSparsevecSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswhandler(
   configuration: Configuration, __1: Any?
@@ -1703,7 +1567,6 @@ fun hnswhandler(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswhandler(
   __1: Any?
@@ -1713,7 +1576,6 @@ fun hnswhandler(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun hnswhandler(
   __1: Field<Any?>
@@ -1723,7 +1585,6 @@ fun hnswhandler(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct1(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1735,7 +1596,6 @@ fun innerProduct1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct1(
   __1: Any?, __2: Any?
@@ -1746,7 +1606,6 @@ fun innerProduct1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct1(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1757,7 +1616,6 @@ fun innerProduct1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct2(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1769,7 +1627,6 @@ fun innerProduct2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct2(
   __1: Any?, __2: Any?
@@ -1780,7 +1637,6 @@ fun innerProduct2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct2(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1791,7 +1647,6 @@ fun innerProduct2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct3(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1803,7 +1658,6 @@ fun innerProduct3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct3(
   __1: Any?, __2: Any?
@@ -1814,7 +1668,6 @@ fun innerProduct3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun innerProduct3(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1825,7 +1678,6 @@ fun innerProduct3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflatBitSupport(
   configuration: Configuration, __1: Any?
@@ -1836,7 +1688,6 @@ fun ivfflatBitSupport(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflatBitSupport(
   __1: Any?
@@ -1846,7 +1697,6 @@ fun ivfflatBitSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflatBitSupport(
   __1: Field<Any?>
@@ -1856,7 +1706,6 @@ fun ivfflatBitSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflatHalfvecSupport(
   configuration: Configuration, __1: Any?
@@ -1867,7 +1716,6 @@ fun ivfflatHalfvecSupport(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflatHalfvecSupport(
   __1: Any?
@@ -1877,7 +1725,6 @@ fun ivfflatHalfvecSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflatHalfvecSupport(
   __1: Field<Any?>
@@ -1887,7 +1734,6 @@ fun ivfflatHalfvecSupport(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflathandler(
   configuration: Configuration, __1: Any?
@@ -1898,7 +1744,6 @@ fun ivfflathandler(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflathandler(
   __1: Any?
@@ -1908,7 +1753,6 @@ fun ivfflathandler(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun ivfflathandler(
   __1: Field<Any?>
@@ -1958,7 +1802,6 @@ fun jaccardDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance1(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -1970,7 +1813,6 @@ fun l1Distance1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance1(
   __1: Any?, __2: Any?
@@ -1981,7 +1823,6 @@ fun l1Distance1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance1(
   __1: Field<Any?>, __2: Field<Any?>
@@ -1992,7 +1833,6 @@ fun l1Distance1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance2(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2004,7 +1844,6 @@ fun l1Distance2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance2(
   __1: Any?, __2: Any?
@@ -2015,7 +1854,6 @@ fun l1Distance2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance2(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2026,7 +1864,6 @@ fun l1Distance2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance3(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2038,7 +1875,6 @@ fun l1Distance3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance3(
   __1: Any?, __2: Any?
@@ -2049,7 +1885,6 @@ fun l1Distance3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l1Distance3(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2060,7 +1895,6 @@ fun l1Distance3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance1(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2072,7 +1906,6 @@ fun l2Distance1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance1(
   __1: Any?, __2: Any?
@@ -2083,7 +1916,6 @@ fun l2Distance1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance1(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2094,7 +1926,6 @@ fun l2Distance1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance2(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2106,7 +1937,6 @@ fun l2Distance2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance2(
   __1: Any?, __2: Any?
@@ -2117,7 +1947,6 @@ fun l2Distance2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance2(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2128,7 +1957,6 @@ fun l2Distance2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance3(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2140,7 +1968,6 @@ fun l2Distance3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance3(
   __1: Any?, __2: Any?
@@ -2151,7 +1978,6 @@ fun l2Distance3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Distance3(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2162,7 +1988,6 @@ fun l2Distance3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Norm1(
   configuration: Configuration, __1: Any?
@@ -2173,7 +1998,6 @@ fun l2Norm1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Norm1(
   __1: Any?
@@ -2183,7 +2007,6 @@ fun l2Norm1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Norm1(
   __1: Field<Any?>
@@ -2193,7 +2016,6 @@ fun l2Norm1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Norm2(
   configuration: Configuration, __1: Any?
@@ -2204,7 +2026,6 @@ fun l2Norm2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Norm2(
   __1: Any?
@@ -2214,7 +2035,6 @@ fun l2Norm2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Norm2(
   __1: Field<Any?>
@@ -2224,7 +2044,6 @@ fun l2Norm2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize1(
   configuration: Configuration, __1: Any?
@@ -2235,7 +2054,6 @@ fun l2Normalize1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize1(
   __1: Any?
@@ -2245,7 +2063,6 @@ fun l2Normalize1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize1(
   __1: Field<Any?>
@@ -2255,7 +2072,6 @@ fun l2Normalize1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize2(
   configuration: Configuration, __1: Any?
@@ -2266,7 +2082,6 @@ fun l2Normalize2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize2(
   __1: Any?
@@ -2276,7 +2091,6 @@ fun l2Normalize2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize2(
   __1: Field<Any?>
@@ -2286,7 +2100,6 @@ fun l2Normalize2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize3(
   configuration: Configuration, __1: Any?
@@ -2297,7 +2110,6 @@ fun l2Normalize3(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize3(
   __1: Any?
@@ -2307,7 +2119,6 @@ fun l2Normalize3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun l2Normalize3(
   __1: Field<Any?>
@@ -2317,7 +2128,6 @@ fun l2Normalize3(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevec(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -2330,7 +2140,6 @@ fun sparsevec(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevec(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -2342,7 +2151,6 @@ fun sparsevec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevec(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -2354,7 +2162,6 @@ fun sparsevec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecCmp(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2366,7 +2173,6 @@ fun sparsevecCmp(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecCmp(
   __1: Any?, __2: Any?
@@ -2377,7 +2183,6 @@ fun sparsevecCmp(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecCmp(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2388,7 +2193,6 @@ fun sparsevecCmp(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecEq(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2400,7 +2204,6 @@ fun sparsevecEq(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecEq(
   __1: Any?, __2: Any?
@@ -2411,7 +2214,6 @@ fun sparsevecEq(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecEq(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2422,7 +2224,6 @@ fun sparsevecEq(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecGe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2434,7 +2235,6 @@ fun sparsevecGe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecGe(
   __1: Any?, __2: Any?
@@ -2445,7 +2245,6 @@ fun sparsevecGe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecGe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2456,7 +2255,6 @@ fun sparsevecGe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecGt(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2468,7 +2266,6 @@ fun sparsevecGt(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecGt(
   __1: Any?, __2: Any?
@@ -2479,7 +2276,6 @@ fun sparsevecGt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecGt(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2490,7 +2286,6 @@ fun sparsevecGt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecIn(
   configuration: Configuration, __1: Any?, __2: Long?, __3: Int?
@@ -2503,7 +2298,6 @@ fun sparsevecIn(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecIn(
   __1: Any?, __2: Long?, __3: Int?
@@ -2515,7 +2309,6 @@ fun sparsevecIn(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecIn(
   __1: Field<Any?>, __2: Field<Long?>, __3: Field<Int?>
@@ -2527,7 +2320,6 @@ fun sparsevecIn(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecL2SquaredDistance(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2539,7 +2331,6 @@ fun sparsevecL2SquaredDistance(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecL2SquaredDistance(
   __1: Any?, __2: Any?
@@ -2550,7 +2341,6 @@ fun sparsevecL2SquaredDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecL2SquaredDistance(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2561,7 +2351,6 @@ fun sparsevecL2SquaredDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecLe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2573,7 +2362,6 @@ fun sparsevecLe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecLe(
   __1: Any?, __2: Any?
@@ -2584,7 +2372,6 @@ fun sparsevecLe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecLe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2595,7 +2382,6 @@ fun sparsevecLe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecLt(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2607,7 +2393,6 @@ fun sparsevecLt(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecLt(
   __1: Any?, __2: Any?
@@ -2618,7 +2403,6 @@ fun sparsevecLt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecLt(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2629,7 +2413,6 @@ fun sparsevecLt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecNe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2641,7 +2424,6 @@ fun sparsevecNe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecNe(
   __1: Any?, __2: Any?
@@ -2652,7 +2434,6 @@ fun sparsevecNe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecNe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2663,7 +2444,6 @@ fun sparsevecNe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecNegativeInnerProduct(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -2675,7 +2455,6 @@ fun sparsevecNegativeInnerProduct(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecNegativeInnerProduct(
   __1: Any?, __2: Any?
@@ -2686,7 +2465,6 @@ fun sparsevecNegativeInnerProduct(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecNegativeInnerProduct(
   __1: Field<Any?>, __2: Field<Any?>
@@ -2697,7 +2475,6 @@ fun sparsevecNegativeInnerProduct(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecOut(
   configuration: Configuration, __1: Any?
@@ -2708,7 +2485,6 @@ fun sparsevecOut(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecOut(
   __1: Any?
@@ -2718,7 +2494,6 @@ fun sparsevecOut(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecOut(
   __1: Field<Any?>
@@ -2728,7 +2503,6 @@ fun sparsevecOut(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecRecv(
   configuration: Configuration, __1: Any?, __2: Long?, __3: Int?
@@ -2741,7 +2515,6 @@ fun sparsevecRecv(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecRecv(
   __1: Any?, __2: Long?, __3: Int?
@@ -2753,7 +2526,6 @@ fun sparsevecRecv(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecRecv(
   __1: Field<Any?>, __2: Field<Long?>, __3: Field<Int?>
@@ -2765,7 +2537,6 @@ fun sparsevecRecv(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecSend(
   configuration: Configuration, __1: Any?
@@ -2776,7 +2547,6 @@ fun sparsevecSend(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecSend(
   __1: Any?
@@ -2786,7 +2556,6 @@ fun sparsevecSend(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecSend(
   __1: Field<Any?>
@@ -2796,7 +2565,6 @@ fun sparsevecSend(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecToHalfvec(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -2809,7 +2577,6 @@ fun sparsevecToHalfvec(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecToHalfvec(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -2821,7 +2588,6 @@ fun sparsevecToHalfvec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecToHalfvec(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -2833,7 +2599,6 @@ fun sparsevecToHalfvec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecToVector(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -2846,7 +2611,6 @@ fun sparsevecToVector(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecToVector(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -2858,7 +2622,6 @@ fun sparsevecToVector(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sparsevecToVector(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -2907,7 +2670,6 @@ fun sparsevecTypmodIn(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun subvector1(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Int?
@@ -2920,7 +2682,6 @@ fun subvector1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun subvector1(
   __1: Any?, __2: Int?, __3: Int?
@@ -2932,7 +2693,6 @@ fun subvector1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun subvector1(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Int?>
@@ -2944,7 +2704,6 @@ fun subvector1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun subvector2(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Int?
@@ -2957,7 +2716,6 @@ fun subvector2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun subvector2(
   __1: Any?, __2: Int?, __3: Int?
@@ -2969,7 +2727,6 @@ fun subvector2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun subvector2(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Int?>
@@ -2981,7 +2738,6 @@ fun subvector2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sum1(
   __1: Any?
@@ -2991,7 +2747,6 @@ fun sum1(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sum1(
   __1: Field<Any?>
@@ -3001,7 +2756,6 @@ fun sum1(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sum2(
   __1: Any?
@@ -3011,7 +2765,6 @@ fun sum2(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun sum2(
   __1: Field<Any?>
@@ -3021,7 +2774,6 @@ fun sum2(
 
   return f.asAggregateFunction()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vector(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -3034,7 +2786,6 @@ fun vector(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vector(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -3046,7 +2797,6 @@ fun vector(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vector(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -3058,7 +2808,6 @@ fun vector(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAccum(
   configuration: Configuration, __1: Array<Double?>?, __2: Any?
@@ -3070,7 +2819,6 @@ fun vectorAccum(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAccum(
   __1: Array<Double?>?, __2: Any?
@@ -3081,7 +2829,6 @@ fun vectorAccum(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAccum(
   __1: Field<Array<Double?>?>, __2: Field<Any?>
@@ -3092,7 +2839,6 @@ fun vectorAccum(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAdd(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3104,7 +2850,6 @@ fun vectorAdd(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAdd(
   __1: Any?, __2: Any?
@@ -3115,7 +2860,6 @@ fun vectorAdd(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAdd(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3126,7 +2870,6 @@ fun vectorAdd(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAvg(
   configuration: Configuration, __1: Array<Double?>?
@@ -3137,7 +2880,6 @@ fun vectorAvg(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAvg(
   __1: Array<Double?>?
@@ -3147,7 +2889,6 @@ fun vectorAvg(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorAvg(
   __1: Field<Array<Double?>?>
@@ -3157,7 +2898,6 @@ fun vectorAvg(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorCmp(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3169,7 +2909,6 @@ fun vectorCmp(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorCmp(
   __1: Any?, __2: Any?
@@ -3180,7 +2919,6 @@ fun vectorCmp(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorCmp(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3231,7 +2969,6 @@ fun vectorCombine(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorConcat(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3243,7 +2980,6 @@ fun vectorConcat(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorConcat(
   __1: Any?, __2: Any?
@@ -3254,7 +2990,6 @@ fun vectorConcat(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorConcat(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3265,7 +3000,6 @@ fun vectorConcat(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorDims1(
   configuration: Configuration, __1: Any?
@@ -3276,7 +3010,6 @@ fun vectorDims1(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorDims1(
   __1: Any?
@@ -3286,7 +3019,6 @@ fun vectorDims1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorDims1(
   __1: Field<Any?>
@@ -3296,7 +3028,6 @@ fun vectorDims1(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorDims2(
   configuration: Configuration, __1: Any?
@@ -3307,7 +3038,6 @@ fun vectorDims2(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorDims2(
   __1: Any?
@@ -3317,7 +3047,6 @@ fun vectorDims2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorDims2(
   __1: Field<Any?>
@@ -3327,7 +3056,6 @@ fun vectorDims2(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorEq(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3339,7 +3067,6 @@ fun vectorEq(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorEq(
   __1: Any?, __2: Any?
@@ -3350,7 +3077,6 @@ fun vectorEq(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorEq(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3361,7 +3087,6 @@ fun vectorEq(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorGe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3373,7 +3098,6 @@ fun vectorGe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorGe(
   __1: Any?, __2: Any?
@@ -3384,7 +3108,6 @@ fun vectorGe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorGe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3395,7 +3118,6 @@ fun vectorGe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorGt(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3407,7 +3129,6 @@ fun vectorGt(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorGt(
   __1: Any?, __2: Any?
@@ -3418,7 +3139,6 @@ fun vectorGt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorGt(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3429,7 +3149,6 @@ fun vectorGt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorIn(
   configuration: Configuration, __1: Any?, __2: Long?, __3: Int?
@@ -3442,7 +3161,6 @@ fun vectorIn(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorIn(
   __1: Any?, __2: Long?, __3: Int?
@@ -3454,7 +3172,6 @@ fun vectorIn(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorIn(
   __1: Field<Any?>, __2: Field<Long?>, __3: Field<Int?>
@@ -3466,7 +3183,6 @@ fun vectorIn(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorL2SquaredDistance(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3478,7 +3194,6 @@ fun vectorL2SquaredDistance(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorL2SquaredDistance(
   __1: Any?, __2: Any?
@@ -3489,7 +3204,6 @@ fun vectorL2SquaredDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorL2SquaredDistance(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3500,7 +3214,6 @@ fun vectorL2SquaredDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorLe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3512,7 +3225,6 @@ fun vectorLe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorLe(
   __1: Any?, __2: Any?
@@ -3523,7 +3235,6 @@ fun vectorLe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorLe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3534,7 +3245,6 @@ fun vectorLe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorLt(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3546,7 +3256,6 @@ fun vectorLt(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorLt(
   __1: Any?, __2: Any?
@@ -3557,7 +3266,6 @@ fun vectorLt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorLt(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3568,7 +3276,6 @@ fun vectorLt(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorMul(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3580,7 +3287,6 @@ fun vectorMul(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorMul(
   __1: Any?, __2: Any?
@@ -3591,7 +3297,6 @@ fun vectorMul(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorMul(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3602,7 +3307,6 @@ fun vectorMul(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNe(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3614,7 +3318,6 @@ fun vectorNe(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNe(
   __1: Any?, __2: Any?
@@ -3625,7 +3328,6 @@ fun vectorNe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNe(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3636,7 +3338,6 @@ fun vectorNe(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNegativeInnerProduct(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3648,7 +3349,6 @@ fun vectorNegativeInnerProduct(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNegativeInnerProduct(
   __1: Any?, __2: Any?
@@ -3659,7 +3359,6 @@ fun vectorNegativeInnerProduct(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNegativeInnerProduct(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3670,7 +3369,6 @@ fun vectorNegativeInnerProduct(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNorm(
   configuration: Configuration, __1: Any?
@@ -3681,7 +3379,6 @@ fun vectorNorm(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNorm(
   __1: Any?
@@ -3691,7 +3388,6 @@ fun vectorNorm(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorNorm(
   __1: Field<Any?>
@@ -3701,7 +3397,6 @@ fun vectorNorm(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorOut(
   configuration: Configuration, __1: Any?
@@ -3712,7 +3407,6 @@ fun vectorOut(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorOut(
   __1: Any?
@@ -3722,7 +3416,6 @@ fun vectorOut(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorOut(
   __1: Field<Any?>
@@ -3732,7 +3425,6 @@ fun vectorOut(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorRecv(
   configuration: Configuration, __1: Any?, __2: Long?, __3: Int?
@@ -3745,7 +3437,6 @@ fun vectorRecv(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorRecv(
   __1: Any?, __2: Long?, __3: Int?
@@ -3757,7 +3448,6 @@ fun vectorRecv(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorRecv(
   __1: Field<Any?>, __2: Field<Long?>, __3: Field<Int?>
@@ -3769,7 +3459,6 @@ fun vectorRecv(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSend(
   configuration: Configuration, __1: Any?
@@ -3780,7 +3469,6 @@ fun vectorSend(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSend(
   __1: Any?
@@ -3790,7 +3478,6 @@ fun vectorSend(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSend(
   __1: Field<Any?>
@@ -3800,7 +3487,6 @@ fun vectorSend(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSphericalDistance(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3812,7 +3498,6 @@ fun vectorSphericalDistance(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSphericalDistance(
   __1: Any?, __2: Any?
@@ -3823,7 +3508,6 @@ fun vectorSphericalDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSphericalDistance(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3834,7 +3518,6 @@ fun vectorSphericalDistance(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSub(
   configuration: Configuration, __1: Any?, __2: Any?
@@ -3846,7 +3529,6 @@ fun vectorSub(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSub(
   __1: Any?, __2: Any?
@@ -3857,7 +3539,6 @@ fun vectorSub(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorSub(
   __1: Field<Any?>, __2: Field<Any?>
@@ -3868,7 +3549,6 @@ fun vectorSub(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToFloat4(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -3881,7 +3561,6 @@ fun vectorToFloat4(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToFloat4(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -3893,7 +3572,6 @@ fun vectorToFloat4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. Parameter type or return type is unknown. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToFloat4(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -3905,7 +3583,6 @@ fun vectorToFloat4(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToHalfvec(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -3918,7 +3595,6 @@ fun vectorToHalfvec(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToHalfvec(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -3930,7 +3606,6 @@ fun vectorToHalfvec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToHalfvec(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>
@@ -3942,7 +3617,6 @@ fun vectorToHalfvec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToSparsevec(
   configuration: Configuration, __1: Any?, __2: Int?, __3: Boolean?
@@ -3955,7 +3629,6 @@ fun vectorToSparsevec(
   f.execute(configuration)
   return f.returnValue
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToSparsevec(
   __1: Any?, __2: Int?, __3: Boolean?
@@ -3967,7 +3640,6 @@ fun vectorToSparsevec(
 
   return f.asField()
 }
-
 @Deprecated(message = "Unknown data type. If this is a qualified, user-defined type, it may have been excluded from code generation. If this is a built-in type, you can define an explicit org.jooq.Binding to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.")
 fun vectorToSparsevec(
   __1: Field<Any?>, __2: Field<Int?>, __3: Field<Boolean?>

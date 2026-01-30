@@ -33,9 +33,9 @@ open class DocumentChunkRecord() : UpdatableRecordImpl<DocumentChunkRecord>(Docu
     set(value): Unit = set(3, value)
     get(): String? = get(3) as String?
 
-  open var embedding: Any?
+  open var embedding: FloatArray?
     set(value): Unit = set(4, value)
-    get(): Any? = get(4) as Any?
+    get(): FloatArray? = get(4) as FloatArray?
 
   open var metadata: JSONB?
     set(value): Unit = set(5, value)
@@ -59,7 +59,7 @@ open class DocumentChunkRecord() : UpdatableRecordImpl<DocumentChunkRecord>(Docu
     documentSourceId: Int? = null,
     chunkIndex: Int? = null,
     content: String? = null,
-    embedding: Any? = null,
+    embedding: FloatArray? = null,
     metadata: JSONB? = null,
     createdAt: OffsetDateTime? = null
   ) : this() {

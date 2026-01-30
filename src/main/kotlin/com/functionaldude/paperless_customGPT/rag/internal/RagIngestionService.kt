@@ -8,12 +8,18 @@ import com.functionaldude.paperless_customGPT.documents.DocumentDto
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import com.functionaldude.paperless_customGPT.rag.api.IngestStatus
 import com.functionaldude.paperless_customGPT.toDoubleArray
+import com.functionaldude.paperless_customGPT.toPgVectorLiteral
+import com.pgvector.PGvector
 import dev.langchain4j.data.document.Document
 import dev.langchain4j.data.document.DocumentSplitter
 import dev.langchain4j.data.document.Metadata
 import dev.langchain4j.data.segment.TextSegment
 import dev.langchain4j.model.embedding.EmbeddingModel
 import org.jooq.DSLContext
+import org.jooq.Field
+import org.jooq.impl.DSL
+import org.jooq.impl.SQLDataType
+import org.postgresql.util.PGobject
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -171,7 +177,7 @@ class RagIngestionService(
     embeddings.forEachIndexed { index, embedding ->
       val segmentText = segments[index].text()
 
-      val vector = embedding.vector().toDoubleArray() // Convert to DoubleArray otherwise jOOQ/Postgres complains
+      val vector = embedding.vector()
 
       dsl.insertInto(DOCUMENT_CHUNK)
         .set(DOCUMENT_CHUNK.DOCUMENT_SOURCE_ID, documentId)

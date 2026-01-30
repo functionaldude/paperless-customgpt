@@ -18,7 +18,7 @@ data class DocumentChunk(
   val documentSourceId: Int? = null,
   val chunkIndex: Int? = null,
   val content: String? = null,
-  val embedding: Any? = null,
+  val embedding: FloatArray? = null,
   val metadata: JSONB? = null,
   val createdAt: OffsetDateTime? = null
 ) : Serializable {

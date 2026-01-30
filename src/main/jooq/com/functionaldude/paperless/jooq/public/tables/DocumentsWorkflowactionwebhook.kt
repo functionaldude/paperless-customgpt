@@ -4,7 +4,27 @@
 package com.functionaldude.paperless.jooq.`public`.tables
 
 
-import org.jooq.*
+import kotlin.collections.Collection
+
+import org.jooq.Condition
+import org.jooq.Field
+import org.jooq.ForeignKey
+import org.jooq.Identity
+import org.jooq.InverseForeignKey
+import org.jooq.JSONB
+import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
+import org.jooq.Record
+import org.jooq.SQL
+import org.jooq.Schema
+import org.jooq.Select
+import org.jooq.Stringly
+import org.jooq.Table
+import org.jooq.TableField
+import org.jooq.TableOptions
+import org.jooq.UniqueKey
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
 import org.jooq.impl.SQLDataType
