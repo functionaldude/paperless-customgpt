@@ -48,10 +48,45 @@ jobs:
             type=raw,value=latest
             ${{ steps.git_tag.outputs.tag != '' && format('type=raw,value={0}', steps.git_tag.outputs.tag) || '' }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      - name: Build image with Spring Boot Buildpacks
+        env:
+          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          SHA_TAG: ${{ github.sha }}
+          # optional OCI labels (Paketo reads these and sets standard OCI labels)
+          BP_OCI_SOURCE: https://github.com/${{ github.repository }}
+          BP_OCI_REVISION: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          SHORT_SHA="${SHA_TAG::12}"
+          echo "Building ${IMAGE}:${SHORT_SHA} via bootBuildImage"
+          ./gradlew --no-daemon bootBuildImage -x test --imageName "${IMAGE}:${SHORT_SHA}"
+
+      - name: Tag and push
+        env:
+          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          SHA_TAG: ${{ github.sha }}
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          set -euo pipefail
+          SHORT_SHA="${SHA_TAG::12}"
+          SRC="${IMAGE}:${SHORT_SHA}"
+
+          echo "Tags from metadata-action:"
+          echo "${TAGS}"
+
+          # TAGS is newline-separated
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            echo "Tagging ${SRC} -> ${tag}"
+            docker tag "${SRC}" "${tag}"
+          done <<EOF
+          ${TAGS}
+          EOF
+
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            echo "Pushing ${tag}"
+            docker push "${tag}"
+          done <<EOF
+          ${TAGS}
+          EOF

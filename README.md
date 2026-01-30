@@ -16,29 +16,27 @@ Set the following environment variables for both local runs and container deploy
   falls back to the dummy key `lm-studio` for LM Studio compatibility.
 - `OPENAI_FORCE_HTTP1` – set to `true` (default) to force HTTP/1.1 for providers such as LM Studio; set to `false` to
   allow HTTP/2.
-- `SPRING_CONFIG_IMPORT` – the container entrypoint always forces `spring.config.import=` via the JVM to avoid the
-  incompatible defaults injected by legacy stacks. Configuration therefore comes from the bundled `application.yaml`
-  plus environment variables.
-- `JAVA_OPTS` – optional custom JVM flags that are appended ahead of the forced `spring.config.import=` override.
 - Any additional secrets required by other LLM providers can be added to the environment; the application reads them
   through Spring configuration.
 
-## Docker image
+Spring Boot packages `src/main/resources/application.yaml` into the executable jar, so the container image only relies
+on
+environment variables for deployment-time customization. Legacy stacks that still set `SPRING_CONFIG_IMPORT` with
+semicolon-separated locations are automatically normalized during startup.
 
-The repository now contains a multi-stage `Dockerfile` that:
+## Container image via `bootBuildImage`
 
-1. Builds the executable Spring Boot jar with Gradle/JDK 21.
-2. Copies the jar into a small Temurin JRE 21 layer.
-
-The Gradle build falls back to harmless local defaults for the Paperless/Postgres connection, so container builds do not
-require real database credentials. Provide real values at runtime (containers or Swarm services) so the application can
-talk to the live database.
-
-### Build locally
+Use the Spring Boot Gradle plugin to build an OCI image with Cloud Native Buildpacks. The default image name is
+`paperless-customgpt:<project-version>`, but you can override it with `-PimageName=` or by exporting `IMAGE_NAME`.
 
 ```bash
-docker build -t ghcr.io/<owner>/<repo>:local .
+./gradlew bootBuildImage -PimageName=ghcr.io/<owner>/<repo>:local
+```
 
+The image already includes Java 21 (via `BP_JVM_VERSION=21.*`) and the packaged `application.yaml`. Run it locally with
+the required environment variables:
+
+```bash
 docker run --rm -p 8080:8080 \
   -e PAPERLESS_DB_URL=jdbc:postgresql://postgres/paperless \
   -e PAPERLESS_DB_USER=paperless \
@@ -49,9 +47,16 @@ docker run --rm -p 8080:8080 \
   ghcr.io/<owner>/<repo>:local
 ```
 
+Push the resulting tag with the standard Docker CLI:
+
+```bash
+docker push ghcr.io/<owner>/<repo>:local
+```
+
 ### Deploy to Docker Swarm
 
-Once the image is in a registry (see below), you can deploy it via `docker stack deploy` or `docker service create`:
+Once the `bootBuildImage` artefact is in a registry (see below), you can deploy it via `docker stack deploy` or `docker
+service create`:
 
 ```bash
 docker service create --name paperless-gpt \
@@ -70,15 +75,15 @@ Replace `<owner>/<repo>` and `<tag>` with the coordinates reported by the GitHub
 
 ## GitHub Actions: build and publish to GHCR
 
-The workflow defined in `.github/workflows/docker-image.yml` compiles the application, builds the Docker image, and
-pushes it to the GitHub Container Registry (GHCR).
+The workflow defined in `.github/workflows/docker-image.yml` compiles the application, runs `bootBuildImage`, and pushes
+the resulting image to the GitHub Container Registry (GHCR).
 
 - **Triggers:** every push to `main` and manual `workflow_dispatch`.
 - **Image name:** `ghcr.io/${{ github.repository }}`.
 - **Tags:** managed automatically by `docker/metadata-action` (branch names, SHA, semver tags when applicable).
 - **Runner:** executes on the repository's self-hosted runner (update the `runs-on` stanza if you need extra labels).
 
-During the build, Gradle automatically uses the same local placeholder connection details as the Dockerfile, so no
+During the build, Gradle automatically uses the same local placeholder connection details as local development, so no
 additional environment variables are required for compilation. Provide real credentials only when executing jOOQ code
 generation tasks or when running the application.
 
