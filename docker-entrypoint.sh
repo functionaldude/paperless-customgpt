@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Spring Boot 4 expects comma-separated config import locations. Provide a compatible default and normalize old values.
-DEFAULT_IMPORT="optional:file:./,optional:file:./config/,optional:file:./config/*/"
+DEFAULT_IMPORT="optional:file:./,optional:file:./config/"
 
 if [ -z "$SPRING_CONFIG_IMPORT" ]; then
   export SPRING_CONFIG_IMPORT="$DEFAULT_IMPORT"
