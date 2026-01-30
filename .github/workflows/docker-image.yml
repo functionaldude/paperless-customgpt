@@ -23,6 +23,12 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
       - name: Detect git tag for image
         id: git_tag
         run: |
