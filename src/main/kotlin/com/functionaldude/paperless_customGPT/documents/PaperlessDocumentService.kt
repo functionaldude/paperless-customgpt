@@ -1,6 +1,7 @@
 package com.functionaldude.paperless_customGPT.documents
 
 import com.functionaldude.paperless.jooq.public.tables.references.*
+import io.swagger.v3.oas.annotations.media.Schema
 import org.jooq.Condition
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.arrayAgg
@@ -8,16 +9,35 @@ import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.OffsetDateTime
 
+@Schema(description = "Paperless document metadata together with extracted text content.")
 data class DocumentDto(
+  @field:Schema(description = "Unique numeric identifier of the Paperless document.", example = "42")
   val id: Int,
+  @field:Schema(description = "Human readable document title.", example = "Renewal Policy")
   val title: String,
+  @field:Schema(description = "Creation date registered in Paperless (ISO-8601).", example = "2024-03-15")
   val documentDate: LocalDate,
+  @field:Schema(
+    description = "Last modification timestamp if Paperless recorded one.",
+    example = "2024-03-22T10:15:30Z",
+    nullable = true
+  )
   val modifiedAt: OffsetDateTime?,
+  @field:Schema(description = "Persisted MIME type of the document.", example = "application/pdf")
   val mimeType: String,
+  @field:Schema(description = "Full text content extracted from the source PDF.")
   val content: String,
+  @field:Schema(description = "Optional Paperless username of the document owner.", example = "agent", nullable = true)
   val ownerUsername: String?,
+  @field:Schema(description = "Free text notes added in Paperless.", nullable = true)
   val note: String?,
+  @field:Schema(
+    description = "Name of the correspondent linked to the document.",
+    example = "ACME Insurance",
+    nullable = true
+  )
   val correspondentName: String?,
+  @field:Schema(description = "Tags linked to the document.", example = "[\"Insurance\",\"Policy\"]", nullable = true)
   val tags: List<String>?,
 )
 
