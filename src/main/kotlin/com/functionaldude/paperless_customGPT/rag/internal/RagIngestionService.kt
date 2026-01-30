@@ -6,20 +6,14 @@ import com.functionaldude.paperless.jooq.public.tables.references.DOCUMENTS_CORR
 import com.functionaldude.paperless.jooq.public.tables.references.DOCUMENTS_DOCUMENT
 import com.functionaldude.paperless_customGPT.documents.DocumentDto
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
+import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService.Companion.PDF_MIME
 import com.functionaldude.paperless_customGPT.rag.api.IngestStatus
-import com.functionaldude.paperless_customGPT.toDoubleArray
-import com.functionaldude.paperless_customGPT.toPgVectorLiteral
-import com.pgvector.PGvector
 import dev.langchain4j.data.document.Document
 import dev.langchain4j.data.document.DocumentSplitter
 import dev.langchain4j.data.document.Metadata
 import dev.langchain4j.data.segment.TextSegment
 import dev.langchain4j.model.embedding.EmbeddingModel
 import org.jooq.DSLContext
-import org.jooq.Field
-import org.jooq.impl.DSL
-import org.jooq.impl.SQLDataType
-import org.postgresql.util.PGobject
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -76,9 +70,11 @@ class RagIngestionService(
       .leftJoin(DOCUMENTS_CORRESPONDENT).on(DOCUMENTS_DOCUMENT.CORRESPONDENT_ID.eq(DOCUMENTS_CORRESPONDENT.ID))
       .leftJoin(DOCUMENT_SOURCE).on(DOCUMENTS_DOCUMENT.ID.eq(DOCUMENT_SOURCE.PAPERLESS_DOC_ID))
       .where(
-        DOCUMENT_SOURCE.PAPERLESS_DOC_ID.isNull
-          .or(DOCUMENTS_DOCUMENT.MODIFIED.gt(DOCUMENT_SOURCE.LAST_INGESTED_AT))
-          .or(DOCUMENT_SOURCE.STATUS.eq(IngestStatus.ERROR.name))
+        DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME).and(
+          DOCUMENT_SOURCE.PAPERLESS_DOC_ID.isNull
+            .or(DOCUMENTS_DOCUMENT.MODIFIED.gt(DOCUMENT_SOURCE.LAST_INGESTED_AT))
+            .or(DOCUMENT_SOURCE.STATUS.eq(IngestStatus.ERROR.name))
+        )
       )
       .orderBy(DOCUMENTS_DOCUMENT.MODIFIED.asc())
       .limit(limit)
