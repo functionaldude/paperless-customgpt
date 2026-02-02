@@ -1,11 +1,11 @@
 package com.functionaldude.paperless_customGPT
 
-import org.jooq.*
+import org.jooq.BindingGetResultSetContext
+import org.jooq.BindingSetStatementContext
+import org.jooq.Converter
 import org.jooq.impl.AbstractBinding
-import org.jooq.impl.DSL
 import org.postgresql.util.PGobject
 import java.sql.PreparedStatement
-import java.sql.SQLFeatureNotSupportedException
 import java.sql.Types
 
 @Suppress("UNCHECKED_CAST")
@@ -49,38 +49,14 @@ class PGVectorBinding : AbstractBinding<Any, FloatArray>() {
 
     val pg = PGobject().apply {
       type = "vector"
-      value = v.toPgVectorLiteral()
+      value = toPgVectorLiteral(v)
     }
 
     // jOOQ will not try to infer a datatype now: we bind at JDBC level
     stmt.setObject(i, pg)
   }
 
-  /*
-
-  override fun sql(ctx: BindingSQLContext<FloatArray>) {
-    ctx.render().visit(DSL.`val`(ctx.convert(converter()).value())).sql("::vector")
+  private fun toPgVectorLiteral(vector: FloatArray): String {
+    return vector.joinToString(prefix = "[", postfix = "]") { it.toString() }
   }
-
-  override fun register(ctx: BindingRegisterContext<FloatArray>) {
-    ctx.statement().registerOutParameter(ctx.index(), Types.ARRAY)
-  }
-
-  override fun get(ctx: BindingGetStatementContext<FloatArray>) {
-    val statement = ctx.statement()
-    val vectorAsString = statement.getString(ctx.index())
-    ctx.value(converter().from(vectorAsString))
-  }
-
-  // the below methods aren't needed in Postgres:
-
-  override fun get(ctx: BindingGetSQLInputContext<FloatArray>?) {
-    throw SQLFeatureNotSupportedException()
-  }
-
-  override fun set(ctx: BindingSetSQLOutputContext<FloatArray>?) {
-    throw SQLFeatureNotSupportedException()
-  }
-
-   */
 }

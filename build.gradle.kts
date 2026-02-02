@@ -82,10 +82,6 @@ kotlin {
 	}
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-}
-
 val jooqSources = "src/main/jooq"
 
 sourceSets {
@@ -119,6 +115,16 @@ fun env(key: String, default: String? = null): String {
     ?: dotenv[key] // fallback to .env
     ?: default
     ?: error("Missing env var '$key'")
+}
+
+tasks.withType<Test> {
+  useJUnitPlatform()
+  // Provide .env values to the test JVM when not already set in the environment.
+  dotenv.forEach { (key, value) ->
+    if (System.getenv(key) == null) {
+      environment(key, value)
+    }
+  }
 }
 
 jooq {
