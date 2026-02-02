@@ -4,6 +4,12 @@ Accept: application/json
 
 
 ###
+GET {{host}}/api/documents/233
+Authorization: Bearer {{$auth.token("authentik-paperless")}}
+Accept: application/json
+
+
+###
 GET {{host}}/api/openapi.json
 Accept: application/json
 
