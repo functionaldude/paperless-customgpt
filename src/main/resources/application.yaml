@@ -37,3 +37,5 @@ spring:
 springdoc:
   api-docs:
     path: /api/openapi.json
+server:
+  forward-headers-strategy: framework

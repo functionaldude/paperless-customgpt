@@ -1,3 +1,19 @@
-GET {{host}}/api/documents
+GET {{host}}/api/documents/all
 Authorization: Bearer {{$auth.token("authentik-paperless")}}
 Accept: application/json
+
+
+###
+GET {{host}}/api/openapi.json
+Accept: application/json
+
+
+###
+POST http://localhost:8080/api/rag/search
+Authorization: Bearer {{$auth.token("authentik-paperless")}}
+Content-Type: application/json
+
+{
+  "query": "A1 rechnung",
+  "topK": 5
+}
