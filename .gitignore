@@ -40,3 +40,6 @@ out/
 .kotlin
 
 .env
+.env.*
+http-client.private.env.json
+.gradle-user/
