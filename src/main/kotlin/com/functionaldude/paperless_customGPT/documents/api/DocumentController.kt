@@ -1,8 +1,9 @@
 package com.functionaldude.paperless_customGPT.documents.api
 
 import com.functionaldude.paperless_customGPT.OpenAiNonConsequential
+import com.functionaldude.paperless_customGPT.agent.AgentOperationText
+import com.functionaldude.paperless_customGPT.agent.AgentOperationsService
 import com.functionaldude.paperless_customGPT.documents.DocumentDto
-import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.ArraySchema
@@ -10,29 +11,27 @@ import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/api/documents")
 @Tag(
   name = "Documents",
-  description = "Paperless document browsing endpoints for the agent to retrieve raw document data."
+  description = AgentOperationText.DOCUMENTS_TAG_DESCRIPTION
 )
 class DocumentController(
-  private val paperlessDocumentService: PaperlessDocumentService
+  private val agentOperationsService: AgentOperationsService
 ) {
   @Operation(
-    summary = "List available documents",
-    description = "Returns every Paperless PDF document together with metadata and extracted content.",
+    summary = AgentOperationText.LIST_DOCUMENTS_SUMMARY,
+    description = AgentOperationText.LIST_DOCUMENTS_DESCRIPTION,
     responses = [
       ApiResponse(
         responseCode = "200",
-        description = "Documents successfully retrieved.",
+        description = AgentOperationText.LIST_DOCUMENTS_RESPONSE_DESCRIPTION,
         content = [
           Content(
             mediaType = "application/json",
@@ -45,25 +44,25 @@ class DocumentController(
   @OpenAiNonConsequential
   @GetMapping("all")
   fun listDocuments(): List<DocumentDto> {
-    return paperlessDocumentService.findAllDocuments()
+    return agentOperationsService.listDocuments()
   }
 
   @Operation(
-    summary = "Fetch a document by id",
-    description = "Looks up the Paperless document for the supplied identifier and returns its metadata and content.",
+    summary = AgentOperationText.FIND_DOCUMENT_BY_ID_SUMMARY,
+    description = AgentOperationText.FIND_DOCUMENT_BY_ID_DESCRIPTION,
     responses = [
       ApiResponse(
         responseCode = "200",
-        description = "Document was found and returned.",
+        description = AgentOperationText.FIND_DOCUMENT_BY_ID_RESPONSE_DESCRIPTION,
         content = [Content(mediaType = "application/json", schema = Schema(implementation = DocumentDto::class))]
       ),
       ApiResponse(
         responseCode = "400",
-        description = "The supplied id was not numeric."
+        description = AgentOperationText.INVALID_DOCUMENT_ID_RESPONSE_DESCRIPTION
       ),
       ApiResponse(
         responseCode = "404",
-        description = "No document exists for the requested id."
+        description = AgentOperationText.DOCUMENT_NOT_FOUND_RESPONSE_DESCRIPTION
       )
     ]
   )
@@ -71,15 +70,11 @@ class DocumentController(
   @GetMapping("{id}")
   fun findDocumentById(
     @Parameter(
-      description = "Numeric Paperless document id.",
+      description = AgentOperationText.DOCUMENT_ID_DESCRIPTION,
       example = "1234"
     )
     @PathVariable id: String
   ): DocumentDto {
-    val documentId = id.toIntOrNull()
-      ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Document id must be a number")
-
-    return paperlessDocumentService.findDocumentById(documentId)
-      ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
+    return agentOperationsService.findDocumentById(id)
   }
 }
