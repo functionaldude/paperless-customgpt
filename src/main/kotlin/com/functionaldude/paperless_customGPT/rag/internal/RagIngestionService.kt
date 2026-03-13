@@ -51,8 +51,6 @@ class RagIngestionService(
       markIngestionComplete(candidate.paperlessDocId, IngestStatus.ERROR, errorMessage = e.message)
       return
     }
-
-    log.info("Done ingesting document ${candidate.paperlessDocId}")
   }
 
   fun findIngestCandidates(limit: Int): List<IngestionCandidate> {

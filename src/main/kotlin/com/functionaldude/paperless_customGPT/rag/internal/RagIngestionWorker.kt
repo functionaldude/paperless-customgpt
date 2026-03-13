@@ -3,6 +3,7 @@ package com.functionaldude.paperless_customGPT.rag.internal
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
+import java.util.concurrent.Semaphore
 import kotlin.time.measureTime
 
 @Component
@@ -22,14 +23,20 @@ class RagIngestionWorker(
         return
       }
 
+      val semaphore = Semaphore(6)
+
       measureTime {
         candidates
           .parallelStream()
           .forEach { candidate ->
-            runCatching { ragIngestionService.processCandidate(candidate) }
-              .onFailure { e ->
-                log.error("Failed to process candidate ${candidate.paperlessDocId}", e)
-              }
+            try {
+              semaphore.acquire()
+              ragIngestionService.processCandidate(candidate)
+            } catch (e: Exception) {
+              log.error("Failed to process candidate ${candidate.paperlessDocId}", e)
+            } finally {
+              semaphore.release()
+            }
           }
       }.let { duration -> log.info("Processed ${candidates.size} candidates in ${duration.inWholeSeconds} seconds") }
 
