@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS paperless_rag.document_chunk
     document_source_id INTEGER NOT NULL REFERENCES paperless_rag.document_source (paperless_doc_id) ON DELETE CASCADE,
     chunk_index        INTEGER     NOT NULL,
     content            TEXT        NOT NULL,
-    embedding VECTOR(384),
+    embedding VECTOR(2560),
     metadata           JSONB,
 
     created_at         TIMESTAMPTZ NOT NULL DEFAULT now()
