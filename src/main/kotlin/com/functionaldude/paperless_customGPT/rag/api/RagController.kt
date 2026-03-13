@@ -25,7 +25,7 @@ data class RagQueryRequest(
   @field:Schema(
     description = AgentOperationText.RAG_TOP_K_DESCRIPTION,
     minimum = "1",
-    maximum = "20",
+    maximum = "50",
     example = "5",
     nullable = true
   )

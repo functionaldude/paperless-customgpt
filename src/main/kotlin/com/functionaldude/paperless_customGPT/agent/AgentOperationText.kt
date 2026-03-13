@@ -23,7 +23,7 @@ object AgentOperationText {
   const val RAG_QUERY_DESCRIPTION =
     "Natural language prompt used to search previously ingested Paperless documents."
   const val RAG_QUERY_EXAMPLE = "What is the renewal premium for my car insurance?"
-  const val RAG_TOP_K_DESCRIPTION = "Optional number of top results to return. Values over 20 are clamped."
+  const val RAG_TOP_K_DESCRIPTION = "Optional number of top results to return. Values over 50 are clamped."
   const val RAG_SEARCH_SUMMARY = "Run a semantic search"
   const val RAG_SEARCH_DESCRIPTION =
     "Uses pgvector similarity search to retrieve the most relevant Paperless documents for the provided question."
