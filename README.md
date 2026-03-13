@@ -20,6 +20,10 @@ Set the following environment variables for both local runs and container deploy
 - `RAG_EMBEDDING_DIMENSIONS` – target dimension count stored in pgvector and used during similarity search. Defaults to
   `1536`; model outputs are truncated/padded to this size before insert/query.
 - `RAG_HNSW_EF_SEARCH` – query-time HNSW recall/speed knob (higher = better recall, slower). Defaults to `400`.
+- `RAG_SPLITTER_CHUNK_TOKENS` – token-based chunk size for document splitting. Defaults to `512`.
+- `RAG_SPLITTER_OVERLAP_TOKENS` – token overlap between chunks. Defaults to `128`.
+- `RAG_SPLITTER_ESTIMATED_CHARS_PER_TOKEN` – heuristic token estimation factor for splitting (lower = more estimated
+  tokens per text). Defaults to `4.0`.
 - Any additional secrets required by other LLM providers can be added to the environment; the application reads them
   through Spring configuration.
 

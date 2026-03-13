@@ -5,6 +5,7 @@ import dev.langchain4j.data.document.DocumentSplitter
 import dev.langchain4j.data.document.parser.TextDocumentParser
 import dev.langchain4j.data.document.splitter.DocumentSplitters
 import dev.langchain4j.http.client.jdk.JdkHttpClientBuilder
+import dev.langchain4j.model.TokenCountEstimator
 import dev.langchain4j.model.embedding.EmbeddingModel
 import dev.langchain4j.model.openai.OpenAiEmbeddingModel
 import org.springframework.beans.factory.annotation.Value
@@ -44,10 +45,28 @@ class RagLangchainConfig {
   fun documentParser(): DocumentParser = TextDocumentParser()
 
   @Bean
-  fun documentSplitter(): DocumentSplitter {
+  fun tokenCountEstimator(
+    @Value("\${rag.splitter.estimated-chars-per-token:4.0}") estimatedCharsPerToken: Double,
+  ): TokenCountEstimator {
+    return HeuristicTokenCountEstimator(estimatedCharsPerToken)
+  }
+
+  @Bean
+  fun documentSplitter(
+    tokenCountEstimator: TokenCountEstimator,
+    @Value("\${rag.splitter.chunk-size-tokens:512}") chunkSizeTokens: Int,
+    @Value("\${rag.splitter.overlap-size-tokens:128}") overlapSizeTokens: Int,
+  ): DocumentSplitter {
+    require(chunkSizeTokens > 0) { "rag.splitter.chunk-size-tokens must be > 0, but was $chunkSizeTokens" }
+    require(overlapSizeTokens >= 0) { "rag.splitter.overlap-size-tokens must be >= 0, but was $overlapSizeTokens" }
+    require(overlapSizeTokens < chunkSizeTokens) {
+      "rag.splitter.overlap-size-tokens must be < rag.splitter.chunk-size-tokens ($chunkSizeTokens), but was $overlapSizeTokens"
+    }
+
     return DocumentSplitters.recursive(
-      1000, // max chunk chars
-      200   // overlap chars
+      chunkSizeTokens,
+      overlapSizeTokens,
+      tokenCountEstimator,
     )
   }
 }

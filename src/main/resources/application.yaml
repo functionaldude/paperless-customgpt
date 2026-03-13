@@ -48,3 +48,7 @@ server:
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}
   hnsw-ef-search: ${RAG_HNSW_EF_SEARCH:400}
+  splitter:
+    chunk-size-tokens: ${RAG_SPLITTER_CHUNK_TOKENS:512}
+    overlap-size-tokens: ${RAG_SPLITTER_OVERLAP_TOKENS:128}
+    estimated-chars-per-token: ${RAG_SPLITTER_ESTIMATED_CHARS_PER_TOKEN:4.0}
