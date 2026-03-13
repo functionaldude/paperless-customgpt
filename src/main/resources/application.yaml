@@ -1,6 +1,11 @@
 spring:
   application:
     name: paperless-customGPT
+  ai:
+    mcp:
+      server:
+        name: paperless-customGPT
+        version: 0.0.1
   datasource:
     url: ${PAPERLESS_DB_URL}
     username: ${PAPERLESS_DB_USER}

@@ -23,6 +23,7 @@ repositories {
 }
 
 extra["springModulithVersion"] = "2.0.2"
+extra["springAiVersion"] = "1.1.2"
 
 val langchain4jVersion = "1.8.0" // or latest
 
@@ -53,6 +54,7 @@ dependencies {
   implementation("dev.langchain4j:langchain4j-pgvector:${langchain4jVersion}-beta15")
   implementation("dev.langchain4j:langchain4j-spring-boot-starter:${langchain4jVersion}-beta15")
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:3.0.1")
+  implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc")
 
   developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
@@ -73,6 +75,7 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom("org.springframework.modulith:spring-modulith-bom:${property("springModulithVersion")}")
+    mavenBom("org.springframework.ai:spring-ai-bom:${property("springAiVersion")}")
 	}
 }
 

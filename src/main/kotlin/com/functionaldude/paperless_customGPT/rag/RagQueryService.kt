@@ -1,10 +1,9 @@
-package com.functionaldude.paperless_customGPT.rag.internal
+package com.functionaldude.paperless_customGPT.rag
 
 import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMENT_CHUNK
 import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMENT_SOURCE
 import com.functionaldude.paperless_customGPT.PaperlessUrlProvider
 import com.functionaldude.paperless_customGPT.rag.api.IngestStatus
-import com.functionaldude.paperless_customGPT.rag.api.RagSearchResult
 import dev.langchain4j.model.embedding.EmbeddingModel
 import org.jooq.DSLContext
 import org.jooq.impl.DSL

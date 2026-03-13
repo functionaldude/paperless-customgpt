@@ -1,5 +1,6 @@
-package com.functionaldude.paperless_customGPT.rag.api
+package com.functionaldude.paperless_customGPT.rag
 
+import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Schema
 
 @Schema(description = "Single semantic search hit with additional metadata to aid follow-up calls.")
@@ -30,4 +31,13 @@ data class RagSearchResult(
     example = "https://paperless.example.com/documents/42"
   )
   val sourceUrl: String,
+)
+
+@Schema(description = "Wrapper containing RAG search hits.")
+data class RagQueryResponse(
+  @field:ArraySchema(
+    arraySchema = Schema(description = "Ranked snippets most relevant to the question."),
+    schema = Schema(implementation = RagSearchResult::class)
+  )
+  val results: List<RagSearchResult>
 )

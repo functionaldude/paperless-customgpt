@@ -1,9 +1,9 @@
 package com.functionaldude.paperless_customGPT.rag.api
 
 import com.functionaldude.paperless_customGPT.OpenAiNonConsequential
-import com.functionaldude.paperless_customGPT.rag.internal.RagQueryService
+import com.functionaldude.paperless_customGPT.rag.RagQueryResponse
+import com.functionaldude.paperless_customGPT.rag.RagQueryService
 import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -31,15 +31,6 @@ data class RagQueryRequest(
     nullable = true
   )
   val topK: Int? = null,
-)
-
-@Schema(description = "Wrapper containing RAG search hits.")
-data class RagQueryResponse(
-  @field:ArraySchema(
-    arraySchema = Schema(description = "Ranked snippets most relevant to the question."),
-    schema = Schema(implementation = RagSearchResult::class)
-  )
-  val results: List<RagSearchResult>
 )
 
 @RestController

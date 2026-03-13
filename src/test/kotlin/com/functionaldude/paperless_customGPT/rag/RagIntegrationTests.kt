@@ -7,7 +7,6 @@ import com.functionaldude.paperless.jooq.public.tables.references.DOCUMENTS_DOCU
 import com.functionaldude.paperless_customGPT.DOC_ID
 import com.functionaldude.paperless_customGPT.rag.internal.IngestionCandidate
 import com.functionaldude.paperless_customGPT.rag.internal.RagIngestionService
-import com.functionaldude.paperless_customGPT.rag.internal.RagQueryService
 import org.assertj.core.api.Assertions.assertThat
 import org.jooq.DSLContext
 import org.junit.jupiter.api.BeforeAll

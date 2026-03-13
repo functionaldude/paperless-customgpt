@@ -18,7 +18,7 @@ class SecurityConfig {
         csrf
           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
           // API clients use bearer tokens instead of browser sessions.
-          .ignoringRequestMatchers("/api/**", "/v3/api-docs/**", "/actuator/**")
+          .ignoringRequestMatchers("/api/**", "/mcp/**", "/v3/api-docs/**", "/actuator/**")
       }
       .authorizeHttpRequests { auth ->
         auth
