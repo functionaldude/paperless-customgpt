@@ -21,7 +21,7 @@ class RagLangchainConfig {
     @Value("\${OPENAI_BASE_URL:http://localhost:1234/v1}") baseUrl: String,
     @Value("\${OPENAI_MODEL_NAME:text-embedding-multilingual-e5-base}") modelName: String,
     @Value("\${OPENAI_API_KEY:lm-studio}") apiKey: String,
-    @Value("\${OPENAI_FORCE_HTTP1:true}") forceHttp1: Boolean,
+    @Value("\${OPENAI_FORCE_HTTP1:false}") forceHttp1: Boolean,
   ): EmbeddingModel {
     val httpClientBuilder = HttpClient.newBuilder().apply {
       if (forceHttp1) this.version(HttpClient.Version.HTTP_1_1) // LM Studio does not support HTTP2 yet
