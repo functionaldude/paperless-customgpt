@@ -14,8 +14,8 @@ class AgentOperationsService(
   private val ragQueryService: RagQueryService,
 ) {
   companion object {
-    private const val DEFAULT_TOP_K = 5
-    private const val MAX_TOP_K = 20
+    const val DEFAULT_TOP_K = 5
+    const val MAX_TOP_K = 50
   }
 
   fun listDocuments(): List<DocumentDto> {

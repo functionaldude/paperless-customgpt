@@ -1,5 +1,7 @@
 package com.functionaldude.paperless_customGPT.agent
 
+import com.functionaldude.paperless_customGPT.agent.AgentOperationsService.Companion.MAX_TOP_K
+
 object AgentOperationText {
   const val DOCUMENTS_TAG_DESCRIPTION =
     "Paperless document browsing endpoints for the agent to retrieve raw document data."
@@ -23,7 +25,7 @@ object AgentOperationText {
   const val RAG_QUERY_DESCRIPTION =
     "Natural language prompt used to search previously ingested Paperless documents."
   const val RAG_QUERY_EXAMPLE = "What is the renewal premium for my car insurance?"
-  const val RAG_TOP_K_DESCRIPTION = "Optional number of top results to return. Values over 50 are clamped."
+  const val RAG_TOP_K_DESCRIPTION = "Optional number of top results to return. Values over $MAX_TOP_K are clamped."
   const val RAG_SEARCH_SUMMARY = "Run a semantic search"
   const val RAG_SEARCH_DESCRIPTION =
     "Uses pgvector similarity search to retrieve the most relevant Paperless documents for the provided question."

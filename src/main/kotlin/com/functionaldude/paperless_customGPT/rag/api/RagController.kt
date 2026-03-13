@@ -3,6 +3,8 @@ package com.functionaldude.paperless_customGPT.rag.api
 import com.functionaldude.paperless_customGPT.OpenAiNonConsequential
 import com.functionaldude.paperless_customGPT.agent.AgentOperationText
 import com.functionaldude.paperless_customGPT.agent.AgentOperationsService
+import com.functionaldude.paperless_customGPT.agent.AgentOperationsService.Companion.DEFAULT_TOP_K
+import com.functionaldude.paperless_customGPT.agent.AgentOperationsService.Companion.MAX_TOP_K
 import com.functionaldude.paperless_customGPT.rag.RagQueryResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -25,8 +27,8 @@ data class RagQueryRequest(
   @field:Schema(
     description = AgentOperationText.RAG_TOP_K_DESCRIPTION,
     minimum = "1",
-    maximum = "50",
-    example = "5",
+    maximum = MAX_TOP_K.toString(),
+    example = DEFAULT_TOP_K.toString(),
     nullable = true
   )
   val topK: Int? = null,
