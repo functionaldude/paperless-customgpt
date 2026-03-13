@@ -31,7 +31,7 @@ class RagLangchainConfig {
       .baseUrl(baseUrl)
       .apiKey(apiKey)
       .modelName(modelName)
-      .timeout(Duration.ofSeconds(60))
+      .timeout(Duration.ofMinutes(5))
       .httpClientBuilder(
         JdkHttpClientBuilder().httpClientBuilder(httpClientBuilder)
       )
