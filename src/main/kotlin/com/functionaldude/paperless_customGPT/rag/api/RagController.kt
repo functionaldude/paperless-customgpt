@@ -1,5 +1,6 @@
 package com.functionaldude.paperless_customGPT.rag.api
 
+import com.functionaldude.paperless_customGPT.OpenAiNonConsequential
 import com.functionaldude.paperless_customGPT.rag.internal.RagQueryService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.ArraySchema
@@ -75,6 +76,7 @@ class RagController(
       )
     ]
   )
+  @OpenAiNonConsequential
   @PostMapping("search")
   fun searchRag(@RequestBody request: RagQueryRequest): RagQueryResponse {
     val query = request.query.trim()

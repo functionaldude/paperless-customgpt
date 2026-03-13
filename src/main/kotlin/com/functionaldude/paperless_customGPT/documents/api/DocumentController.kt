@@ -1,5 +1,6 @@
 package com.functionaldude.paperless_customGPT.documents.api
 
+import com.functionaldude.paperless_customGPT.OpenAiNonConsequential
 import com.functionaldude.paperless_customGPT.documents.DocumentDto
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import io.swagger.v3.oas.annotations.Operation
@@ -41,6 +42,7 @@ class DocumentController(
       )
     ]
   )
+  @OpenAiNonConsequential
   @GetMapping("all")
   fun listDocuments(): List<DocumentDto> {
     return paperlessDocumentService.findAllDocuments()
@@ -65,6 +67,7 @@ class DocumentController(
       )
     ]
   )
+  @OpenAiNonConsequential
   @GetMapping("{id}")
   fun findDocumentById(
     @Parameter(
