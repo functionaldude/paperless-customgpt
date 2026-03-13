@@ -40,8 +40,6 @@ class RagIngestionService(
 
   @Transactional
   fun processCandidate(candidate: IngestionCandidate) {
-    log.info("Ingesting document ${candidate.paperlessDocId} - ${candidate.title} - ${candidate.correspondentName}")
-
     createDocumentSource(candidate)
 
     try {
