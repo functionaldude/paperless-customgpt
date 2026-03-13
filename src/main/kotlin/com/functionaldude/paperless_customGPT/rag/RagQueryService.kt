@@ -4,26 +4,42 @@ import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMEN
 import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMENT_SOURCE
 import com.functionaldude.paperless_customGPT.PaperlessUrlProvider
 import com.functionaldude.paperless_customGPT.rag.api.IngestStatus
+import com.functionaldude.paperless_customGPT.rag.internal.EmbeddingDimensionReducer
 import dev.langchain4j.model.embedding.EmbeddingModel
 import org.jooq.DSLContext
 import org.jooq.impl.DSL
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RagQueryService(
   private val dsl: DSLContext,
   private val embeddingModel: EmbeddingModel,
+  private val embeddingDimensionReducer: EmbeddingDimensionReducer,
   private val paperlessUrlProvider: PaperlessUrlProvider,
+  @Value("\${rag.hnsw-ef-search:400}") private val hnswEfSearch: Int,
 ) {
+  init {
+    require(hnswEfSearch > 0) { "rag.hnsw-ef-search must be > 0, but was $hnswEfSearch" }
+  }
+
+  @Transactional(readOnly = true)
   fun findDocumentsSimilarTo(query: String, topK: Int): List<RagSearchResult> {
-    val queryEmbedding = embeddingModel.embed(query).content()
+    // hnsw.ef_search controls how many graph candidates HNSW explores per query:
+    // higher values usually improve recall (our priority) at the cost of slower search.
+    // pgvector exposes it as a session setting, so we use SET LOCAL to scope it to this
+    // transaction and avoid leaking the tuned value across pooled DB connections.
+    dsl.execute("SET LOCAL hnsw.ef_search = $hnswEfSearch")
+
+    val queryEmbedding = embeddingDimensionReducer.reduce(embeddingModel.embed(query).content().vector())
 
     // jooq doesn’t know the <-> operator
     val similarityField = DSL.field(
       "({0} <-> {1})",
       Double::class.java,
       DOCUMENT_CHUNK.EMBEDDING,
-      DSL.`val`(queryEmbedding.vector(), DOCUMENT_CHUNK.EMBEDDING.dataType)
+      DSL.`val`(queryEmbedding, DOCUMENT_CHUNK.EMBEDDING.dataType)
     )
 
     val records = dsl

@@ -44,3 +44,7 @@ springdoc:
     path: /api/openapi.json
 server:
   forward-headers-strategy: framework
+
+rag:
+  embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}
+  hnsw-ef-search: ${RAG_HNSW_EF_SEARCH:400}

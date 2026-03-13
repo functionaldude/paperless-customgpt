@@ -33,6 +33,7 @@ class RagIngestionService(
   private val dsl: DSLContext,
   private val paperlessDocumentService: PaperlessDocumentService,
   private val embeddingModel: EmbeddingModel,
+  private val embeddingDimensionReducer: EmbeddingDimensionReducer,
   private val documentSplitter: DocumentSplitter,
 ) {
   private val log = LoggerFactory.getLogger(javaClass)
@@ -173,7 +174,7 @@ class RagIngestionService(
     embeddings.forEachIndexed { index, embedding ->
       val segmentText = segments[index].text()
 
-      val vector = embedding.vector()
+      val vector = embeddingDimensionReducer.reduce(embedding.vector())
 
       dsl.insertInto(DOCUMENT_CHUNK)
         .set(DOCUMENT_CHUNK.DOCUMENT_SOURCE_ID, documentId)

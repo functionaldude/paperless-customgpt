@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS paperless_rag.document_chunk
     document_source_id INTEGER NOT NULL REFERENCES paperless_rag.document_source (paperless_doc_id) ON DELETE CASCADE,
     chunk_index        INTEGER     NOT NULL,
     content            TEXT        NOT NULL,
-    embedding VECTOR(2560),
+    embedding VECTOR(1536),
     metadata           JSONB,
 
     created_at         TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -45,5 +45,5 @@ ALTER TABLE paperless_rag.document_chunk
 -- Vector index for fast similarity queries
 CREATE INDEX IF NOT EXISTS idx_document_chunk_embedding
     ON paperless_rag.document_chunk
-        USING ivfflat (embedding vector_cosine_ops)
-    WITH (lists = 100);
+        USING hnsw (embedding vector_cosine_ops)
+    WITH (m = 32, ef_construction = 256);

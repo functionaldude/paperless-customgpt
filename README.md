@@ -17,6 +17,9 @@ Set the following environment variables for both local runs and container deploy
   falls back to the dummy key `lm-studio` for LM Studio compatibility.
 - `OPENAI_FORCE_HTTP1` – set to `true` (default) to force HTTP/1.1 for providers such as LM Studio; set to `false` to
   allow HTTP/2.
+- `RAG_EMBEDDING_DIMENSIONS` – target dimension count stored in pgvector and used during similarity search. Defaults to
+  `1536`; model outputs are truncated/padded to this size before insert/query.
+- `RAG_HNSW_EF_SEARCH` – query-time HNSW recall/speed knob (higher = better recall, slower). Defaults to `400`.
 - Any additional secrets required by other LLM providers can be added to the environment; the application reads them
   through Spring configuration.
 
