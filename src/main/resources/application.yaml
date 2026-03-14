@@ -48,6 +48,12 @@ server:
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}
   hnsw-ef-search: ${RAG_HNSW_EF_SEARCH:400}
+  reranker:
+    enabled: ${RAG_RERANKER_ENABLED:true}
+    model-name: ${RAG_RERANKER_MODEL_NAME:}
+    candidate-multiplier: ${RAG_RERANKER_CANDIDATE_MULTIPLIER:4}
+    max-candidates: ${RAG_RERANKER_MAX_CANDIDATES:40}
+    timeout-minutes: ${RAG_RERANKER_TIMEOUT_MINUTES:2}
   splitter:
     chunk-size-tokens: ${RAG_SPLITTER_CHUNK_TOKENS:512}
     overlap-size-tokens: ${RAG_SPLITTER_OVERLAP_TOKENS:128}

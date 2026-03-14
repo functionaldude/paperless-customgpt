@@ -1,5 +1,7 @@
 package com.functionaldude.paperless_customGPT.rag.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.functionaldude.paperless_customGPT.rag.LocalAiRerankerScoringModel
 import dev.langchain4j.data.document.DocumentParser
 import dev.langchain4j.data.document.DocumentSplitter
 import dev.langchain4j.data.document.parser.TextDocumentParser
@@ -8,7 +10,9 @@ import dev.langchain4j.http.client.jdk.JdkHttpClientBuilder
 import dev.langchain4j.model.TokenCountEstimator
 import dev.langchain4j.model.embedding.EmbeddingModel
 import dev.langchain4j.model.openai.OpenAiEmbeddingModel
+import dev.langchain4j.model.scoring.ScoringModel
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.net.http.HttpClient
@@ -39,6 +43,31 @@ class RagLangchainConfig {
       .logRequests(false)
       .logResponses(false)
       .build()
+  }
+
+  @Bean("ragRerankerScoringModel")
+  @ConditionalOnExpression("T(org.springframework.util.StringUtils).hasText('\${rag.reranker.model-name:}')")
+  fun rerankerScoringModel(
+    objectMapper: ObjectMapper,
+    @Value("\${OPENAI_BASE_URL:http://localhost:1234/v1}") baseUrl: String,
+    @Value("\${rag.reranker.model-name}") modelName: String,
+    @Value("\${OPENAI_API_KEY:lm-studio}") apiKey: String,
+    @Value("\${OPENAI_FORCE_HTTP1:false}") forceHttp1: Boolean,
+    @Value("\${rag.reranker.timeout-minutes:2}") timeoutMinutes: Long,
+  ): ScoringModel {
+    val httpClientBuilder = HttpClient.newBuilder().apply {
+      connectTimeout(Duration.ofMinutes(timeoutMinutes))
+      if (forceHttp1) this.version(HttpClient.Version.HTTP_1_1) // LM Studio and some LocalAI setups still prefer HTTP/1.1
+    }
+
+    return LocalAiRerankerScoringModel(
+      baseUrl = baseUrl,
+      apiKey = apiKey,
+      modelName = modelName,
+      timeout = Duration.ofMinutes(timeoutMinutes),
+      httpClient = httpClientBuilder.build(),
+      objectMapper = objectMapper,
+    )
   }
 
   @Bean

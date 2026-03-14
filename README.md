@@ -20,6 +20,14 @@ Set the following environment variables for both local runs and container deploy
 - `RAG_EMBEDDING_DIMENSIONS` – target dimension count stored in pgvector and used during similarity search. Defaults to
   `1536`; model outputs are truncated/padded to this size before insert/query.
 - `RAG_HNSW_EF_SEARCH` – query-time HNSW recall/speed knob (higher = better recall, slower). Defaults to `400`.
+- `RAG_RERANKER_ENABLED` – enables the post-retrieval reranking step. Defaults to `true`, but reranking only runs when
+  `RAG_RERANKER_MODEL_NAME` is configured.
+- `RAG_RERANKER_MODEL_NAME` – LocalAI reranker model name exposed on `/v1/rerank` (for example
+  `qwen3-reranker-0.6b`). Leave empty to disable the reranker.
+- `RAG_RERANKER_CANDIDATE_MULTIPLIER` – how many pgvector hits to retrieve per requested result before reranking.
+  Defaults to `4`.
+- `RAG_RERANKER_MAX_CANDIDATES` – hard cap for reranker input size. Defaults to `40`.
+- `RAG_RERANKER_TIMEOUT_MINUTES` – timeout for the LocalAI reranker request. Defaults to `2`.
 - `RAG_SPLITTER_CHUNK_TOKENS` – token-based chunk size for document splitting. Defaults to `512`.
 - `RAG_SPLITTER_OVERLAP_TOKENS` – token overlap between chunks. Defaults to `128`.
 - `RAG_SPLITTER_ESTIMATED_CHARS_PER_TOKEN` – heuristic token estimation factor for splitting (lower = more estimated

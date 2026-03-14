@@ -17,6 +17,7 @@ class RagQueryService(
   private val dsl: DSLContext,
   private val embeddingModel: EmbeddingModel,
   private val embeddingDimensionReducer: EmbeddingDimensionReducer,
+  private val ragSearchReranker: RagSearchReranker,
   private val paperlessUrlProvider: PaperlessUrlProvider,
   @Value("\${rag.hnsw-ef-search:400}") private val hnswEfSearch: Int,
 ) {
@@ -33,13 +34,19 @@ class RagQueryService(
     dsl.execute("SET LOCAL hnsw.ef_search = $hnswEfSearch")
 
     val queryEmbedding = embeddingDimensionReducer.reduce(embeddingModel.embed(query).content().vector())
+    val candidateCount = ragSearchReranker.candidateCount(topK)
 
     // jooq doesn’t know the <-> operator
-    val similarityField = DSL.field(
+    val distanceField = DSL.field(
       "({0} <-> {1})",
       Double::class.java,
       DOCUMENT_CHUNK.EMBEDDING,
       DSL.`val`(queryEmbedding, DOCUMENT_CHUNK.EMBEDDING.dataType)
+    )
+    val similarityField = DSL.field(
+      "(1 - {0})",
+      Double::class.java,
+      distanceField
     )
 
     val records = dsl
@@ -48,6 +55,7 @@ class RagQueryService(
         DOCUMENT_CHUNK.CONTENT,
         DOCUMENT_CHUNK.METADATA,
         similarityField.`as`("score"),
+        distanceField.`as`("distance"),
         DOCUMENT_SOURCE.PAPERLESS_DOC_ID,
         DOCUMENT_SOURCE.TITLE,
         DOCUMENT_SOURCE.CORRESPONDENT,
@@ -55,8 +63,8 @@ class RagQueryService(
       .from(DOCUMENT_CHUNK)
       .join(DOCUMENT_SOURCE).on(DOCUMENT_CHUNK.DOCUMENT_SOURCE_ID.eq(DOCUMENT_SOURCE.PAPERLESS_DOC_ID))
       .where(DOCUMENT_SOURCE.STATUS.eq(IngestStatus.DONE.name))
-      .orderBy(DSL.field("score").asc())
-      .limit(topK)
+      .orderBy(DSL.field("distance").asc())
+      .limit(candidateCount)
       .fetch { record ->
         RagSearchResult(
           paperlessDocId = record.get(DOCUMENT_SOURCE.PAPERLESS_DOC_ID)!!,
@@ -68,6 +76,6 @@ class RagQueryService(
         )
       }
 
-    return records
+    return ragSearchReranker.rerank(query, records, topK)
   }
 }
