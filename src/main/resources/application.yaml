@@ -6,6 +6,9 @@ spring:
       server:
         name: paperless-customGPT
         version: 0.0.1
+        protocol: STREAMABLE
+        streamable-http:
+          mcp-endpoint: /mcp
   datasource:
     url: ${PAPERLESS_DB_URL}
     username: ${PAPERLESS_DB_USER}
@@ -20,30 +23,28 @@ spring:
     enabled: true
     schemas: paperless_rag
     default-schema: paperless_rag
-  security:
-    oauth2:
-      client:
-        registration:
-          authentik:
-            provider: authentik
-            client-id: ${AUTHENTIK_CLIENT_ID}
-            client-secret: ${AUTHENTIK_CLIENT_SECRET}
-            client-name: Authentik
-            scope: openid,profile,email
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-        provider:
-          authentik:
-            issuer-uri: ${AUTHENTIK_ISSUER_URI}
-            user-name-attribute: preferred_username
-      resourceserver:
-        jwt:
-          issuer-uri: ${AUTHENTIK_ISSUER_URI}
 springdoc:
   api-docs:
     path: /api/openapi.json
 server:
   forward-headers-strategy: framework
+
+app:
+  public-url: ${APP_PUBLIC_URL:http://localhost:8080}
+  auth:
+    login-mode: ${APP_AUTH_LOGIN_MODE:LOCAL}
+    local:
+      username: ${APP_LOCAL_USERNAME:paperless}
+      password: ${APP_LOCAL_PASSWORD:paperless-change-me}
+    authentik:
+      issuer-uri: ${AUTHENTIK_ISSUER_URI:}
+      client-id: ${AUTHENTIK_CLIENT_ID:}
+      client-secret: ${AUTHENTIK_CLIENT_SECRET:}
+      scopes: openid,profile,email
+  oauth:
+    key-id: ${APP_OAUTH_KEY_ID:paperless-customgpt-key}
+    private-key-pem: ${APP_OAUTH_PRIVATE_KEY_PEM:}
+    public-key-pem: ${APP_OAUTH_PUBLIC_KEY_PEM:}
 
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}
