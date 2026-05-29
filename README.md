@@ -14,7 +14,7 @@ Set the following environment variables for both local runs and container deploy
   Paperless/Postgres instance.
 - `PAPERLESS_BASE_URL` – public URL of the Paperless UI, used to expose document source links in API responses.
 - `APP_PUBLIC_URL` – externally reachable HTTPS base URL for this service (used as OAuth issuer and metadata base).
-- `APP_AUTH_LOGIN_MODE` – login mode for interactive authorization (`LOCAL` or `AUTHENTIK`).
+- `APP_AUTH_LOGIN_MODE` – login mode for interactive authorization (`LOCAL` or `OAUTH`).
 - `APP_LOCAL_USERNAME`, `APP_LOCAL_PASSWORD` – local single-user login credentials used when
   `APP_AUTH_LOGIN_MODE=LOCAL`.
 - `APP_OAUTH_KEY_ID`, `APP_OAUTH_PRIVATE_KEY_PEM`, `APP_OAUTH_PUBLIC_KEY_PEM` – signing key settings for issued JWTs.
