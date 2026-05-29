@@ -8,7 +8,7 @@ import java.util.*
 data class AppProperties private constructor(
   val publicUrl: String = "http://localhost:8080",
   @param:Name("auth") private val authSelection: AuthSelection = AuthSelection(),
-  val oauth: Oauth = Oauth(),
+  val oauth: OAuthSettings = OAuthSettings(),
 ) {
   val auth: Auth
     get() = authSelection.toAuth()
@@ -63,7 +63,7 @@ data class AppProperties private constructor(
     ) : Auth()
   }
 
-  data class Oauth(
+  data class OAuthSettings(
     val keyId: String = "paperless-customgpt-key",
     val privateKeyPem: String = "",
     val publicKeyPem: String = "",
