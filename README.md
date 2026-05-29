@@ -12,6 +12,8 @@ Set the following environment variables for both local runs and container deploy
 
 - `PAPERLESS_DB_URL`, `PAPERLESS_DB_USER`, `PAPERLESS_DB_PASSWORD` – connection details for the shared
   Paperless/Postgres instance.
+  Connections are initialized with `search_path=paperless_rag,public` so OAuth tables created by Flyway
+  (in `paperless_rag`) and existing Paperless tables (in `public`) are both resolvable.
 - `PAPERLESS_BASE_URL` – public URL of the Paperless UI, used to expose document source links in API responses.
 - `APP_PUBLIC_URL` – externally reachable HTTPS base URL for this service (used as OAuth issuer and metadata base).
 - `APP_AUTH_LOGIN_MODE` – login mode for interactive authorization (`LOCAL` or `OAUTH`).

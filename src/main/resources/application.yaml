@@ -13,6 +13,8 @@ spring:
     url: ${PAPERLESS_DB_URL}
     username: ${PAPERLESS_DB_USER}
     password: ${PAPERLESS_DB_PASSWORD}
+    hikari:
+      connection-init-sql: SET search_path TO paperless_rag,public
   jpa:
     hibernate:
       ddl-auto: none
