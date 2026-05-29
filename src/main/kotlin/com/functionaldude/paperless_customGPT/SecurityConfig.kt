@@ -150,13 +150,13 @@ class SecurityConfig(
 
   /**
    * Applies the configured interactive login mode for authorization flows:
-   * - AUTHENTIK: delegated OIDC login.
+   * - OAUTH: delegated OIDC login.
    * - LOCAL: in-app username/password form login.
    */
   private fun applyInteractiveLogin(http: HttpSecurity) {
     if (appProperties.auth is AppProperties.Auth.OAuth) {
       http.oauth2Login { oauth2 ->
-        oauth2.loginPage("/oauth2/authorization/authentik")
+        oauth2.loginPage("/oauth2/authorization/oauth")
       }
     } else {
       http.formLogin(Customizer.withDefaults())
