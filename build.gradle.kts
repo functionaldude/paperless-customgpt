@@ -26,6 +26,7 @@ extra["springModulithVersion"] = "2.0.2"
 extra["springAiVersion"] = "1.1.2"
 
 val langchain4jVersion = "1.8.0" // or latest
+val mcpSecurityVersion = "0.1.2"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -36,6 +37,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security-oauth2-client")
 	implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+  implementation("org.springframework.boot:spring-boot-starter-oauth2-authorization-server")
   implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -55,6 +57,8 @@ dependencies {
   implementation("dev.langchain4j:langchain4j-spring-boot-starter:${langchain4jVersion}-beta15")
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:3.0.1")
   implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc")
+  implementation("org.springaicommunity:mcp-server-security:${mcpSecurityVersion}")
+  implementation("org.springaicommunity:mcp-authorization-server:${mcpSecurityVersion}")
 
   developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
