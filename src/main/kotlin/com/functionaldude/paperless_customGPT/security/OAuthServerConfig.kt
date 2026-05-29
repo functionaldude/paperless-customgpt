@@ -183,15 +183,18 @@ class OAuthServerConfig {
    * without external IdP dependency.
    */
   @Bean
-  @ConditionalOnProperty(prefix = "app.auth", name = ["login-mode"], havingValue = "LOCAL", matchIfMissing = true)
+  @ConditionalOnProperty(prefix = "app.auth", name = ["type"], havingValue = "LOCAL", matchIfMissing = true)
   fun localUserDetailsService(
     appProperties: AppProperties,
     passwordEncoder: PasswordEncoder,
   ): UserDetailsService {
-    val username = appProperties.auth.local.username.ifBlank {
+    val localAuth = appProperties.auth as? AppProperties.Auth.Local
+      ?: throw IllegalStateException("Expected app.auth.type=LOCAL to resolve to Local auth config")
+
+    val username = localAuth.username.ifBlank {
       throw IllegalStateException("app.auth.local.username must not be blank in LOCAL login mode")
     }
-    val password = appProperties.auth.local.password.ifBlank {
+    val password = localAuth.password.ifBlank {
       throw IllegalStateException("app.auth.local.password must not be blank in LOCAL login mode")
     }
 
@@ -207,30 +210,32 @@ class OAuthServerConfig {
    * Configures the OAuth2 login client for delegated interactive authentication against Authentik.
    *
    * Why needed:
-   * In AUTHENTIK mode, users authenticate via Authentik, then this app continues the local authorization
+   * In OAUTH mode, users authenticate via Authentik, then this app continues the local authorization
    * server flow and issues access tokens for MCP/API usage.
    */
   @Bean
-  @ConditionalOnProperty(prefix = "app.auth", name = ["login-mode"], havingValue = "AUTHENTIK")
+  @ConditionalOnProperty(prefix = "app.auth", name = ["type"], havingValue = "OAUTH")
   fun authentikClientRegistrationRepository(appProperties: AppProperties): ClientRegistrationRepository {
-    val authentik = appProperties.auth.authentik
-    val issuerUri = authentik.issuerUri.ifBlank {
-      throw IllegalStateException("app.auth.authentik.issuer-uri must not be blank in AUTHENTIK login mode")
+    val oAuth = appProperties.auth as? AppProperties.Auth.OAuth
+      ?: throw IllegalStateException("Expected app.auth.type=OAUTH to resolve to Authentik auth config")
+
+    val issuerUri = oAuth.issuerUri.ifBlank {
+      throw IllegalStateException("app.auth.authentik.issuer-uri must not be blank in OAUTH login mode")
     }
-    val clientId = authentik.clientId.ifBlank {
-      throw IllegalStateException("app.auth.authentik.client-id must not be blank in AUTHENTIK login mode")
+    val clientId = oAuth.clientId.ifBlank {
+      throw IllegalStateException("app.auth.authentik.client-id must not be blank in OAUTH login mode")
     }
-    val clientSecret = authentik.clientSecret.ifBlank {
-      throw IllegalStateException("app.auth.authentik.client-secret must not be blank in AUTHENTIK login mode")
+    val clientSecret = oAuth.clientSecret.ifBlank {
+      throw IllegalStateException("app.auth.authentik.client-secret must not be blank in OAUTH login mode")
     }
 
     val registration = ClientRegistrations
       .fromIssuerLocation(issuerUri)
-      .registrationId("authentik")
+      .registrationId("oauth")
       .clientId(clientId)
       .clientSecret(clientSecret)
-      .scope(authentik.scopes)
-      .clientName("Authentik")
+      .scope(oAuth.scopes)
+      .clientName("OAuth")
       .build()
 
     return InMemoryClientRegistrationRepository(registration)
@@ -240,7 +245,7 @@ class OAuthServerConfig {
    * Stores delegated OAuth2 login sessions for the configured client registration.
    *
    * Why needed:
-   * When AUTHENTIK login is enabled, Spring Security needs an authorized client service to keep the login
+   * When OAUTH login is enabled, Spring Security needs an authorized client service to keep the login
    * session context.
    */
   @Bean

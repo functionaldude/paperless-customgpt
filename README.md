@@ -19,7 +19,7 @@ Set the following environment variables for both local runs and container deploy
   `APP_AUTH_LOGIN_MODE=LOCAL`.
 - `APP_OAUTH_KEY_ID`, `APP_OAUTH_PRIVATE_KEY_PEM`, `APP_OAUTH_PUBLIC_KEY_PEM` – signing key settings for issued JWTs.
   If no key pair is supplied, an ephemeral RSA key is generated on startup.
-- `AUTHENTIK_CLIENT_ID`, `AUTHENTIK_CLIENT_SECRET`, `AUTHENTIK_ISSUER_URI` – only required when
+- `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET`, `OAUTH_ISSUER_URI` – only required when
   `APP_AUTH_LOGIN_MODE=AUTHENTIK` (interactive login via Authentik, tokens still issued by this app).
 - `OPENAI_BASE_URL`, `OPENAI_MODEL_NAME`, `OPENAI_API_KEY` – overrides for the LangChain4j/OpenAI embedding client. By
   default the service points to `http://localhost:1234/v1`, uses the `text-embedding-multilingual-e5-base` model, and

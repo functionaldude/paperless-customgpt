@@ -154,7 +154,7 @@ class SecurityConfig(
    * - LOCAL: in-app username/password form login.
    */
   private fun applyInteractiveLogin(http: HttpSecurity) {
-    if (appProperties.auth.loginMode == AppProperties.LoginMode.AUTHENTIK) {
+    if (appProperties.auth is AppProperties.Auth.OAuth) {
       http.oauth2Login { oauth2 ->
         oauth2.loginPage("/oauth2/authorization/authentik")
       }
