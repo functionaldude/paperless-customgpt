@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.server.authorization.JdbcOAuth2Author
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
@@ -55,6 +56,7 @@ import java.util.*
 @EnableConfigurationProperties(AppProperties::class)
 class OAuthServerConfig {
   private val log = LoggerFactory.getLogger(javaClass)
+  private val defaultConnectorScopes = setOf("openid", "profile", "email", "offline_access")
 
   /**
    * Declares Authorization Server endpoint settings and sets the public issuer URL.
@@ -79,7 +81,32 @@ class OAuthServerConfig {
    */
   @Bean
   fun registeredClientRepository(jdbcTemplate: JdbcTemplate): RegisteredClientRepository {
-    return JdbcRegisteredClientRepository(jdbcTemplate)
+    val delegate = JdbcRegisteredClientRepository(jdbcTemplate)
+    return object : RegisteredClientRepository {
+      override fun save(registeredClient: RegisteredClient) {
+        val normalizedScopes = registeredClient.scopes + defaultConnectorScopes
+        val normalizedClient = if (normalizedScopes == registeredClient.scopes) {
+          registeredClient
+        } else {
+          RegisteredClient.from(registeredClient)
+            .scopes { scopes ->
+              scopes.clear()
+              scopes.addAll(normalizedScopes)
+            }
+            .build()
+        }
+
+        delegate.save(normalizedClient)
+      }
+
+      override fun findById(id: String): RegisteredClient? {
+        return delegate.findById(id)
+      }
+
+      override fun findByClientId(clientId: String): RegisteredClient? {
+        return delegate.findByClientId(clientId)
+      }
+    }
   }
 
   /**
@@ -220,13 +247,13 @@ class OAuthServerConfig {
       ?: throw IllegalStateException("Expected app.auth.type=OAUTH to resolve to Authentik auth config")
 
     val issuerUri = oAuth.issuerUri.ifBlank {
-      throw IllegalStateException("app.auth.authentik.issuer-uri must not be blank in OAUTH login mode")
+      throw IllegalStateException("app.auth.oauth.issuer-uri must not be blank in OAUTH login mode")
     }
     val clientId = oAuth.clientId.ifBlank {
-      throw IllegalStateException("app.auth.authentik.client-id must not be blank in OAUTH login mode")
+      throw IllegalStateException("app.auth.oauth.client-id must not be blank in OAUTH login mode")
     }
     val clientSecret = oAuth.clientSecret.ifBlank {
-      throw IllegalStateException("app.auth.authentik.client-secret must not be blank in OAUTH login mode")
+      throw IllegalStateException("app.auth.oauth.client-secret must not be blank in OAUTH login mode")
     }
 
     val registration = ClientRegistrations
