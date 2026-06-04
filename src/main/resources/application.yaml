@@ -34,19 +34,10 @@ server:
 app:
   public-url: ${APP_PUBLIC_URL:http://localhost:8080}
   auth:
-    type: ${APP_AUTH_TYPE:${APP_AUTH_LOGIN_MODE:LOCAL}}
-    local:
-      username: ${APP_LOCAL_USERNAME:}
-      password: ${APP_LOCAL_PASSWORD:}
-    oauth:
-      issuer-uri: ${OAUTH_ISSUER_URI:}
-      client-id: ${OAUTH_CLIENT_ID:}
-      client-secret: ${OAUTH_CLIENT_SECRET:}
-      scopes: openid,profile,email
-  oauth:
-    key-id: ${APP_OAUTH_KEY_ID:}
-    private-key-pem: ${APP_OAUTH_PRIVATE_KEY_PEM:}
-    public-key-pem: ${APP_OAUTH_PUBLIC_KEY_PEM:}
+    issuer-uri: ${OIDC_ISSUER_URI:http://localhost:9000/application/o/paperless/}
+    jwk-set-uri: ${OIDC_JWK_SET_URI:}
+    audience: ${OIDC_AUDIENCE:}
+    scopes: openid,profile,email
 
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}

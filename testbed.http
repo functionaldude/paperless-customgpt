@@ -1,11 +1,11 @@
 GET {{host}}/api/documents/all
-Authorization: Bearer {{$auth.token("authentik-paperless")}}
+Authorization: Bearer {{$auth.token("oidc-paperless")}}
 Accept: application/json
 
 
 ###
 GET {{host}}/api/documents/233
-Authorization: Bearer {{$auth.token("authentik-paperless")}}
+Authorization: Bearer {{$auth.token("oidc-paperless")}}
 Accept: application/json
 
 
@@ -16,7 +16,7 @@ Accept: application/json
 
 ###
 POST http://localhost:8080/api/rag/search
-Authorization: Bearer {{$auth.token("authentik-paperless")}}
+Authorization: Bearer {{$auth.token("oidc-paperless")}}
 Content-Type: application/json
 
 {

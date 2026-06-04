@@ -3,7 +3,6 @@ package com.functionaldude.paperless_customGPT.security
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.stereotype.Service
 
@@ -29,13 +28,7 @@ class CurrentUserService {
       is JwtAuthenticationToken -> {
         authentication.token.claims["preferred_username"] as? String
           ?: authentication.token.claims["username"] as? String
-          ?: authentication.name
-      }
-
-      is OAuth2AuthenticationToken -> {
-        val principal = authentication.principal
-        principal?.attributes?.get("preferred_username") as? String
-          ?: principal?.attributes?.get("username") as? String
+          ?: authentication.token.subject
           ?: authentication.name
       }
 

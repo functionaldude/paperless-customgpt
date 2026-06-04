@@ -3,8 +3,8 @@
 Spring Boot+Kotlin service that synchronizes the Paperless database into a pgvector-backed RAG and exposes REST
 endpoints for a custom GPT agent.
 
-It now exposes a streamable HTTP MCP endpoint at `/mcp` and includes an embedded OAuth 2.1 authorization server so a
-ChatGPT app can be connected by URL only.
+It exposes a streamable HTTP MCP endpoint at `/mcp`. ChatGPT connects with a user-defined OAuth client registered in an
+OIDC-compatible identity provider; this service only acts as an OAuth2 resource server and validates JWT bearer tokens.
 
 ## Runtime configuration
 
@@ -12,17 +12,16 @@ Set the following environment variables for both local runs and container deploy
 
 - `PAPERLESS_DB_URL`, `PAPERLESS_DB_USER`, `PAPERLESS_DB_PASSWORD` – connection details for the shared
   Paperless/Postgres instance.
-  Connections are initialized with `search_path=paperless_rag,public` so OAuth tables created by Flyway
-  (in `paperless_rag`) and existing Paperless tables (in `public`) are both resolvable.
+  Connections are initialized with `search_path=paperless_rag,public` so RAG tables created by Flyway
+  and existing Paperless tables are both resolvable.
 - `PAPERLESS_BASE_URL` – public URL of the Paperless UI, used to expose document source links in API responses.
-- `APP_PUBLIC_URL` – externally reachable HTTPS base URL for this service (used as OAuth issuer and metadata base).
-- `APP_AUTH_LOGIN_MODE` – login mode for interactive authorization (`LOCAL` or `OAUTH`).
-- `APP_LOCAL_USERNAME`, `APP_LOCAL_PASSWORD` – local single-user login credentials used when
-  `APP_AUTH_LOGIN_MODE=LOCAL`.
-- `APP_OAUTH_KEY_ID`, `APP_OAUTH_PRIVATE_KEY_PEM`, `APP_OAUTH_PUBLIC_KEY_PEM` – signing key settings for issued JWTs.
-  If no key pair is supplied, an ephemeral RSA key is generated on startup.
-- `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET`, `OAUTH_ISSUER_URI` – only required when
-  `APP_AUTH_LOGIN_MODE=OAUTH` (interactive login via external OIDC provider, tokens still issued by this app).
+- `APP_PUBLIC_URL` – externally reachable HTTPS base URL for this service, used to advertise the MCP resource as
+  `${APP_PUBLIC_URL}/mcp`.
+- `OIDC_ISSUER_URI` – issuer URL of the OAuth2/OIDC provider that issues ChatGPT access tokens.
+- `OIDC_JWK_SET_URI` – optional JWKS endpoint. If omitted, Spring Security discovers it from
+  `OIDC_ISSUER_URI` when the first bearer token is decoded.
+- `OIDC_AUDIENCE` – optional expected JWT audience. Defaults to `${APP_PUBLIC_URL}/mcp`; set it if your provider emits
+  a different audience, such as the OAuth client ID.
 - `OPENAI_BASE_URL`, `OPENAI_MODEL_NAME`, `OPENAI_API_KEY` – overrides for the LangChain4j/OpenAI embedding client. By
   default the service points to `http://localhost:1234/v1`, uses the `text-embedding-multilingual-e5-base` model, and
   falls back to the dummy key `lm-studio` for LM Studio compatibility.
@@ -42,10 +41,15 @@ Set the following environment variables for both local runs and container deploy
 
 - MCP endpoint: `https://<your-host>/mcp`
 - Transport: streamable HTTP
-- Auth: OAuth 2.1 with dynamic client registration + PKCE S256
+- Auth: OAuth 2.1 authorization code with PKCE, using a user-defined OAuth client registered in your OIDC provider
 
-When creating the ChatGPT app/connector, use only the MCP URL above. OAuth discovery and registration metadata are
-exposed automatically from this service.
+When creating the ChatGPT app/connector, use the MCP URL above and choose **User-Defined OAuth Client**. Paste the
+client ID and optional client secret from a dedicated OAuth2/OIDC client. The ChatGPT callback URL shown in the
+connector UI must be added to that client's allowed redirect URIs.
+
+This service advertises the configured OIDC issuer through MCP protected-resource metadata. It does not expose dynamic
+client
+registration, client credentials, or token endpoint auth method metadata.
 
 Spring Boot packages `src/main/resources/application.yaml` into the executable jar, so the container image only relies
 on
@@ -70,9 +74,8 @@ docker run --rm -p 8080:8080 \
   -e PAPERLESS_DB_USER=paperless \
   -e PAPERLESS_DB_PASSWORD=paperless \
   -e APP_PUBLIC_URL=https://paperless-gpt.example.com \
-  -e APP_AUTH_LOGIN_MODE=LOCAL \
-  -e APP_LOCAL_USERNAME=paperless \
-  -e APP_LOCAL_PASSWORD=change-me \
+  -e OIDC_ISSUER_URI=https://idp.example.com/application/o/paperless/ \
+  -e OIDC_AUDIENCE=https://paperless-gpt.example.com/mcp \
   ghcr.io/<owner>/<repo>:local
 ```
 
@@ -94,9 +97,8 @@ docker service create --name paperless-gpt \
   --env PAPERLESS_DB_USER=paperless \
   --env PAPERLESS_DB_PASSWORD=paperless \
   --env APP_PUBLIC_URL=https://paperless-gpt.example.com \
-  --env APP_AUTH_LOGIN_MODE=LOCAL \
-  --env APP_LOCAL_USERNAME=paperless \
-  --env APP_LOCAL_PASSWORD=change-me \
+  --env OIDC_ISSUER_URI=https://idp.example.com/application/o/paperless/ \
+  --env OIDC_AUDIENCE=https://paperless-gpt.example.com/mcp \
   --publish published=8080,target=8080 \
   ghcr.io/<owner>/<repo>:<tag>
 ```

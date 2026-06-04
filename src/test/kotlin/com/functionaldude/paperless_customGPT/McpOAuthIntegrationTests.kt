@@ -10,47 +10,42 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@SpringBootTest
+@SpringBootTest(
+  properties = [
+    "app.public-url=https://paperless-gpt.example.test",
+    "app.auth.issuer-uri=https://idp.example.test/application/o/paperless/",
+    "app.auth.jwk-set-uri=https://idp.example.test/application/o/paperless/jwks/",
+    "app.auth.audience=https://paperless-gpt.example.test/mcp",
+    "spring.flyway.enabled=false",
+  ]
+)
 @AutoConfigureMockMvc
 class McpOAuthIntegrationTests(
   @Autowired private val mockMvc: MockMvc,
 ) {
 
   @Test
-  fun `oauth authorization server metadata is exposed`() {
+  fun `embedded oauth authorization server metadata is not exposed`() {
     val response = mockMvc.perform(get("/.well-known/oauth-authorization-server"))
-      .andExpect(status().isOk)
+      .andExpect(status().isUnauthorized)
       .andReturn()
       .response
 
     val body = response.contentAsString
-    assertThat(body).contains("authorization_endpoint")
-    assertThat(body).contains("token_endpoint")
-    assertThat(body).contains("registration_endpoint")
+    assertThat(body).doesNotContain("registration_endpoint")
   }
 
   @Test
-  fun `oauth protected resource metadata is exposed for mcp`() {
-    val candidatePaths = listOf(
-      "/.well-known/oauth-protected-resource/mcp",
-      "/.well-known/oauth-protected-resource",
-    )
+  fun `oauth protected resource metadata advertises oidc issuer for mcp`() {
+    val response = mockMvc.perform(get("/.well-known/oauth-protected-resource/mcp"))
+      .andExpect(status().isOk)
+      .andReturn()
+      .response
 
-    val successfulResponse = candidatePaths
-      .asSequence()
-      .mapNotNull { path ->
-        runCatching {
-          mockMvc.perform(get(path)).andReturn().response
-        }.getOrNull()
-      }
-      .firstOrNull { it.status == 200 }
-
-    assertThat(successfulResponse)
-      .withFailMessage("Expected one protected resource metadata endpoint to return 200")
-      .isNotNull
-
-    assertThat(successfulResponse!!.contentAsString).contains("resource")
-    assertThat(successfulResponse.contentAsString).contains("bearer_methods_supported")
+    assertThat(response.contentAsString).contains("\"resource\":\"https://paperless-gpt.example.test/mcp\"")
+    assertThat(response.contentAsString).contains("\"authorization_servers\":[\"https://idp.example.test/application/o/paperless/\"]")
+    assertThat(response.contentAsString).contains("\"scopes_supported\":[\"openid\",\"profile\",\"email\"]")
+    assertThat(response.contentAsString).contains("bearer_methods_supported")
   }
 
   @Test
