@@ -11,7 +11,7 @@ data class AppProperties(
     val issuerUri: String = "http://localhost:9000/application/o/paperless/",
     val jwkSetUri: String = "",
     val audience: String = "",
-    val scopes: List<String> = listOf("openid", "profile", "email"),
+    val scopes: List<String> = listOf("openid", "profile", "email", "paperless_gpt"),
   ) {
     fun normalizedIssuerUri(): String = issuerUri.trim().ifBlank {
       throw IllegalStateException("app.auth.issuer-uri must not be blank")
@@ -21,6 +21,8 @@ data class AppProperties(
   fun normalizedPublicUrl(): String = publicUrl.trimEnd('/')
 
   fun mcpResource(): String = "${normalizedPublicUrl()}/mcp"
+
+  fun mcpProtectedResourceMetadataUrl(): String = "${normalizedPublicUrl()}/.well-known/oauth-protected-resource/mcp"
 
   fun expectedAudience(): String = auth.audience.trim().ifBlank { mcpResource() }
 }

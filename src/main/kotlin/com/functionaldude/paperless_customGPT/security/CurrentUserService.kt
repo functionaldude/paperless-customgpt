@@ -3,6 +3,7 @@ package com.functionaldude.paperless_customGPT.security
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.stereotype.Service
 
@@ -11,8 +12,7 @@ class CurrentUserService {
   private val log = LoggerFactory.getLogger(javaClass)
 
   fun currentUsername(): String {
-    val authentication = SecurityContextHolder.getContext().authentication
-      ?: throw IllegalStateException("No authentication found in security context")
+    val authentication = requireJwtAuthentication()
 
     val username = extractUsername(authentication)
     if (username.isNullOrBlank()) {
@@ -21,6 +21,17 @@ class CurrentUserService {
     }
 
     return username
+  }
+
+  fun requireJwtAuthentication(): JwtAuthenticationToken {
+    val authentication = SecurityContextHolder.getContext().authentication
+      ?: throw IllegalStateException("OAuth bearer token is required")
+
+    if (authentication !is JwtAuthenticationToken || !authentication.isAuthenticated) {
+      throw IllegalStateException("OAuth bearer token is required")
+    }
+
+    return authentication
   }
 
   private fun extractUsername(authentication: Authentication): String? {
@@ -32,7 +43,7 @@ class CurrentUserService {
           ?: authentication.name
       }
 
-      else -> authentication.name
+      else -> (authentication.principal as? UserDetails)?.username ?: authentication.name
     }
   }
 }
