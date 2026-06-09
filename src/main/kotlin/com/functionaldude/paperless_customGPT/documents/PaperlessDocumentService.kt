@@ -1,6 +1,7 @@
 package com.functionaldude.paperless_customGPT.documents
 
 import com.fasterxml.jackson.annotation.JsonClassDescription
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.functionaldude.paperless.jooq.public.tables.references.*
@@ -12,6 +13,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 
 @JsonClassDescription("Paperless document metadata together with extracted text content.")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class DocumentDto(
   @field:JsonPropertyDescription("Unique numeric identifier of the Paperless document.")
   val id: Int,
@@ -63,7 +65,7 @@ class PaperlessDocumentService(
       )
       .from(DOCUMENTS_DOCUMENT)
       .leftJoin(AUTH_USER).on(DOCUMENTS_DOCUMENT.OWNER_ID.eq(AUTH_USER.ID))
-      .leftJoin(DOCUMENTS_NOTE).on(DOCUMENTS_DOCUMENT.ID.eq(DOCUMENTS_NOTE.ID))
+      .leftJoin(DOCUMENTS_NOTE).on(DOCUMENTS_DOCUMENT.ID.eq(DOCUMENTS_NOTE.DOCUMENT_ID))
       .leftJoin(DOCUMENTS_CORRESPONDENT).on(DOCUMENTS_DOCUMENT.CORRESPONDENT_ID.eq(DOCUMENTS_CORRESPONDENT.ID))
       .leftJoin(DOCUMENTS_DOCUMENT_TAGS).on(DOCUMENTS_DOCUMENT_TAGS.DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
       .leftJoin(DOCUMENTS_TAG).on(DOCUMENTS_TAG.ID.eq(DOCUMENTS_DOCUMENT_TAGS.TAG_ID))

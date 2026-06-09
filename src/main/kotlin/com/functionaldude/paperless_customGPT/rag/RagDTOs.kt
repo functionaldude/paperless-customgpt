@@ -1,10 +1,12 @@
 package com.functionaldude.paperless_customGPT.rag
 
 import com.fasterxml.jackson.annotation.JsonClassDescription
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
 
 @JsonClassDescription("Single semantic search hit with additional metadata to aid follow-up calls.")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class RagSearchResult(
   @field:JsonPropertyDescription("Document id that can be used with the findDocumentById tool to fetch the full record.")
   val paperlessDocId: Int,
