@@ -52,7 +52,6 @@ dependencies {
   implementation("dev.langchain4j:langchain4j-ollama:1.8.0")
   implementation("dev.langchain4j:langchain4j-pgvector:${langchain4jVersion}-beta15")
   implementation("dev.langchain4j:langchain4j-spring-boot-starter:${langchain4jVersion}-beta15")
-  implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:3.0.1")
   implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc")
   implementation("org.springaicommunity:mcp-server-security:${mcpSecurityVersion}")
 

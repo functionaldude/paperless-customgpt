@@ -1,5 +1,6 @@
 package com.functionaldude.paperless_customGPT.security
 
+import com.functionaldude.paperless_customGPT.mcp.McpToolAuthMetadataConfig.Companion.DEFAULT_SCOPES
 import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "app")
@@ -11,7 +12,7 @@ data class AppProperties(
     val issuerUri: String = "http://localhost:9000/application/o/paperless/",
     val jwkSetUri: String = "",
     val audience: String = "",
-    val scopes: List<String> = listOf("openid", "profile", "email", "paperless_gpt"),
+    val scopes: List<String> = DEFAULT_SCOPES,
   ) {
     fun normalizedIssuerUri(): String = issuerUri.trim().ifBlank {
       throw IllegalStateException("app.auth.issuer-uri must not be blank")

@@ -35,13 +35,15 @@ class McpToolAuthMetadataConfig {
   }
 
   companion object {
+    val DEFAULT_SCOPES = listOf("openid", "profile", "email")
+
     @Bean
     @JvmStatic
     fun mcpToolSecuritySchemesPostProcessor(environment: Environment): BeanPostProcessor {
-      val configuredScopes = Binder.get(environment)
+      val scopes = Binder.get(environment)
         .bind("app.auth.scopes", Bindable.listOf(String::class.java))
-        .orElse(listOf("openid", "profile", "email", "paperless_gpt"))
-      val scopes = configuredScopes?.filterNotNull() ?: listOf("openid", "profile", "email", "paperless_gpt")
+        .orElse(DEFAULT_SCOPES)
+        ?.filterNotNull() ?: DEFAULT_SCOPES
 
       return object : BeanPostProcessor {
         override fun postProcessAfterInitialization(bean: Any, beanName: String): Any {
@@ -65,30 +67,26 @@ class McpToolAuthMetadataConfig {
     private fun secureSyncToolSpecification(
       specification: McpServerFeatures.SyncToolSpecification,
       scopes: List<String>,
-    ): McpServerFeatures.SyncToolSpecification {
-      return McpServerFeatures.SyncToolSpecification.builder()
-        .tool(withOAuthSecurityScheme(specification.tool(), scopes))
-        .callHandler(specification.callHandler())
-        .build()
-    }
+    ): McpServerFeatures.SyncToolSpecification = McpServerFeatures.SyncToolSpecification.builder()
+      .tool(withOAuthSecurityScheme(specification.tool(), scopes))
+      .callHandler(specification.callHandler())
+      .build()
 
     private fun secureAsyncToolSpecification(
       specification: McpServerFeatures.AsyncToolSpecification,
       scopes: List<String>,
-    ): McpServerFeatures.AsyncToolSpecification {
-      return McpServerFeatures.AsyncToolSpecification.builder()
-        .tool(withOAuthSecurityScheme(specification.tool(), scopes))
-        .callHandler(specification.callHandler())
-        .build()
-    }
+    ): McpServerFeatures.AsyncToolSpecification = McpServerFeatures.AsyncToolSpecification.builder()
+      .tool(withOAuthSecurityScheme(specification.tool(), scopes))
+      .callHandler(specification.callHandler())
+      .build()
 
-    private fun withOAuthSecurityScheme(
-      tool: McpSchema.Tool,
-      scopes: List<String>,
-    ): McpSchema.Tool {
-      val metadata = linkedMapOf<String, Any>()
-      tool.meta()?.let { metadata.putAll(it) }
-      metadata["securitySchemes"] = securitySchemes(scopes)
+    private fun withOAuthSecurityScheme(tool: McpSchema.Tool, scopes: List<String>): McpSchema.Tool {
+      val metadata = linkedMapOf<String, Any>().apply {
+        tool.meta()?.let { this.putAll(it) }
+        this["securitySchemes"] = listOf(
+          linkedMapOf("type" to "oauth2", "scopes" to scopes)
+        )
+      }
 
       return McpSchema.Tool(
         tool.name(),
@@ -98,15 +96,6 @@ class McpToolAuthMetadataConfig {
         tool.outputSchema(),
         tool.annotations(),
         metadata,
-      )
-    }
-
-    private fun securitySchemes(scopes: List<String>): List<Map<String, Any>> {
-      return listOf(
-        linkedMapOf(
-          "type" to "oauth2",
-          "scopes" to scopes,
-        )
       )
     }
   }

@@ -45,15 +45,16 @@ class McpOAuthIntegrationTests(
 
     assertThat(response.contentAsString).contains("\"resource\":\"https://paperless-gpt.example.test/mcp\"")
     assertThat(response.contentAsString).contains("\"authorization_servers\":[\"https://idp.example.test/application/o/paperless/\"]")
-    assertThat(response.contentAsString).contains("\"scopes_supported\":[\"openid\",\"profile\",\"email\",\"paperless_gpt\"]")
+    assertThat(response.contentAsString)
+      .contains("\"scopes_supported\":[\"openid\",\"profile\",\"email\",\"paperless_gpt\",\"offline_access\"]")
     assertThat(response.contentAsString).contains("bearer_methods_supported")
     assertThat(response.contentAsString).doesNotContain("tls_client_certificate_bound_access_tokens")
   }
 
   @Test
-  fun `api endpoints require authentication`() {
+  fun `non mcp endpoints require authentication`() {
     val response = mockMvc.perform(
-      get("/api/documents/all")
+      get("/documents")
     )
       .andExpect(status().isUnauthorized)
       .andReturn()
@@ -110,8 +111,19 @@ class McpOAuthIntegrationTests(
       .response
 
     assertThat(response.contentAsString).contains(""""tools"""")
-    assertThat(response.contentAsString).contains(""""securitySchemes":[{"type":"oauth2","scopes":["openid","profile","email","paperless_gpt"]}]""")
-    assertThat(response.contentAsString).contains(""""_meta":{"securitySchemes":[{"type":"oauth2","scopes":["openid","profile","email","paperless_gpt"]}]}""")
+    assertThat(response.contentAsString).contains(""""outputSchema"""")
+    assertThat(response.contentAsString).contains(""""description":"Human readable document title."""")
+    assertThat(response.contentAsString).contains(""""description":"Ranked snippets most relevant to the question."""")
+    assertThat(response.contentAsString).contains(""""readOnlyHint":true""")
+    assertThat(response.contentAsString).contains(""""destructiveHint":false""")
+    assertThat(response.contentAsString).contains(""""idempotentHint":true""")
+    assertThat(response.contentAsString).contains(""""openWorldHint":false""")
+    assertThat(response.contentAsString).doesNotContain(""""destructiveHint":true""")
+    assertThat(response.contentAsString).doesNotContain(""""openWorldHint":true""")
+    assertThat(response.contentAsString)
+      .contains(""""securitySchemes":[{"type":"oauth2","scopes":["openid","profile","email","paperless_gpt","offline_access"]}]""")
+    assertThat(response.contentAsString)
+      .contains(""""_meta":{"securitySchemes":[{"type":"oauth2","scopes":["openid","profile","email","paperless_gpt","offline_access"]}]}""")
   }
 
   @Test

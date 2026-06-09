@@ -25,9 +25,6 @@ spring:
     enabled: true
     schemas: paperless_rag
     default-schema: paperless_rag
-springdoc:
-  api-docs:
-    path: /api/openapi.json
 server:
   forward-headers-strategy: framework
 

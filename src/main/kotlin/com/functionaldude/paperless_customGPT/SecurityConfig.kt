@@ -30,15 +30,13 @@ class SecurityConfig(
       .csrf { csrf ->
         csrf
           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-          .ignoringRequestMatchers("/api/**", "/mcp", "/mcp/**", "/actuator/**", "/v3/api-docs/**")
+          .ignoringRequestMatchers("/mcp", "/mcp/**", "/actuator/**")
       }
       .authorizeHttpRequests { auth ->
         auth
           .requestMatchers("/actuator/health").permitAll()
           .requestMatchers("/error").permitAll()
           .requestMatchers("/").permitAll()
-          .requestMatchers("/api/openapi.json").permitAll()
-          .requestMatchers("/v3/api-docs/**").permitAll()
           .requestMatchers("/.well-known/oauth-protected-resource/**").permitAll()
           .anyRequest().authenticated()
       }
