@@ -1,8 +1,9 @@
 package com.functionaldude.paperless_customGPT.documents
 
+import com.fasterxml.jackson.annotation.JsonClassDescription
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.functionaldude.paperless.jooq.public.tables.references.*
-import com.functionaldude.paperless_customGPT.PaperlessUrlProvider
-import io.swagger.v3.oas.annotations.media.Schema
 import org.jooq.Condition
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.arrayAgg
@@ -10,40 +11,34 @@ import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.OffsetDateTime
 
-@Schema(description = "Paperless document metadata together with extracted text content.")
+@JsonClassDescription("Paperless document metadata together with extracted text content.")
 data class DocumentDto(
-  @field:Schema(description = "Unique numeric identifier of the Paperless document.", example = "42")
+  @field:JsonPropertyDescription("Unique numeric identifier of the Paperless document.")
   val id: Int,
-  @field:Schema(description = "Human readable document title.", example = "Renewal Policy")
+  @field:JsonPropertyDescription("Human readable document title.")
   val title: String,
-  @field:Schema(description = "Creation date registered in Paperless (ISO-8601).", example = "2024-03-15")
+  @field:JsonPropertyDescription("Creation date registered in Paperless, formatted as an ISO-8601 date.")
   val documentDate: LocalDate,
-  @field:Schema(
-    description = "Last modification timestamp if Paperless recorded one.",
-    example = "2024-03-22T10:15:30Z",
-    nullable = true
-  )
+  @field:JsonProperty(required = false)
+  @field:JsonPropertyDescription("Last modification timestamp if Paperless recorded one.")
   val modifiedAt: OffsetDateTime?,
-  @field:Schema(description = "Persisted MIME type of the document.", example = "application/pdf")
+  @field:JsonPropertyDescription("Persisted MIME type of the document.")
   val mimeType: String,
-  @field:Schema(description = "Full text content extracted from the source PDF.")
+  @field:JsonPropertyDescription("Full text content extracted from the source PDF.")
   val content: String,
-  @field:Schema(description = "Optional Paperless username of the document owner.", example = "agent", nullable = true)
+  @field:JsonProperty(required = false)
+  @field:JsonPropertyDescription("Optional Paperless username of the document owner.")
   val ownerUsername: String?,
-  @field:Schema(description = "Free text notes added in Paperless.", nullable = true)
+  @field:JsonProperty(required = false)
+  @field:JsonPropertyDescription("Free text notes added in Paperless.")
   val note: String?,
-  @field:Schema(
-    description = "Name of the correspondent linked to the document.",
-    example = "ACME Insurance",
-    nullable = true
-  )
+  @field:JsonProperty(required = false)
+  @field:JsonPropertyDescription("Name of the correspondent linked to the document.")
   val correspondentName: String?,
-  @field:Schema(description = "Tags linked to the document.", example = "[\"Insurance\",\"Policy\"]", nullable = true)
+  @field:JsonProperty(required = false)
+  @field:JsonPropertyDescription("Tags linked to the document.")
   val tags: List<String>?,
-  @field:Schema(
-    description = "Direct link to the document inside Paperless.",
-    example = "https://paperless.example.com/documents/42"
-  )
+  @field:JsonPropertyDescription("Direct link to the document inside Paperless.")
   val sourceUrl: String,
 )
 

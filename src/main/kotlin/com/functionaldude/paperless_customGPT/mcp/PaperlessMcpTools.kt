@@ -1,46 +1,87 @@
 package com.functionaldude.paperless_customGPT.mcp
 
-import com.functionaldude.paperless_customGPT.agent.AgentOperationText
-import com.functionaldude.paperless_customGPT.agent.AgentOperationsService
 import com.functionaldude.paperless_customGPT.documents.DocumentDto
+import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import com.functionaldude.paperless_customGPT.rag.RagQueryResponse
+import com.functionaldude.paperless_customGPT.rag.RagQueryService
 import org.springaicommunity.mcp.annotation.McpTool
 import org.springaicommunity.mcp.annotation.McpToolParam
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
+import org.springframework.web.server.ResponseStatusException
 
 @Component
 class PaperlessMcpTools(
-  private val agentOperationsService: AgentOperationsService,
+  private val paperlessDocumentService: PaperlessDocumentService,
+  private val ragQueryService: RagQueryService,
 ) {
   @McpTool(
     name = "listDocuments",
-    description = AgentOperationText.LIST_DOCUMENTS_DESCRIPTION
+    description = "Returns every Paperless PDF document together with metadata and extracted content.",
+    generateOutputSchema = false, // Somehow this errors on MCPJam but probably not a big deal
+    annotations = McpTool.McpAnnotations(
+      readOnlyHint = true,
+      destructiveHint = false,
+      idempotentHint = true,
+      openWorldHint = false
+    )
   )
   fun listDocuments(): List<DocumentDto> {
-    return agentOperationsService.listDocuments()
+    return paperlessDocumentService.findAllDocuments()
   }
 
   @McpTool(
     name = "findDocumentById",
-    description = AgentOperationText.FIND_DOCUMENT_BY_ID_DESCRIPTION
+    description = "Looks up the Paperless document for the supplied identifier and returns its metadata and content.",
+    generateOutputSchema = true,
+    annotations = McpTool.McpAnnotations(
+      readOnlyHint = true,
+      destructiveHint = false,
+      idempotentHint = true,
+      openWorldHint = false
+    )
   )
   fun findDocumentById(
-    @McpToolParam(description = AgentOperationText.DOCUMENT_ID_DESCRIPTION)
+    @McpToolParam(description = "Numeric Paperless document id.")
     id: String
   ): DocumentDto {
-    return agentOperationsService.findDocumentById(id)
+    val documentId = id.toIntOrNull()
+      ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Document id must be a number")
+
+    return paperlessDocumentService.findDocumentById(documentId)
+      ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
   }
 
   @McpTool(
     name = "searchRag",
-    description = AgentOperationText.RAG_SEARCH_DESCRIPTION
+    description = "Uses pgvector similarity search to retrieve the most relevant Paperless documents for the provided question.",
+    generateOutputSchema = true,
+    annotations = McpTool.McpAnnotations(
+      readOnlyHint = true,
+      destructiveHint = false,
+      idempotentHint = true,
+      openWorldHint = false
+    )
   )
   fun searchRag(
-    @McpToolParam(description = AgentOperationText.RAG_QUERY_DESCRIPTION)
+    @McpToolParam(description = "Natural language prompt used to search previously ingested Paperless documents.")
     query: String,
-    @McpToolParam(description = AgentOperationText.RAG_TOP_K_DESCRIPTION)
+    @McpToolParam(description = "Optional number of top results to return. Values over 50 are clamped.")
     topK: Int? = null
   ): RagQueryResponse {
-    return agentOperationsService.searchRag(query, topK)
+    val normalizedQuery = query.trim()
+    if (normalizedQuery.isEmpty()) {
+      throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Query must not be blank")
+    }
+
+    val requestedTopK = topK?.takeIf { it > 0 } ?: DEFAULT_TOP_K
+    val effectiveTopK = requestedTopK.coerceAtMost(MAX_TOP_K)
+    val results = ragQueryService.findDocumentsSimilarTo(normalizedQuery, effectiveTopK)
+    return RagQueryResponse(results)
+  }
+
+  companion object {
+    const val DEFAULT_TOP_K = 5
+    const val MAX_TOP_K = 50
   }
 }

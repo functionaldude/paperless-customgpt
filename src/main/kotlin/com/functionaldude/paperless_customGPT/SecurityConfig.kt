@@ -1,6 +1,8 @@
 package com.functionaldude.paperless_customGPT
 
 import com.functionaldude.paperless_customGPT.security.AppProperties
+import com.functionaldude.paperless_customGPT.security.McpBearerAuthenticationEntryPoint
+import com.functionaldude.paperless_customGPT.security.McpRequestDebugFilter
 import org.springaicommunity.mcp.security.server.config.McpServerOAuth2Configurer
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -8,6 +10,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.oauth2.jwt.JwtDecoder
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
@@ -17,6 +20,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 class SecurityConfig(
   private val appProperties: AppProperties,
   private val jwtDecoder: JwtDecoder,
+  private val mcpRequestDebugFilter: McpRequestDebugFilter,
+  private val mcpBearerAuthenticationEntryPoint: McpBearerAuthenticationEntryPoint,
 ) {
 
   @Bean
@@ -25,15 +30,13 @@ class SecurityConfig(
       .csrf { csrf ->
         csrf
           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-          .ignoringRequestMatchers("/api/**", "/mcp", "/mcp/**", "/actuator/**", "/v3/api-docs/**")
+          .ignoringRequestMatchers("/mcp", "/mcp/**", "/actuator/**")
       }
       .authorizeHttpRequests { auth ->
         auth
           .requestMatchers("/actuator/health").permitAll()
           .requestMatchers("/error").permitAll()
           .requestMatchers("/").permitAll()
-          .requestMatchers("/api/openapi.json").permitAll()
-          .requestMatchers("/v3/api-docs/**").permitAll()
           .requestMatchers("/.well-known/oauth-protected-resource/**").permitAll()
           .anyRequest().authenticated()
       }
@@ -46,9 +49,16 @@ class SecurityConfig(
           metadata.authorizationServer(appProperties.auth.normalizedIssuerUri())
           metadata.resourceName("paperless-customGPT")
           appProperties.auth.scopes.forEach { scope -> metadata.scope(scope) }
+          metadata.claims { claims ->
+            claims.remove("tls_client_certificate_bound_access_tokens")
+          }
         }
         oauth2.jwtDecoder(jwtDecoder)
+        oauth2.oauth2ResourceServer { resourceServer ->
+          resourceServer.authenticationEntryPoint(mcpBearerAuthenticationEntryPoint)
+        }
       }
+      .addFilterBefore(mcpRequestDebugFilter, BearerTokenAuthenticationFilter::class.java)
 
     return http.build()
   }

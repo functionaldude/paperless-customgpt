@@ -1,4 +1,4 @@
-package com.functionaldude.paperless_customGPT
+package com.functionaldude.paperless_customGPT.documents
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component

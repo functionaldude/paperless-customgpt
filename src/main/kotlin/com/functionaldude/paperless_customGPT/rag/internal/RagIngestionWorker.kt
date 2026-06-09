@@ -15,14 +15,16 @@ class RagIngestionWorker(
   // Run every minute
   @Scheduled(fixedDelayString = "PT1M")
   fun run() {
+    log.info("Ingestion worker: checking for candidates")
     var candidates = ragIngestionService.findIngestCandidates(limit = 20)
 
     do {
       if (candidates.isEmpty()) {
-        log.info("Nothing to do")
+        log.info("Ingestion worker: nothing to do")
         return
       }
 
+      log.info("Ingestion worker: processing ${candidates.size} candidates")
       val semaphore = Semaphore(6)
 
       measureTime {
