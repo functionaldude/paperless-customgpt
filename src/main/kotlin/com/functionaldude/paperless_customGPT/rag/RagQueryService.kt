@@ -2,7 +2,7 @@ package com.functionaldude.paperless_customGPT.rag
 
 import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMENT_CHUNK
 import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMENT_SOURCE
-import com.functionaldude.paperless_customGPT.PaperlessUrlProvider
+import com.functionaldude.paperless_customGPT.documents.PaperlessUrlProvider
 import com.functionaldude.paperless_customGPT.rag.api.IngestStatus
 import com.functionaldude.paperless_customGPT.rag.internal.EmbeddingDimensionReducer
 import dev.langchain4j.model.embedding.EmbeddingModel

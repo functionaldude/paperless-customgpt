@@ -18,7 +18,7 @@ class PaperlessMcpTools(
   @McpTool(
     name = "listDocuments",
     description = "Returns every Paperless PDF document together with metadata and extracted content.",
-    generateOutputSchema = true,
+    generateOutputSchema = false, // Somehow this errors on MCPJam but probably not a big deal
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
       destructiveHint = false,

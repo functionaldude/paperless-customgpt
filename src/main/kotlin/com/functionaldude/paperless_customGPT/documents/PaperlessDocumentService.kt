@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonClassDescription
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.functionaldude.paperless.jooq.public.tables.references.*
-import com.functionaldude.paperless_customGPT.PaperlessUrlProvider
 import org.jooq.Condition
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.arrayAgg
