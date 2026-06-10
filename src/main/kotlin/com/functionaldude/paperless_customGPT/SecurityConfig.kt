@@ -25,11 +25,15 @@ class SecurityConfig(
   fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
     http
       .csrf { csrf ->
+        // Keep CSRF protection for browser-facing endpoints. MCP uses bearer tokens rather
+        // than cookie authentication, and actuator endpoints are intended for service access.
         csrf
           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
           .ignoringRequestMatchers("/mcp", "/mcp/**", "/actuator/**")
       }
       .authorizeHttpRequests { auth ->
+        // Health, error handling, the landing page, and OAuth resource discovery must be
+        // reachable without a token. Everything else, including MCP tool calls, is protected.
         auth
           .requestMatchers("/actuator/health").permitAll()
           .requestMatchers("/error").permitAll()
@@ -38,6 +42,9 @@ class SecurityConfig(
           .anyRequest().authenticated()
       }
       .with(McpServerOAuth2Configurer.mcpServerOAuth2()) { oauth2 ->
+        // Configure this application as an OAuth2 resource server for the MCP endpoint and
+        // advertise the external resource and authorization-server URLs to MCP clients.
+        // This enables the .well-known/oauth-protected-resource/mcp discovery endpoint
         oauth2.authorizationServer(appProperties.auth.normalizedIssuerUri)
         oauth2.resourceName("paperless-customGPT")
         oauth2.resourcePath("/mcp")
@@ -47,11 +54,14 @@ class SecurityConfig(
           metadata.resourceName("paperless-customGPT")
           appProperties.auth.scopes.forEach { scope -> metadata.scope(scope) }
           metadata.claims { claims ->
+            // Mutual-TLS-bound access tokens are not supported by this deployment.
             claims.remove("tls_client_certificate_bound_access_tokens")
           }
         }
+        // Validate bearer tokens with the application's issuer, audience, and signature rules.
         oauth2.jwtDecoder(jwtDecoder)
         oauth2.oauth2ResourceServer { resourceServer ->
+          // Return MCP-compatible authentication challenges when a token is missing or invalid.
           resourceServer.authenticationEntryPoint(mcpBearerAuthenticationEntryPoint)
         }
       }
