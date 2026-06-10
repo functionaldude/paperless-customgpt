@@ -20,6 +20,7 @@ The database variables are required at runtime. All others have local-developmen
 | `OIDC_ISSUER_URI`                        | `http://localhost:9000/application/o/paperless/`    | Issuer that signs ChatGPT access tokens. The JWKS URL is derived as `<issuer>/jwks/`.                  |
 | `OIDC_AUDIENCE`                          | `<APP_PUBLIC_URL>/mcp`                              | Required JWT audience. Override when the provider emits another audience, such as the OAuth client ID. |
 | `OIDC_SCOPES`                            | `openid,profile,email,paperless_gpt,offline_access` | Comma-separated scopes advertised in protected-resource and MCP tool metadata.                         |
+| `MCP_TOOL_LOGGING`                       | `OFF`                                               | MCP tool call logging: `OFF`, `INFO` for tool names, or `DEBUG` for tool names and input parameters.   |
 | `OPENAI_BASE_URL`                        | `http://localhost:1234/v1`                          | OpenAI-compatible embedding API base URL.                                                              |
 | `OPENAI_MODEL_NAME`                      | `text-embedding-multilingual-e5-base`               | Embedding model name.                                                                                  |
 | `OPENAI_API_KEY`                         | `lm-studio`                                         | Embedding API key; the default is a placeholder for LM Studio.                                         |
