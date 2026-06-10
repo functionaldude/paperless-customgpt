@@ -42,7 +42,7 @@ class SecurityConfig(
         oauth2.resourceName("paperless-customGPT")
         oauth2.resourcePath("/mcp")
         oauth2.protectedResourceMetadataCustomizer { metadata ->
-          metadata.resource(appProperties.mcpResource())
+          metadata.resource(appProperties.mcpResource)
           metadata.authorizationServer(appProperties.auth.normalizedIssuerUri)
           metadata.resourceName("paperless-customGPT")
           appProperties.auth.scopes.forEach { scope -> metadata.scope(scope) }

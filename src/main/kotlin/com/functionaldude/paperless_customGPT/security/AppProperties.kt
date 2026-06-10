@@ -16,15 +16,14 @@ data class AppProperties(
     val normalizedIssuerUri: String
       get() = issuerUri.trim().ifBlank { throw IllegalStateException("app.auth.issuer-uri must not be blank") }
 
-    val jwkSetUri: String
-      get() = "${normalizedIssuerUri.trimEnd('/')}/jwks/"
+    val jwkSetUri: String get() = "${normalizedIssuerUri.trimEnd('/')}/jwks/"
   }
 
-  fun normalizedPublicUrl(): String = publicUrl.trimEnd('/')
+  val normalizedPublicUrl: String get() = publicUrl.trimEnd('/')
 
-  fun mcpResource(): String = "${normalizedPublicUrl()}/mcp"
+  val mcpResource: String get() = "$normalizedPublicUrl/mcp"
 
-  fun mcpProtectedResourceMetadataUrl(): String = "${normalizedPublicUrl()}/.well-known/oauth-protected-resource/mcp"
+  val mcpProtectedResourceMetadataUrl: String get() = "$normalizedPublicUrl/.well-known/oauth-protected-resource/mcp"
 
-  fun expectedAudience(): String = auth.audience.trim().ifBlank { mcpResource() }
+  val expectedAudience: String get() = auth.audience.trim().ifBlank { mcpResource }
 }

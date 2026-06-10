@@ -31,7 +31,7 @@ class McpBearerAuthenticationEntryPoint(
     response.setHeader(
       HttpHeaders.WWW_AUTHENTICATE,
       challengeWithoutResourceMetadata + separator +
-          "resource_metadata=\"${appProperties.mcpProtectedResourceMetadataUrl()}\"" +
+          "resource_metadata=\"${appProperties.mcpProtectedResourceMetadataUrl}\"" +
           separator + "scope=\"openid profile email paperless_gpt\"",
     )
   }

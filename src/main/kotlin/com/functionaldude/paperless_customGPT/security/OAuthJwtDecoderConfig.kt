@@ -18,7 +18,7 @@ class OAuthJwtDecoderConfig {
   fun jwtDecoder(appProperties: AppProperties): JwtDecoder {
     val jwtValidator = DelegatingOAuth2TokenValidator(
       JwtValidators.createDefaultWithIssuer(appProperties.auth.normalizedIssuerUri),
-      JwtAudienceValidator(appProperties.expectedAudience()),
+      JwtAudienceValidator(appProperties.expectedAudience),
     )
 
     val delegate by lazy {
