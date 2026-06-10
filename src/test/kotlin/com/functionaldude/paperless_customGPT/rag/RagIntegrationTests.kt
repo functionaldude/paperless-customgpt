@@ -67,6 +67,31 @@ class RagIntegrationTests {
     assertThat(results.any { it.paperlessDocId == DOC_ID }).isTrue
   }
 
+  @Test
+  fun `rag query applies inclusive document date range before ranking`() {
+    val queryText = loadChunkTextForQuery()
+    val documentDate = dsl
+      .select(DOCUMENT_SOURCE.DOC_DATE)
+      .from(DOCUMENT_SOURCE)
+      .where(DOCUMENT_SOURCE.PAPERLESS_DOC_ID.eq(DOC_ID))
+      .fetchOne(DOCUMENT_SOURCE.DOC_DATE)!!
+
+    val includedResults = ragQueryService.findDocumentsSimilarTo(
+      queryText,
+      topK = 15,
+      fromDate = documentDate,
+      toDate = documentDate,
+    )
+    val excludedResults = ragQueryService.findDocumentsSimilarTo(
+      queryText,
+      topK = 15,
+      fromDate = documentDate.plusDays(1),
+    )
+
+    assertThat(includedResults).extracting<Int> { it.paperlessDocId }.contains(DOC_ID)
+    assertThat(excludedResults).extracting<Int> { it.paperlessDocId }.doesNotContain(DOC_ID)
+  }
+
   private fun loadCandidate(): IngestionCandidate {
     val record = dsl
       .select(

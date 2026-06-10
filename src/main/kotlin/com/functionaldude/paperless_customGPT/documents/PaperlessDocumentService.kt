@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.functionaldude.paperless.jooq.public.tables.references.*
 import org.jooq.Condition
 import org.jooq.DSLContext
+import org.jooq.SortField
 import org.jooq.impl.DSL.arrayAgg
+import org.jooq.impl.DSL.exists
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -44,12 +46,21 @@ data class DocumentDto(
   val sourceUrl: String,
 )
 
+@JsonClassDescription("Wrapper containing Paperless documents.")
+data class DocumentList(
+  @field:JsonPropertyDescription("Paperless documents matching the tool request.")
+  val documents: List<DocumentDto>,
+)
+
 @Service
 class PaperlessDocumentService(
   private val dsl: DSLContext,
   private val paperlessUrlProvider: PaperlessUrlProvider,
 ) {
-  private fun findDocs(vararg conditions: Condition): List<DocumentDto> {
+  private fun findDocs(
+    conditions: Collection<Condition>,
+    orderBy: Collection<SortField<*>> = listOf(DOCUMENTS_DOCUMENT.MODIFIED.desc()),
+  ): List<DocumentDto> {
     return dsl
       .select(
         DOCUMENTS_DOCUMENT.ID,
@@ -69,14 +80,14 @@ class PaperlessDocumentService(
       .leftJoin(DOCUMENTS_CORRESPONDENT).on(DOCUMENTS_DOCUMENT.CORRESPONDENT_ID.eq(DOCUMENTS_CORRESPONDENT.ID))
       .leftJoin(DOCUMENTS_DOCUMENT_TAGS).on(DOCUMENTS_DOCUMENT_TAGS.DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
       .leftJoin(DOCUMENTS_TAG).on(DOCUMENTS_TAG.ID.eq(DOCUMENTS_DOCUMENT_TAGS.TAG_ID))
-      .where(*conditions)
+      .where(conditions)
       .groupBy(
         DOCUMENTS_DOCUMENT.ID,
         AUTH_USER.USERNAME,
         DOCUMENTS_NOTE.NOTE,
         DOCUMENTS_CORRESPONDENT.NAME,
       )
-      .orderBy(DOCUMENTS_DOCUMENT.MODIFIED.desc())
+      .orderBy(orderBy)
       .fetch { record ->
         DocumentDto(
           id = record.get(DOCUMENTS_DOCUMENT.ID)!!,
@@ -94,20 +105,61 @@ class PaperlessDocumentService(
       }
   }
 
-  fun findAllDocuments(): List<DocumentDto> {
+  private fun findDocs(
+    vararg conditions: Condition,
+    orderBy: SortField<*> = DOCUMENTS_DOCUMENT.CREATED.desc()
+  ): List<DocumentDto> = findDocs(conditions.toList(), listOf(orderBy))
+
+  fun findAllDocuments(): List<DocumentDto> = findDocs(DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME))
+
+  fun findDocumentById(id: Int): DocumentDto? = findDocs(
+    DOCUMENTS_DOCUMENT.ID.eq(id),
+    DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME),
+  ).firstOrNull()
+
+  fun findDocumentsByCorrespondent(
+    correspondentName: String,
+    fromDate: LocalDate? = null,
+    toDate: LocalDate? = null,
+  ): List<DocumentDto> = findDocs(
+    conditions = documentFilterConditions(fromDate, toDate) +
+        DOCUMENTS_CORRESPONDENT.NAME.containsIgnoreCase(correspondentName),
+    orderBy = CREATION_DATE_ORDER,
+  )
+
+  fun findDocumentsByTag(
+    tagName: String,
+    fromDate: LocalDate? = null,
+    toDate: LocalDate? = null,
+  ): List<DocumentDto> {
+    val matchingDocumentTags = DOCUMENTS_DOCUMENT_TAGS.`as`("matching_document_tags")
+    val matchingTags = DOCUMENTS_TAG.`as`("matching_tags")
+    val hasTag = exists(
+      dsl.selectOne()
+        .from(matchingDocumentTags)
+        .join(matchingTags).on(matchingTags.ID.eq(matchingDocumentTags.TAG_ID))
+        .where(matchingDocumentTags.DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
+        .and(matchingTags.NAME.equalIgnoreCase(tagName))
+    )
+
     return findDocs(
-      DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME)
+      conditions = documentFilterConditions(fromDate, toDate) + hasTag,
+      orderBy = CREATION_DATE_ORDER,
     )
   }
 
-  fun findDocumentById(id: Int): DocumentDto? {
-    return findDocs(
-      DOCUMENTS_DOCUMENT.ID.eq(id),
-      DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME)
-    ).firstOrNull()
+  private fun documentFilterConditions(fromDate: LocalDate?, toDate: LocalDate?): List<Condition> = buildList {
+    add(DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME))
+    fromDate?.let { add(DOCUMENTS_DOCUMENT.CREATED.ge(it)) }
+    toDate?.let { add(DOCUMENTS_DOCUMENT.CREATED.le(it)) }
   }
 
   companion object {
     const val PDF_MIME = "application/pdf"
+
+    private val CREATION_DATE_ORDER = listOf(
+      DOCUMENTS_DOCUMENT.CREATED.desc(),
+      DOCUMENTS_DOCUMENT.ID.desc(),
+    )
   }
 }

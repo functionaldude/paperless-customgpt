@@ -27,4 +27,44 @@ class DocumentIntegrationTests {
     assertThat(document.sourceUrl).endsWith("/documents/$DOC_ID")
     assertThat(document.tags).contains("via E-Mail")
   }
+
+  @Test
+  fun `findDocumentsByCorrespondent filters and orders by creation date`() {
+    val document = paperlessDocumentService.findDocumentById(DOC_ID)!!
+
+    val documents = paperlessDocumentService.findDocumentsByCorrespondent("a1")
+
+    assertThat(documents).extracting<Int> { it.id }.contains(DOC_ID)
+    assertThat(documents.map { it.documentDate }).isSortedAccordingTo(reverseOrder())
+    assertThat(
+      paperlessDocumentService.findDocumentsByCorrespondent(
+        "A1",
+        fromDate = document.documentDate,
+        toDate = document.documentDate,
+      )
+    ).extracting<Int> { it.id }.contains(DOC_ID)
+    assertThat(
+      paperlessDocumentService.findDocumentsByCorrespondent(
+        "A1",
+        fromDate = document.documentDate.plusDays(1),
+      )
+    ).extracting<Int> { it.id }.doesNotContain(DOC_ID)
+  }
+
+  @Test
+  fun `findDocumentsByTag filters and preserves all document tags`() {
+    val document = paperlessDocumentService.findDocumentById(DOC_ID)!!
+
+    val documents = paperlessDocumentService.findDocumentsByTag("VIA E-MAIL")
+
+    assertThat(documents).extracting<Int> { it.id }.contains(DOC_ID)
+    assertThat(documents.map { it.documentDate }).isSortedAccordingTo(reverseOrder())
+    assertThat(documents.first { it.id == DOC_ID }.tags).contains("via E-Mail")
+    assertThat(
+      paperlessDocumentService.findDocumentsByTag(
+        "via E-Mail",
+        toDate = document.documentDate.minusDays(1),
+      )
+    ).extracting<Int> { it.id }.doesNotContain(DOC_ID)
+  }
 }

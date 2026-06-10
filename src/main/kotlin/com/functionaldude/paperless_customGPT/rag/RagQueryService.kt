@@ -11,6 +11,7 @@ import org.jooq.impl.DSL
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 
 @Service
 class RagQueryService(
@@ -25,7 +26,12 @@ class RagQueryService(
   }
 
   @Transactional(readOnly = true)
-  fun findDocumentsSimilarTo(query: String, topK: Int): List<RagSearchResult> {
+  fun findDocumentsSimilarTo(
+    query: String,
+    topK: Int,
+    fromDate: LocalDate? = null,
+    toDate: LocalDate? = null,
+  ): List<RagSearchResult> {
     // hnsw.ef_search controls how many graph candidates HNSW explores per query:
     // higher values usually improve recall (our priority) at the cost of slower search.
     // pgvector exposes it as a session setting, so we use SET LOCAL to scope it to this
@@ -42,6 +48,12 @@ class RagQueryService(
       DSL.`val`(queryEmbedding, DOCUMENT_CHUNK.EMBEDDING.dataType)
     )
 
+    val conditions = buildList {
+      add(DOCUMENT_SOURCE.STATUS.eq(IngestStatus.DONE.name))
+      fromDate?.let { add(DOCUMENT_SOURCE.DOC_DATE.ge(it)) }
+      toDate?.let { add(DOCUMENT_SOURCE.DOC_DATE.le(it)) }
+    }
+
     val records = dsl
       .select(
         DOCUMENT_CHUNK.CHUNK_INDEX,
@@ -54,7 +66,7 @@ class RagQueryService(
       )
       .from(DOCUMENT_CHUNK)
       .join(DOCUMENT_SOURCE).on(DOCUMENT_CHUNK.DOCUMENT_SOURCE_ID.eq(DOCUMENT_SOURCE.PAPERLESS_DOC_ID))
-      .where(DOCUMENT_SOURCE.STATUS.eq(IngestStatus.DONE.name))
+      .where(conditions)
       .orderBy(DSL.field("score").asc())
       .limit(topK)
       .fetch { record ->
