@@ -2,7 +2,6 @@ package com.functionaldude.paperless_customGPT
 
 import com.functionaldude.paperless_customGPT.security.AppProperties
 import com.functionaldude.paperless_customGPT.security.McpBearerAuthenticationEntryPoint
-import com.functionaldude.paperless_customGPT.security.McpRequestDebugFilter
 import org.springaicommunity.mcp.security.server.config.McpServerOAuth2Configurer
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.oauth2.jwt.JwtDecoder
-import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
@@ -20,7 +18,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 class SecurityConfig(
   private val appProperties: AppProperties,
   private val jwtDecoder: JwtDecoder,
-  private val mcpRequestDebugFilter: McpRequestDebugFilter,
   private val mcpBearerAuthenticationEntryPoint: McpBearerAuthenticationEntryPoint,
 ) {
 
@@ -58,7 +55,6 @@ class SecurityConfig(
           resourceServer.authenticationEntryPoint(mcpBearerAuthenticationEntryPoint)
         }
       }
-      .addFilterBefore(mcpRequestDebugFilter, BearerTokenAuthenticationFilter::class.java)
 
     return http.build()
   }
