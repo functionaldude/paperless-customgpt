@@ -32,9 +32,8 @@ app:
   public-url: ${APP_PUBLIC_URL:http://localhost:8080}
   auth:
     issuer-uri: ${OIDC_ISSUER_URI:http://localhost:9000/application/o/paperless/}
-    jwk-set-uri: ${OIDC_JWK_SET_URI:}
     audience: ${OIDC_AUDIENCE:}
-    scopes: openid,profile,email,paperless_gpt,offline_access
+    scopes: ${OIDC_SCOPES:openid,profile,email}
 
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}

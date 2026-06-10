@@ -16,20 +16,15 @@ class OAuthJwtDecoderConfig {
 
   @Bean
   fun jwtDecoder(appProperties: AppProperties): JwtDecoder {
-    val issuerUri = appProperties.auth.normalizedIssuerUri()
     val jwtValidator = DelegatingOAuth2TokenValidator(
-      JwtValidators.createDefaultWithIssuer(issuerUri),
+      JwtValidators.createDefaultWithIssuer(appProperties.auth.normalizedIssuerUri),
       JwtAudienceValidator(appProperties.expectedAudience()),
     )
 
     val delegate by lazy {
-      val decoder = if (appProperties.auth.jwkSetUri.isBlank()) {
-        NimbusJwtDecoder.withIssuerLocation(issuerUri).build()
-      } else {
-        NimbusJwtDecoder.withJwkSetUri(appProperties.auth.jwkSetUri).build()
+      NimbusJwtDecoder.withJwkSetUri(appProperties.auth.jwkSetUri).build().apply {
+        setJwtValidator(jwtValidator)
       }
-      decoder.setJwtValidator(jwtValidator)
-      decoder
     }
 
     return JwtDecoder { token -> delegate.decode(token) }

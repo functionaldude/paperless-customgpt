@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
   properties = [
     "app.public-url=https://paperless-gpt.example.test",
     "app.auth.issuer-uri=https://idp.example.test/application/o/paperless/",
-    "app.auth.jwk-set-uri=https://idp.example.test/application/o/paperless/jwks/",
     "app.auth.audience=https://paperless-gpt.example.test/mcp",
+    "app.auth.scopes=openid,paperless_gpt",
     "spring.flyway.enabled=false",
   ]
 )
@@ -46,7 +46,7 @@ class McpOAuthIntegrationTests(
     assertThat(response.contentAsString).contains("\"resource\":\"https://paperless-gpt.example.test/mcp\"")
     assertThat(response.contentAsString).contains("\"authorization_servers\":[\"https://idp.example.test/application/o/paperless/\"]")
     assertThat(response.contentAsString)
-      .contains("\"scopes_supported\":[\"openid\",\"profile\",\"email\",\"paperless_gpt\",\"offline_access\"]")
+      .contains("\"scopes_supported\":[\"openid\",\"paperless_gpt\"]")
     assertThat(response.contentAsString).contains("bearer_methods_supported")
     assertThat(response.contentAsString).doesNotContain("tls_client_certificate_bound_access_tokens")
   }
@@ -121,9 +121,9 @@ class McpOAuthIntegrationTests(
     assertThat(response.contentAsString).doesNotContain(""""destructiveHint":true""")
     assertThat(response.contentAsString).doesNotContain(""""openWorldHint":true""")
     assertThat(response.contentAsString)
-      .contains(""""securitySchemes":[{"type":"oauth2","scopes":["openid","profile","email","paperless_gpt","offline_access"]}]""")
+      .contains(""""securitySchemes":[{"type":"oauth2","scopes":["openid","paperless_gpt"]}]""")
     assertThat(response.contentAsString)
-      .contains(""""_meta":{"securitySchemes":[{"type":"oauth2","scopes":["openid","profile","email","paperless_gpt","offline_access"]}]}""")
+      .contains(""""_meta":{"securitySchemes":[{"type":"oauth2","scopes":["openid","paperless_gpt"]}]}""")
   }
 
   @Test

@@ -1,41 +1,37 @@
 # paperless-customGPT
 
-Spring Boot+Kotlin service that synchronizes the Paperless database into a pgvector-backed RAG and exposes REST
-endpoints for a custom GPT agent.
+Spring Boot and Kotlin service that synchronizes the Paperless database into a pgvector-backed RAG and exposes tools
+through a streamable HTTP MCP endpoint.
 
 It exposes a streamable HTTP MCP endpoint at `/mcp`. ChatGPT connects with a user-defined OAuth client registered in an
 OIDC-compatible identity provider; this service only acts as an OAuth2 resource server and validates JWT bearer tokens.
 
 ## Runtime configuration
 
-Set the following environment variables for both local runs and container deployments:
+The database variables are required at runtime. All others have local-development defaults.
 
-- `PAPERLESS_DB_URL`, `PAPERLESS_DB_USER`, `PAPERLESS_DB_PASSWORD` – connection details for the shared
-  Paperless/Postgres instance.
-  Connections are initialized with `search_path=paperless_rag,public` so RAG tables created by Flyway
-  and existing Paperless tables are both resolvable.
-- `PAPERLESS_BASE_URL` – public URL of the Paperless UI, used to expose document source links in API responses.
-- `APP_PUBLIC_URL` – externally reachable HTTPS base URL for this service, used to advertise the MCP resource as
-  `${APP_PUBLIC_URL}/mcp`.
-- `OIDC_ISSUER_URI` – issuer URL of the OAuth2/OIDC provider that issues ChatGPT access tokens.
-- `OIDC_JWK_SET_URI` – optional JWKS endpoint. If omitted, Spring Security discovers it from
-  `OIDC_ISSUER_URI` when the first bearer token is decoded.
-- `OIDC_AUDIENCE` – optional expected JWT audience. Defaults to `${APP_PUBLIC_URL}/mcp`; set it if your provider emits
-  a different audience, such as the OAuth client ID.
-- `OPENAI_BASE_URL`, `OPENAI_MODEL_NAME`, `OPENAI_API_KEY` – overrides for the LangChain4j/OpenAI embedding client. By
-  default the service points to `http://localhost:1234/v1`, uses the `text-embedding-multilingual-e5-base` model, and
-  falls back to the dummy key `lm-studio` for LM Studio compatibility.
-- `OPENAI_FORCE_HTTP1` – set to `true` (default) to force HTTP/1.1 for providers such as LM Studio; set to `false` to
-  allow HTTP/2.
-- `RAG_EMBEDDING_DIMENSIONS` – target dimension count stored in pgvector and used during similarity search. Defaults to
-  `1536`; model outputs are truncated/padded to this size before insert/query.
-- `RAG_HNSW_EF_SEARCH` – query-time HNSW recall/speed knob (higher = better recall, slower). Defaults to `400`.
-- `RAG_SPLITTER_CHUNK_TOKENS` – token-based chunk size for document splitting. Defaults to `512`.
-- `RAG_SPLITTER_OVERLAP_TOKENS` – token overlap between chunks. Defaults to `128`.
-- `RAG_SPLITTER_ESTIMATED_CHARS_PER_TOKEN` – heuristic token estimation factor for splitting (lower = more estimated
-  tokens per text). Defaults to `4.0`.
-- Any additional secrets required by other LLM providers can be added to the environment; the application reads them
-  through Spring configuration.
+| Variable                                 | Default                                             | Purpose                                                                                                |
+|------------------------------------------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `PAPERLESS_DB_URL`                       | Required                                            | JDBC URL for the shared Paperless/Postgres database.                                                   |
+| `PAPERLESS_DB_USER`                      | Required                                            | Database username.                                                                                     |
+| `PAPERLESS_DB_PASSWORD`                  | Required                                            | Database password.                                                                                     |
+| `PAPERLESS_BASE_URL`                     | `http://localhost:8000`                             | Public Paperless UI URL used for document source links.                                                |
+| `APP_PUBLIC_URL`                         | `http://localhost:8080`                             | Externally reachable service URL used to advertise the MCP resource.                                   |
+| `OIDC_ISSUER_URI`                        | `http://localhost:9000/application/o/paperless/`    | Issuer that signs ChatGPT access tokens. The JWKS URL is derived as `<issuer>/jwks/`.                  |
+| `OIDC_AUDIENCE`                          | `<APP_PUBLIC_URL>/mcp`                              | Required JWT audience. Override when the provider emits another audience, such as the OAuth client ID. |
+| `OIDC_SCOPES`                            | `openid,profile,email,paperless_gpt,offline_access` | Comma-separated scopes advertised in protected-resource and MCP tool metadata.                         |
+| `OPENAI_BASE_URL`                        | `http://localhost:1234/v1`                          | OpenAI-compatible embedding API base URL.                                                              |
+| `OPENAI_MODEL_NAME`                      | `text-embedding-multilingual-e5-base`               | Embedding model name.                                                                                  |
+| `OPENAI_API_KEY`                         | `lm-studio`                                         | Embedding API key; the default is a placeholder for LM Studio.                                         |
+| `OPENAI_FORCE_HTTP1`                     | `false`                                             | Set to `true` for providers that require HTTP/1.1.                                                     |
+| `RAG_EMBEDDING_DIMENSIONS`               | `1536`                                              | Vector dimensions stored in pgvector; model output is truncated or padded to this size.                |
+| `RAG_HNSW_EF_SEARCH`                     | `400`                                               | HNSW query-time recall/speed setting.                                                                  |
+| `RAG_SPLITTER_CHUNK_TOKENS`              | `512`                                               | Token-based document chunk size.                                                                       |
+| `RAG_SPLITTER_OVERLAP_TOKENS`            | `128`                                               | Token overlap between chunks.                                                                          |
+| `RAG_SPLITTER_ESTIMATED_CHARS_PER_TOKEN` | `4.0`                                               | Character-to-token estimation factor used while splitting documents.                                   |
+
+Database connections use `search_path=paperless_rag,public`, making both Flyway-managed RAG tables and existing
+Paperless tables available.
 
 ### ChatGPT connector URL
 
@@ -51,21 +47,19 @@ This service advertises the configured OIDC issuer through MCP protected-resourc
 client
 registration, client credentials, or token endpoint auth method metadata.
 
-Spring Boot packages `src/main/resources/application.yaml` into the executable jar, so the container image only relies
-on
-environment variables for deployment-time customization. Legacy stacks that still set `SPRING_CONFIG_IMPORT` with
-semicolon-separated locations are automatically normalized during startup.
+Spring Boot packages `src/main/resources/application.yaml` into the executable jar, so deployment-time configuration is
+provided through the environment variables above.
 
 ## Container image via `bootBuildImage`
 
 Use the Spring Boot Gradle plugin to build an OCI image with Cloud Native Buildpacks. The default image name is
-`paperless-customgpt:<project-version>`, but you can override it with `-PimageName=` or by exporting `IMAGE_NAME`.
+`paperless-customgpt:<project-version>`; override it with the task's `--imageName` option.
 
 ```bash
-./gradlew bootBuildImage -PimageName=ghcr.io/<owner>/<repo>:local
+./gradlew bootBuildImage --imageName ghcr.io/<owner>/<repo>:local
 ```
 
-The image already includes Java 21 (via `BP_JVM_VERSION=21.*`) and the packaged `application.yaml`. Run it locally with
+The image includes the Java 21 runtime required by the project and the packaged `application.yaml`. Run it locally with
 the required environment variables:
 
 ```bash
@@ -73,6 +67,7 @@ docker run --rm -p 8080:8080 \
   -e PAPERLESS_DB_URL=jdbc:postgresql://postgres/paperless \
   -e PAPERLESS_DB_USER=paperless \
   -e PAPERLESS_DB_PASSWORD=paperless \
+  -e PAPERLESS_BASE_URL=https://paperless.example.com \
   -e APP_PUBLIC_URL=https://paperless-gpt.example.com \
   -e OIDC_ISSUER_URI=https://idp.example.com/application/o/paperless/ \
   -e OIDC_AUDIENCE=https://paperless-gpt.example.com/mcp \
@@ -96,6 +91,7 @@ docker service create --name paperless-gpt \
   --env PAPERLESS_DB_URL=jdbc:postgresql://postgres/paperless \
   --env PAPERLESS_DB_USER=paperless \
   --env PAPERLESS_DB_PASSWORD=paperless \
+  --env PAPERLESS_BASE_URL=https://paperless.example.com \
   --env APP_PUBLIC_URL=https://paperless-gpt.example.com \
   --env OIDC_ISSUER_URI=https://idp.example.com/application/o/paperless/ \
   --env OIDC_AUDIENCE=https://paperless-gpt.example.com/mcp \
@@ -145,4 +141,4 @@ You can still run the service directly with Gradle after exporting the required 
 ./gradlew bootRun
 ```
 
-This uses the same configuration as the container build and is helpful when iterating on endpoints or RAG logic.
+This uses the same configuration as the container build and is helpful when iterating on MCP tools or RAG logic.

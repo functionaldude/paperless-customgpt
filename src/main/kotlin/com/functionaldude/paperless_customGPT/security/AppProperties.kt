@@ -10,13 +10,14 @@ data class AppProperties(
 ) {
   data class Auth(
     val issuerUri: String = "http://localhost:9000/application/o/paperless/",
-    val jwkSetUri: String = "",
     val audience: String = "",
     val scopes: List<String> = DEFAULT_SCOPES,
   ) {
-    fun normalizedIssuerUri(): String = issuerUri.trim().ifBlank {
-      throw IllegalStateException("app.auth.issuer-uri must not be blank")
-    }
+    val normalizedIssuerUri: String
+      get() = issuerUri.trim().ifBlank { throw IllegalStateException("app.auth.issuer-uri must not be blank") }
+
+    val jwkSetUri: String
+      get() = "${normalizedIssuerUri.trimEnd('/')}/jwks/"
   }
 
   fun normalizedPublicUrl(): String = publicUrl.trimEnd('/')
