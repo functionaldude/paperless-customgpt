@@ -32,7 +32,7 @@ class McpBearerAuthenticationEntryPoint(
       HttpHeaders.WWW_AUTHENTICATE,
       challengeWithoutResourceMetadata + separator +
           "resource_metadata=\"${appProperties.mcpProtectedResourceMetadataUrl}\"" +
-          separator + "scope=\"openid profile email paperless_gpt\"",
+          separator + "scope=\"${appProperties.auth.scopes.joinToString(" ")}\"",
     )
   }
 }

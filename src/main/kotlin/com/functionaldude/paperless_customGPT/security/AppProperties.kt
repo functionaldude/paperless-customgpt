@@ -1,6 +1,5 @@
 package com.functionaldude.paperless_customGPT.security
 
-import com.functionaldude.paperless_customGPT.mcp.McpToolAuthMetadataConfig.Companion.DEFAULT_SCOPES
 import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "app")
@@ -26,4 +25,8 @@ data class AppProperties(
   val mcpProtectedResourceMetadataUrl: String get() = "$normalizedPublicUrl/.well-known/oauth-protected-resource/mcp"
 
   val expectedAudience: String get() = auth.audience.trim().ifBlank { mcpResource }
+
+  companion object {
+    val DEFAULT_SCOPES = listOf("openid", "profile", "email")
+  }
 }

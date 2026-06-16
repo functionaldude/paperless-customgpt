@@ -65,6 +65,7 @@ class McpOAuthIntegrationTests(
 
     assertThat(header.isNullOrBlank()).isFalse()
     assertThat(header).contains("""resource_metadata="https://paperless-gpt.example.test/.well-known/oauth-protected-resource/mcp"""")
+    assertThat(header).contains("""scope="openid paperless_gpt"""")
     assertThat(body).isBlank()
   }
 
@@ -82,6 +83,7 @@ class McpOAuthIntegrationTests(
 
     assertThat(response.getHeader("WWW-Authenticate"))
       .contains("""resource_metadata="https://paperless-gpt.example.test/.well-known/oauth-protected-resource/mcp"""")
+      .contains("""scope="openid paperless_gpt"""")
     assertThat(response.contentAsString).isBlank()
   }
 
@@ -155,6 +157,7 @@ class McpOAuthIntegrationTests(
 
     assertThat(response.getHeader("WWW-Authenticate"))
       .contains("""resource_metadata="https://paperless-gpt.example.test/.well-known/oauth-protected-resource/mcp"""")
+      .contains("""scope="openid paperless_gpt"""")
     assertThat(response.contentAsString).isBlank()
   }
 

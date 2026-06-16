@@ -5,15 +5,13 @@ import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.*
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.functionaldude.paperless_customGPT.security.AppProperties
 import io.modelcontextprotocol.server.McpServerFeatures
 import io.modelcontextprotocol.spec.McpSchema
 import org.springframework.ai.util.JacksonUtils
 import org.springframework.beans.factory.config.BeanPostProcessor
-import org.springframework.boot.context.properties.bind.Bindable
-import org.springframework.boot.context.properties.bind.Binder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.env.Environment
 
 @Configuration
 class McpToolAuthMetadataConfig {
@@ -35,15 +33,10 @@ class McpToolAuthMetadataConfig {
   }
 
   companion object {
-    val DEFAULT_SCOPES = listOf("openid", "profile", "email")
-
     @Bean
     @JvmStatic
-    fun mcpToolSecuritySchemesPostProcessor(environment: Environment): BeanPostProcessor {
-      val scopes = Binder.get(environment)
-        .bind("app.auth.scopes", Bindable.listOf(String::class.java))
-        .orElse(DEFAULT_SCOPES)
-        ?.filterNotNull() ?: DEFAULT_SCOPES
+    fun mcpToolSecuritySchemesPostProcessor(appProperties: AppProperties): BeanPostProcessor {
+      val scopes = appProperties.auth.scopes
 
       return object : BeanPostProcessor {
         override fun postProcessAfterInitialization(bean: Any, beanName: String): Any {
