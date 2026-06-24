@@ -62,6 +62,8 @@ class SecurityConfig(
         oauth2.jwtDecoder(jwtDecoder)
         oauth2.oauth2ResourceServer { resourceServer ->
           // Return MCP-compatible authentication challenges when a token is missing or invalid.
+          // Currently spring mcp-server-security does not return required scopes in WWW-Authenticate header
+          // -> use custom handler
           resourceServer.authenticationEntryPoint(mcpBearerAuthenticationEntryPoint)
         }
       }

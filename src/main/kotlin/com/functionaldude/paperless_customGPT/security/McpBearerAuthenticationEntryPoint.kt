@@ -8,6 +8,11 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
 
+/**
+ * Custom AuthenticationEntryPoint that adds resource_metadata and scope to the WWW-Authenticate header
+ * for Bearer token authentication.
+ * Spring's mcp-server-security currently only adds the resource_metadata but not scopes.
+ */
 @Component
 class McpBearerAuthenticationEntryPoint(
   private val appProperties: AppProperties,
