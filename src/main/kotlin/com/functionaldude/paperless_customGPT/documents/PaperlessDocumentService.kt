@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.functionaldude.paperless.jooq.public.tables.references.*
 import org.jooq.Condition
 import org.jooq.DSLContext
+import org.jooq.Field
 import org.jooq.SortField
-import org.jooq.impl.DSL.arrayAgg
-import org.jooq.impl.DSL.exists
+import org.jooq.impl.DSL.*
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -61,14 +61,41 @@ class PaperlessDocumentService(
     conditions: Collection<Condition>,
     orderBy: Collection<SortField<*>> = listOf(DOCUMENTS_DOCUMENT.MODIFIED.desc()),
   ): List<DocumentDto> {
+    val latestVersion = DOCUMENTS_DOCUMENT.`as`("latest_version")
+    val latestVersionContent: Field<String?> = dsl
+      .select(latestVersion.CONTENT)
+      .from(latestVersion)
+      .where(latestVersion.ROOT_DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
+      .and(latestVersion.DELETED_AT.isNull)
+      .orderBy(latestVersion.ID.desc())
+      .limit(1)
+      .asField<String?>()
+    val latestVersionMimeType: Field<String?> = dsl
+      .select(latestVersion.MIME_TYPE)
+      .from(latestVersion)
+      .where(latestVersion.ROOT_DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
+      .and(latestVersion.DELETED_AT.isNull)
+      .orderBy(latestVersion.ID.desc())
+      .limit(1)
+      .asField<String?>()
+    val effectiveContent: Field<String?> = coalesce(latestVersionContent, DOCUMENTS_DOCUMENT.CONTENT)
+    val effectiveMimeType: Field<String?> = coalesce(latestVersionMimeType, DOCUMENTS_DOCUMENT.MIME_TYPE)
+    val selectedEffectiveContent = effectiveContent.`as`("effective_content")
+    val selectedEffectiveMimeType = effectiveMimeType.`as`("effective_mime_type")
+    val effectiveConditions = listOf(
+      DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull,
+      DOCUMENTS_DOCUMENT.DELETED_AT.isNull,
+      effectiveMimeType.eq(PDF_MIME),
+    ) + conditions
+
     return dsl
       .select(
         DOCUMENTS_DOCUMENT.ID,
         DOCUMENTS_DOCUMENT.TITLE,
         DOCUMENTS_DOCUMENT.CREATED,
         DOCUMENTS_DOCUMENT.MODIFIED,
-        DOCUMENTS_DOCUMENT.MIME_TYPE,
-        DOCUMENTS_DOCUMENT.CONTENT,
+        selectedEffectiveMimeType,
+        selectedEffectiveContent,
         AUTH_USER.USERNAME,
         DOCUMENTS_NOTE.NOTE,
         DOCUMENTS_CORRESPONDENT.NAME,
@@ -80,7 +107,7 @@ class PaperlessDocumentService(
       .leftJoin(DOCUMENTS_CORRESPONDENT).on(DOCUMENTS_DOCUMENT.CORRESPONDENT_ID.eq(DOCUMENTS_CORRESPONDENT.ID))
       .leftJoin(DOCUMENTS_DOCUMENT_TAGS).on(DOCUMENTS_DOCUMENT_TAGS.DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
       .leftJoin(DOCUMENTS_TAG).on(DOCUMENTS_TAG.ID.eq(DOCUMENTS_DOCUMENT_TAGS.TAG_ID))
-      .where(conditions)
+      .where(effectiveConditions)
       .groupBy(
         DOCUMENTS_DOCUMENT.ID,
         AUTH_USER.USERNAME,
@@ -94,8 +121,8 @@ class PaperlessDocumentService(
           title = record.get(DOCUMENTS_DOCUMENT.TITLE) ?: "(untitled)",
           documentDate = record.get(DOCUMENTS_DOCUMENT.CREATED)!!,
           modifiedAt = record.get(DOCUMENTS_DOCUMENT.MODIFIED),
-          mimeType = record.get(DOCUMENTS_DOCUMENT.MIME_TYPE)!!,
-          content = record.get(DOCUMENTS_DOCUMENT.CONTENT)!!,
+          mimeType = record.get(selectedEffectiveMimeType)!!,
+          content = record.get(selectedEffectiveContent)!!,
           ownerUsername = record.get(AUTH_USER.USERNAME),
           note = record.get(DOCUMENTS_NOTE.NOTE),
           correspondentName = record.get(DOCUMENTS_CORRESPONDENT.NAME),
@@ -110,11 +137,10 @@ class PaperlessDocumentService(
     orderBy: SortField<*> = DOCUMENTS_DOCUMENT.CREATED.desc()
   ): List<DocumentDto> = findDocs(conditions.toList(), listOf(orderBy))
 
-  fun findAllDocuments(): List<DocumentDto> = findDocs(DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME))
+  fun findAllDocuments(): List<DocumentDto> = findDocs()
 
   fun findDocumentById(id: Int): DocumentDto? = findDocs(
     DOCUMENTS_DOCUMENT.ID.eq(id),
-    DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME),
   ).firstOrNull()
 
   fun findDocumentsByCorrespondent(
@@ -149,7 +175,6 @@ class PaperlessDocumentService(
   }
 
   private fun documentFilterConditions(fromDate: LocalDate?, toDate: LocalDate?): List<Condition> = buildList {
-    add(DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME))
     fromDate?.let { add(DOCUMENTS_DOCUMENT.CREATED.ge(it)) }
     toDate?.let { add(DOCUMENTS_DOCUMENT.CREATED.le(it)) }
   }

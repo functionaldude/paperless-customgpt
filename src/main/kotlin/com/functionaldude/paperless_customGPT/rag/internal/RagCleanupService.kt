@@ -17,7 +17,11 @@ class RagCleanupService(
     return dsl
       .select(DOCUMENT_SOURCE.PAPERLESS_DOC_ID)
       .from(DOCUMENT_SOURCE)
-      .leftJoin(DOCUMENTS_DOCUMENT).on(DOCUMENT_SOURCE.PAPERLESS_DOC_ID.eq(DOCUMENTS_DOCUMENT.ID))
+      .leftJoin(DOCUMENTS_DOCUMENT).on(
+        DOCUMENT_SOURCE.PAPERLESS_DOC_ID.eq(DOCUMENTS_DOCUMENT.ID)
+          .and(DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull)
+          .and(DOCUMENTS_DOCUMENT.DELETED_AT.isNull)
+      )
       .where(DOCUMENTS_DOCUMENT.ID.isNull)
       .orderBy(DOCUMENT_SOURCE.UPDATED_AT.asc())
       .limit(limit)
