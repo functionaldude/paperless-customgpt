@@ -143,7 +143,7 @@ class PaperlessMcpTools(
 
   @McpTool(
     name = "searchRag",
-    description = "Uses pgvector similarity search to retrieve the most relevant Paperless documents for the provided question.",
+    description = "Uses pgvector similarity search to retrieve the most relevant Paperless documents and their best-matching text snippets. Use findDocumentById to retrieve a document's complete content.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,

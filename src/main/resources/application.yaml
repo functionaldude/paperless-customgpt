@@ -43,6 +43,7 @@ app:
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}
   hnsw-ef-search: ${RAG_HNSW_EF_SEARCH:400}
+  qwen3-query-instruction: "${RAG_QWEN3_QUERY_INSTRUCTION:Given a user question, retrieve relevant passages from personal documents that answer the question.}"
   splitter:
     chunk-size-tokens: ${RAG_SPLITTER_CHUNK_TOKENS:512}
     overlap-size-tokens: ${RAG_SPLITTER_OVERLAP_TOKENS:128}

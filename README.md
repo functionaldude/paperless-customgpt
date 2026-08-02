@@ -28,6 +28,7 @@ The database variables are required at runtime. All others have local-developmen
 | `OPENAI_FORCE_HTTP1`                     | `false`                                             | Set to `true` for providers that require HTTP/1.1.                                                     |
 | `RAG_EMBEDDING_DIMENSIONS`               | `1536`                                              | Vector dimensions stored in pgvector; model output is truncated or padded to this size.                |
 | `RAG_HNSW_EF_SEARCH`                     | `400`                                               | HNSW query-time recall/speed setting.                                                                  |
+| `RAG_QWEN3_QUERY_INSTRUCTION`            | Retrieve relevant passages from personal documents. | Task instruction added only to Qwen3 Embedding search queries; overrides the built-in English default. |
 | `RAG_SPLITTER_CHUNK_TOKENS`              | `512`                                               | Token-based document chunk size.                                                                       |
 | `RAG_SPLITTER_OVERLAP_TOKENS`            | `128`                                               | Token overlap between chunks.                                                                          |
 | `RAG_SPLITTER_ESTIMATED_CHARS_PER_TOKEN` | `4.0`                                               | Character-to-token estimation factor used while splitting documents.                                   |

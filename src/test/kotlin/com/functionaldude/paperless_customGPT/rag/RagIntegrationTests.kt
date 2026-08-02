@@ -67,6 +67,14 @@ class RagIntegrationTests {
     assertThat(results.any { it.paperlessDocId == DOC_ID }).isTrue
     assertThat(results.map { it.paperlessDocId }).doesNotHaveDuplicates()
     assertThat(results.map { it.score }).isSortedAccordingTo(reverseOrder())
+
+    val matchingResult = results.first { it.paperlessDocId == DOC_ID }
+    val storedChunks = dsl
+      .select(DOCUMENT_CHUNK.CONTENT)
+      .from(DOCUMENT_CHUNK)
+      .where(DOCUMENT_CHUNK.DOCUMENT_SOURCE_ID.eq(DOC_ID))
+      .fetch(DOCUMENT_CHUNK.CONTENT)
+    assertThat(matchingResult.snippet).isIn(storedChunks)
   }
 
   @Test
