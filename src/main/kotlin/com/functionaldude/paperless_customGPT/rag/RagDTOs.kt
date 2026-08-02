@@ -16,7 +16,7 @@ data class RagSearchResult(
   @field:JsonProperty(required = false)
   @field:JsonPropertyDescription("Counterparty or correspondent responsible for the document.")
   val correspondentName: String?,
-  @field:JsonPropertyDescription("Snippet of the document content to help the agent understand why it matched.")
+  @field:JsonPropertyDescription("Best-matching stored text chunk, not the complete document. Use findDocumentById to retrieve full content.")
   val snippet: String,
   @field:JsonPropertyDescription("Vector similarity score. Higher values are more relevant.")
   val score: Double,
