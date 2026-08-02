@@ -120,10 +120,5 @@ class RagQueryService(
     private const val MIN_CANDIDATES = 50
     private const val INITIAL_CANDIDATE_MULTIPLIER = 10L
     private const val MAX_CANDIDATES = 2_000
-    private const val PGVECTOR_EXTENSION_NAME = "vector"
-
-    private val PG_EXTENSION = DSL.table(DSL.name("pg_extension"))
-    private val PG_EXTENSION_NAME = DSL.field(DSL.name("extname"), String::class.java)
-    private val PGVECTOR_EXTENSION_VERSION = DSL.field(DSL.name("extversion"), String::class.java)
   }
 }
