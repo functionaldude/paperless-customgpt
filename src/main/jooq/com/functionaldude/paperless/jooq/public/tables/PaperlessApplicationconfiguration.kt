@@ -87,8 +87,8 @@ open class PaperlessApplicationconfiguration(
   /**
    * The column <code>public.paperless_applicationconfiguration.pages</code>.
    */
-  val PAGES: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Int?> =
-    createField(DSL.name("pages"), SQLDataType.INTEGER, this, "")
+  val PAGES: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Short?> =
+    createField(DSL.name("pages"), SQLDataType.SMALLINT, this, "")
 
   /**
    * The column
@@ -105,17 +105,10 @@ open class PaperlessApplicationconfiguration(
 
   /**
    * The column
-   * <code>public.paperless_applicationconfiguration.skip_archive_file</code>.
-   */
-  val SKIP_ARCHIVE_FILE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
-    createField(DSL.name("skip_archive_file"), SQLDataType.VARCHAR(16), this, "")
-
-  /**
-   * The column
    * <code>public.paperless_applicationconfiguration.image_dpi</code>.
    */
-  val IMAGE_DPI: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Int?> =
-    createField(DSL.name("image_dpi"), SQLDataType.INTEGER, this, "")
+  val IMAGE_DPI: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Short?> =
+    createField(DSL.name("image_dpi"), SQLDataType.SMALLINT, this, "")
 
   /**
    * The column
@@ -190,8 +183,8 @@ open class PaperlessApplicationconfiguration(
    * The column
    * <code>public.paperless_applicationconfiguration.barcode_dpi</code>.
    */
-  val BARCODE_DPI: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Int?> =
-    createField(DSL.name("barcode_dpi"), SQLDataType.INTEGER, this, "")
+  val BARCODE_DPI: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Short?> =
+    createField(DSL.name("barcode_dpi"), SQLDataType.SMALLINT, this, "")
 
   /**
    * The column
@@ -218,8 +211,8 @@ open class PaperlessApplicationconfiguration(
    * The column
    * <code>public.paperless_applicationconfiguration.barcode_max_pages</code>.
    */
-  val BARCODE_MAX_PAGES: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Int?> =
-    createField(DSL.name("barcode_max_pages"), SQLDataType.INTEGER, this, "")
+  val BARCODE_MAX_PAGES: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Short?> =
+    createField(DSL.name("barcode_max_pages"), SQLDataType.SMALLINT, this, "")
 
   /**
    * The column
@@ -255,6 +248,104 @@ open class PaperlessApplicationconfiguration(
    */
   val BARCODES_ENABLED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Boolean?> =
     createField(DSL.name("barcodes_enabled"), SQLDataType.BOOLEAN, this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.ai_enabled</code>.
+   */
+  val AI_ENABLED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Boolean?> =
+    createField(DSL.name("ai_enabled"), SQLDataType.BOOLEAN, this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_api_key</code>.
+   */
+  val LLM_API_KEY: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_api_key"), SQLDataType.VARCHAR(1024), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_backend</code>.
+   */
+  val LLM_BACKEND: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_backend"), SQLDataType.VARCHAR(128), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_embedding_backend</code>.
+   */
+  val LLM_EMBEDDING_BACKEND: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_embedding_backend"), SQLDataType.VARCHAR(128), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_embedding_model</code>.
+   */
+  val LLM_EMBEDDING_MODEL: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_embedding_model"), SQLDataType.VARCHAR(128), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_endpoint</code>.
+   */
+  val LLM_ENDPOINT: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_endpoint"), SQLDataType.VARCHAR(256), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_model</code>.
+   */
+  val LLM_MODEL: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_model"), SQLDataType.VARCHAR(128), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.barcode_tag_split</code>.
+   */
+  val BARCODE_TAG_SPLIT: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Boolean?> =
+    createField(DSL.name("barcode_tag_split"), SQLDataType.BOOLEAN, this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.archive_file_generation</code>.
+   */
+  val ARCHIVE_FILE_GENERATION: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("archive_file_generation"), SQLDataType.VARCHAR(8), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_embedding_endpoint</code>.
+   */
+  val LLM_EMBEDDING_ENDPOINT: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_embedding_endpoint"), SQLDataType.VARCHAR(256), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_embedding_chunk_size</code>.
+   */
+  val LLM_EMBEDDING_CHUNK_SIZE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Short?> =
+    createField(DSL.name("llm_embedding_chunk_size"), SQLDataType.SMALLINT, this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_context_size</code>.
+   */
+  val LLM_CONTEXT_SIZE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Int?> =
+    createField(DSL.name("llm_context_size"), SQLDataType.INTEGER, this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_output_language</code>.
+   */
+  val LLM_OUTPUT_LANGUAGE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, String?> =
+    createField(DSL.name("llm_output_language"), SQLDataType.VARCHAR(32), this, "")
+
+  /**
+   * The column
+   * <code>public.paperless_applicationconfiguration.llm_request_timeout</code>.
+   */
+  val LLM_REQUEST_TIMEOUT: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessApplicationconfigurationRecord, Short?> =
+    createField(DSL.name("llm_request_timeout"), SQLDataType.SMALLINT, this, "")
 
   private constructor(
     alias: Name,
@@ -302,6 +393,12 @@ open class PaperlessApplicationconfiguration(
     listOf(
       Internal.createCheck(
         this,
+        DSL.name("paperless_applicationconfigurati_llm_embedding_chunk_size_check"),
+        "((llm_embedding_chunk_size >= 0))",
+        true
+      ),
+      Internal.createCheck(
+        this,
         DSL.name("paperless_applicationconfiguration_barcode_dpi_check"),
         "((barcode_dpi >= 0))",
         true
@@ -316,6 +413,18 @@ open class PaperlessApplicationconfiguration(
         this,
         DSL.name("paperless_applicationconfiguration_image_dpi_check"),
         "((image_dpi >= 0))",
+        true
+      ),
+      Internal.createCheck(
+        this,
+        DSL.name("paperless_applicationconfiguration_llm_context_size_check"),
+        "((llm_context_size >= 0))",
+        true
+      ),
+      Internal.createCheck(
+        this,
+        DSL.name("paperless_applicationconfiguration_llm_request_timeout_check"),
+        "((llm_request_timeout >= 0))",
         true
       ),
       Internal.createCheck(this, DSL.name("paperless_applicationconfiguration_pages_check"), "((pages >= 0))", true)

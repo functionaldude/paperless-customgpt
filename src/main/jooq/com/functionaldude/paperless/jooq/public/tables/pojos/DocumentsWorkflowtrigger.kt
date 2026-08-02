@@ -13,12 +13,12 @@ import java.io.Serializable
 @Suppress("UNCHECKED_CAST")
 data class DocumentsWorkflowtrigger(
   val id: Int? = null,
-  val type: Int? = null,
+  val type: Short? = null,
   val sources: String? = null,
   val filterPath: String? = null,
   val filterFilename: String? = null,
   val filterMailruleId: Int? = null,
-  val matchingAlgorithm: Int? = null,
+  val matchingAlgorithm: Short? = null,
   val match: String? = null,
   val isInsensitive: Boolean? = null,
   val filterHasDocumentTypeId: Int? = null,

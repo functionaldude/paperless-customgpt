@@ -6,6 +6,10 @@ package com.functionaldude.paperless.jooq.paperless_rag.tables.references
 
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentChunk
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentSource
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2Authorization
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2AuthorizationConsent
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2RegisteredClient
+
 
 
 /**
@@ -17,3 +21,18 @@ val DOCUMENT_CHUNK: DocumentChunk = DocumentChunk.DOCUMENT_CHUNK
  * The table <code>paperless_rag.document_source</code>.
  */
 val DOCUMENT_SOURCE: DocumentSource = DocumentSource.DOCUMENT_SOURCE
+
+/**
+ * The table <code>paperless_rag.oauth2_authorization</code>.
+ */
+val OAUTH2_AUTHORIZATION: Oauth2Authorization = Oauth2Authorization.OAUTH2_AUTHORIZATION
+
+/**
+ * The table <code>paperless_rag.oauth2_authorization_consent</code>.
+ */
+val OAUTH2_AUTHORIZATION_CONSENT: Oauth2AuthorizationConsent = Oauth2AuthorizationConsent.OAUTH2_AUTHORIZATION_CONSENT
+
+/**
+ * The table <code>paperless_rag.oauth2_registered_client</code>.
+ */
+val OAUTH2_REGISTERED_CLIENT: Oauth2RegisteredClient = Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT

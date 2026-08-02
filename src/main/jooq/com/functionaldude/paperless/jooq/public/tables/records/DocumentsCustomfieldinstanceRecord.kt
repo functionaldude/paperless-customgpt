@@ -4,13 +4,14 @@
 package com.functionaldude.paperless.jooq.`public`.tables.records
 
 
-import org.jooq.JSONB
-import org.jooq.Record1
-import org.jooq.impl.UpdatableRecordImpl
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import java.util.*
+import java.util.UUID
+
+import org.jooq.JSONB
+import org.jooq.Record1
+import org.jooq.impl.UpdatableRecordImpl
 
 
 /**

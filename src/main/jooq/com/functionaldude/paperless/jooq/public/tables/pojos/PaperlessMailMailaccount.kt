@@ -17,14 +17,14 @@ data class PaperlessMailMailaccount(
   val name: String? = null,
   val imapServer: String? = null,
   val imapPort: Int? = null,
-  val imapSecurity: Int? = null,
+  val imapSecurity: Short? = null,
   val username: String? = null,
   val password: String? = null,
   val characterSet: String? = null,
   val ownerId: Int? = null,
   val isToken: Boolean? = null,
   val expiration: OffsetDateTime? = null,
-  val accountType: Int? = null,
+  val accountType: Short? = null,
   val refreshToken: String? = null
 ) : Serializable {
 

@@ -110,14 +110,14 @@ open class PaperlessMailMailrule(
   /**
    * The column <code>public.paperless_mail_mailrule.maximum_age</code>.
    */
-  val MAXIMUM_AGE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("maximum_age"), SQLDataType.INTEGER.nullable(false), this, "")
+  val MAXIMUM_AGE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("maximum_age"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.paperless_mail_mailrule.action</code>.
    */
-  val ACTION: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("action"), SQLDataType.INTEGER.nullable(false), this, "")
+  val ACTION: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("action"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.paperless_mail_mailrule.action_parameter</code>.
@@ -128,15 +128,15 @@ open class PaperlessMailMailrule(
   /**
    * The column <code>public.paperless_mail_mailrule.assign_title_from</code>.
    */
-  val ASSIGN_TITLE_FROM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("assign_title_from"), SQLDataType.INTEGER.nullable(false), this, "")
+  val ASSIGN_TITLE_FROM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("assign_title_from"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column
    * <code>public.paperless_mail_mailrule.assign_correspondent_from</code>.
    */
-  val ASSIGN_CORRESPONDENT_FROM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("assign_correspondent_from"), SQLDataType.INTEGER.nullable(false), this, "")
+  val ASSIGN_CORRESPONDENT_FROM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("assign_correspondent_from"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.paperless_mail_mailrule.account_id</code>.
@@ -161,14 +161,14 @@ open class PaperlessMailMailrule(
   /**
    * The column <code>public.paperless_mail_mailrule.order</code>.
    */
-  val ORDER: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("order"), SQLDataType.INTEGER.nullable(false), this, "")
+  val ORDER: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("order"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.paperless_mail_mailrule.attachment_type</code>.
    */
-  val ATTACHMENT_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("attachment_type"), SQLDataType.INTEGER.nullable(false), this, "")
+  val ATTACHMENT_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("attachment_type"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column
@@ -180,8 +180,8 @@ open class PaperlessMailMailrule(
   /**
    * The column <code>public.paperless_mail_mailrule.consumption_scope</code>.
    */
-  val CONSUMPTION_SCOPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("consumption_scope"), SQLDataType.INTEGER.nullable(false), this, "")
+  val CONSUMPTION_SCOPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("consumption_scope"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.paperless_mail_mailrule.owner_id</code>.
@@ -218,8 +218,14 @@ open class PaperlessMailMailrule(
   /**
    * The column <code>public.paperless_mail_mailrule.pdf_layout</code>.
    */
-  val PDF_LAYOUT: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Int?> =
-    createField(DSL.name("pdf_layout"), SQLDataType.INTEGER.nullable(false), this, "")
+  val PDF_LAYOUT: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Short?> =
+    createField(DSL.name("pdf_layout"), SQLDataType.SMALLINT.nullable(false), this, "")
+
+  /**
+   * The column <code>public.paperless_mail_mailrule.stop_processing</code>.
+   */
+  val STOP_PROCESSING: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailruleRecord, Boolean?> =
+    createField(DSL.name("stop_processing"), SQLDataType.BOOLEAN.nullable(false), this, "")
 
   private constructor(
     alias: Name,

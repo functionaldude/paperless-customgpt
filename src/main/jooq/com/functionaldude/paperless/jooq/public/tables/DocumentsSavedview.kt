@@ -85,18 +85,6 @@ open class DocumentsSavedview(
     createField(DSL.name("name"), SQLDataType.VARCHAR(128).nullable(false), this, "")
 
   /**
-   * The column <code>public.documents_savedview.show_on_dashboard</code>.
-   */
-  val SHOW_ON_DASHBOARD: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSavedviewRecord, Boolean?> =
-    createField(DSL.name("show_on_dashboard"), SQLDataType.BOOLEAN.nullable(false), this, "")
-
-  /**
-   * The column <code>public.documents_savedview.show_in_sidebar</code>.
-   */
-  val SHOW_IN_SIDEBAR: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSavedviewRecord, Boolean?> =
-    createField(DSL.name("show_in_sidebar"), SQLDataType.BOOLEAN.nullable(false), this, "")
-
-  /**
    * The column <code>public.documents_savedview.sort_field</code>.
    */
   val SORT_FIELD: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSavedviewRecord, String?> =

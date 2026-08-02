@@ -82,8 +82,8 @@ open class DocumentsWorkflowaction(
   /**
    * The column <code>public.documents_workflowaction.type</code>.
    */
-  val TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowactionRecord, Int?> =
-    createField(DSL.name("type"), SQLDataType.INTEGER.nullable(false), this, "")
+  val TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowactionRecord, Short?> =
+    createField(DSL.name("type"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.documents_workflowaction.assign_title</code>.
@@ -190,6 +190,12 @@ open class DocumentsWorkflowaction(
    */
   val ORDER: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowactionRecord, Int?> =
     createField(DSL.name("order"), SQLDataType.INTEGER.nullable(false), this, "")
+
+  /**
+   * The column <code>public.documents_workflowaction.passwords</code>.
+   */
+  val PASSWORDS: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowactionRecord, JSONB?> =
+    createField(DSL.name("passwords"), SQLDataType.JSONB, this, "")
 
   private constructor(
     alias: Name,

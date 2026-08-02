@@ -5,10 +5,12 @@ package com.functionaldude.paperless.jooq.paperless_rag.tables.records
 
 
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentSource
-import org.jooq.Record1
-import org.jooq.impl.UpdatableRecordImpl
+
 import java.time.LocalDate
 import java.time.OffsetDateTime
+
+import org.jooq.Record1
+import org.jooq.impl.UpdatableRecordImpl
 
 
 /**

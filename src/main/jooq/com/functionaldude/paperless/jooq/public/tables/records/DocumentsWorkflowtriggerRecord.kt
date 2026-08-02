@@ -19,9 +19,9 @@ open class DocumentsWorkflowtriggerRecord() :
     set(value): Unit = set(0, value)
     get(): Int? = get(0) as Int?
 
-  open var type: Int?
+  open var type: Short?
     set(value): Unit = set(1, value)
-    get(): Int? = get(1) as Int?
+    get(): Short? = get(1) as Short?
 
   open var sources: String?
     set(value): Unit = set(2, value)
@@ -39,9 +39,9 @@ open class DocumentsWorkflowtriggerRecord() :
     set(value): Unit = set(5, value)
     get(): Int? = get(5) as Int?
 
-  open var matchingAlgorithm: Int?
+  open var matchingAlgorithm: Short?
     set(value): Unit = set(6, value)
-    get(): Int? = get(6) as Int?
+    get(): Short? = get(6) as Short?
 
   open var match: String?
     set(value): Unit = set(7, value)
@@ -100,12 +100,12 @@ open class DocumentsWorkflowtriggerRecord() :
    */
   constructor(
     id: Int? = null,
-    type: Int? = null,
+    type: Short? = null,
     sources: String? = null,
     filterPath: String? = null,
     filterFilename: String? = null,
     filterMailruleId: Int? = null,
-    matchingAlgorithm: Int? = null,
+    matchingAlgorithm: Short? = null,
     match: String? = null,
     isInsensitive: Boolean? = null,
     filterHasDocumentTypeId: Int? = null,

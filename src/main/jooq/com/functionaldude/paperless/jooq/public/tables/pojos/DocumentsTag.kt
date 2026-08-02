@@ -15,7 +15,7 @@ data class DocumentsTag(
   val id: Int? = null,
   val name: String? = null,
   val match: String? = null,
-  val matchingAlgorithm: Int? = null,
+  val matchingAlgorithm: Short? = null,
   val isInsensitive: Boolean? = null,
   val isInboxTag: Boolean? = null,
   val color: String? = null,

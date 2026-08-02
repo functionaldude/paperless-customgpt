@@ -266,6 +266,10 @@ open class DocumentsCustomfieldinstance(
 
   override fun getSchema(): Schema? = if (aliased()) null else com.functionaldude.paperless.jooq.`public`.Public.PUBLIC
   override fun getIndexes(): List<Index> = listOf(
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_C_FIELD_I_30B51D_IDX,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_C_FIELD_I_53CE4E_IDX,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_C_FIELD_I_C35174_IDX,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_C_FIELD_I_D25AB0_IDX,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_CUSTOMFIELDINSTANCE_CREATED_75F17F1D,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_CUSTOMFIELDINSTANCE_DOCUMENT_ID_610A968E,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_CUSTOMFIELDINSTANCE_FIELD_ID_6C59E32F

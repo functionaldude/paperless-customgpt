@@ -24,37 +24,29 @@ open class DocumentsSavedviewRecord() :
     set(value): Unit = set(1, value)
     get(): String? = get(1) as String?
 
-  open var showOnDashboard: Boolean?
+  open var sortField: String?
     set(value): Unit = set(2, value)
-    get(): Boolean? = get(2) as Boolean?
+    get(): String? = get(2) as String?
 
-  open var showInSidebar: Boolean?
+  open var sortReverse: Boolean?
     set(value): Unit = set(3, value)
     get(): Boolean? = get(3) as Boolean?
 
-  open var sortField: String?
-    set(value): Unit = set(4, value)
-    get(): String? = get(4) as String?
-
-  open var sortReverse: Boolean?
-    set(value): Unit = set(5, value)
-    get(): Boolean? = get(5) as Boolean?
-
   open var ownerId: Int?
+    set(value): Unit = set(4, value)
+    get(): Int? = get(4) as Int?
+
+  open var displayMode: String?
+    set(value): Unit = set(5, value)
+    get(): String? = get(5) as String?
+
+  open var pageSize: Int?
     set(value): Unit = set(6, value)
     get(): Int? = get(6) as Int?
 
-  open var displayMode: String?
-    set(value): Unit = set(7, value)
-    get(): String? = get(7) as String?
-
-  open var pageSize: Int?
-    set(value): Unit = set(8, value)
-    get(): Int? = get(8) as Int?
-
   open var displayFields: JSONB?
-    set(value): Unit = set(9, value)
-    get(): JSONB? = get(9) as JSONB?
+    set(value): Unit = set(7, value)
+    get(): JSONB? = get(7) as JSONB?
 
   // -------------------------------------------------------------------------
   // Primary key information
@@ -68,8 +60,6 @@ open class DocumentsSavedviewRecord() :
   constructor(
     id: Int? = null,
     name: String? = null,
-    showOnDashboard: Boolean? = null,
-    showInSidebar: Boolean? = null,
     sortField: String? = null,
     sortReverse: Boolean? = null,
     ownerId: Int? = null,
@@ -79,8 +69,6 @@ open class DocumentsSavedviewRecord() :
   ) : this() {
     this.id = id
     this.name = name
-    this.showOnDashboard = showOnDashboard
-    this.showInSidebar = showInSidebar
     this.sortField = sortField
     this.sortReverse = sortReverse
     this.ownerId = ownerId
@@ -97,8 +85,6 @@ open class DocumentsSavedviewRecord() :
     if (value != null) {
       this.id = value.id
       this.name = value.name
-      this.showOnDashboard = value.showOnDashboard
-      this.showInSidebar = value.showInSidebar
       this.sortField = value.sortField
       this.sortReverse = value.sortReverse
       this.ownerId = value.ownerId

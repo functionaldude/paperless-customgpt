@@ -305,13 +305,6 @@ val DOCUMENTS_DOCUMENT_ARCHIVE_SERIAL_NUMBER_KEY: UniqueKey<com.functionaldude.p
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.ARCHIVE_SERIAL_NUMBER),
     true
   )
-val DOCUMENTS_DOCUMENT_CHECKSUM_75209391_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord> =
-  Internal.createUniqueKey(
-    com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
-    DSL.name("documents_document_checksum_75209391_uniq"),
-    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.CHECKSUM),
-    true
-  )
 val DOCUMENTS_DOCUMENT_FILENAME_3EE5AD97_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord> =
   Internal.createUniqueKey(
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
@@ -374,10 +367,10 @@ val DOCUMENTS_PAPERLESSTASK_PKEY: UniqueKey<com.functionaldude.paperless.jooq.`p
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.ID),
     true
   )
-val DOCUMENTS_PAPERLESSTASK_TASK_ID_24B393F9_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord> =
+val DOCUMENTS_PAPERLESSTASK_TASK_ID_KEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord> =
   Internal.createUniqueKey(
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
-    DSL.name("documents_paperlesstask_task_id_24b393f9_uniq"),
+    DSL.name("documents_paperlesstask_task_id_key"),
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.TASK_ID),
     true
   )
@@ -407,6 +400,37 @@ val DOCUMENTS_SHARELINK_SLUG_KEY: UniqueKey<com.functionaldude.paperless.jooq.`p
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK,
     DSL.name("documents_sharelink_slug_key"),
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK.SLUG),
+    true
+  )
+val DOCUMENTS_SHARELINKBUNDLE_PKEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+    DSL.name("documents_sharelinkbundle_pkey"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.ID),
+    true
+  )
+val DOCUMENTS_SHARELINKBUNDLE_SLUG_KEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+    DSL.name("documents_sharelinkbundle_slug_key"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.SLUG),
+    true
+  )
+val DOCUMENTS_SHARELINKBUNDL_SHARELINKBUNDLE_ID_DOCUM_0213B1DD_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleDocumentsRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS,
+    DSL.name("documents_sharelinkbundl_sharelinkbundle_id_docum_0213b1dd_uniq"),
+    arrayOf(
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS.SHARELINKBUNDLE_ID,
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS.DOCUMENT_ID
+    ),
+    true
+  )
+val DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS_PKEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleDocumentsRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS,
+    DSL.name("documents_sharelinkbundle_documents_pkey"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS.ID),
     true
   )
 val DOCUMENTS_STORAGEPATH_PKEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsStoragepathRecord> =
@@ -829,6 +853,57 @@ val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS_PKEY: UniqueKey<com.functional
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAllTags.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS.ID),
     true
   )
+val DOCUMENTS_WORKFLOWTRIGGE_WORKFLOWTRIGGER_ID_CORRE_E29CCD76_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyCorrespondentsRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS,
+    DSL.name("documents_workflowtrigge_workflowtrigger_id_corre_e29ccd76_uniq"),
+    arrayOf(
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS.WORKFLOWTRIGGER_ID,
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS.CORRESPONDENT_ID
+    ),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS_PKEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyCorrespondentsRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS,
+    DSL.name("documents_workflowtrigger_filter_has_any_correspondents_pkey"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGE_WORKFLOWTRIGGER_ID_DOCUM_34054BBD_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES,
+    DSL.name("documents_workflowtrigge_workflowtrigger_id_docum_34054bbd_uniq"),
+    arrayOf(
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES.WORKFLOWTRIGGER_ID,
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES.DOCUMENTTYPE_ID
+    ),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES_PKEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES,
+    DSL.name("documents_workflowtrigger_filter_has_any_document_types_pkey"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGE_WORKFLOWTRIGGER_ID_STORA_DA181EDA_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyStoragePathsRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS,
+    DSL.name("documents_workflowtrigge_workflowtrigger_id_stora_da181eda_uniq"),
+    arrayOf(
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS.WORKFLOWTRIGGER_ID,
+      com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS.STORAGEPATH_ID
+    ),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS_PKEY: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyStoragePathsRecord> =
+  Internal.createUniqueKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS,
+    DSL.name("documents_workflowtrigger_filter_has_any_storage_paths_pkey"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS.ID),
+    true
+  )
 val DOCUMENTS_WORKFLOWTRIGGE_WORKFLOWTRIGGER_ID_CORRE_8EF9CD55_UNIQ: UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasNotCorrespondentsRecord> =
   Internal.createUniqueKey(
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_CORRESPONDENTS,
@@ -1245,6 +1320,15 @@ val DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_OWNER_ID_04D2B723_FK_AUTH_USER_ID: Fo
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.AuthUser.AUTH_USER.ID),
     true
   )
+val DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_ROOT_DOCUMENT_ID_78094BF2_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
+    DSL.name("documents_document_root_document_id_78094bf2_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.ID),
+    true
+  )
 val DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_STORAGE_PATH_ID_07D27BDB_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsStoragepathRecord> =
   Internal.createForeignKey(
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
@@ -1342,6 +1426,33 @@ val DOCUMENTS_SHARELINK__DOCUMENTS_SHARELINK_OWNER_ID_3FD35A08_FK_AUTH_USER_ID: 
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK.OWNER_ID),
     com.functionaldude.paperless.jooq.`public`.keys.AUTH_USER_PKEY,
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.AuthUser.AUTH_USER.ID),
+    true
+  )
+val DOCUMENTS_SHARELINKBUNDLE__DOCUMENTS_SHARELINKBUNDLE_OWNER_ID_9138D0AF_FK_AUTH_USER_ID: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleRecord, com.functionaldude.paperless.jooq.`public`.tables.records.AuthUserRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+    DSL.name("documents_sharelinkbundle_owner_id_9138d0af_fk_auth_user_id"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.OWNER_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.AUTH_USER_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.AuthUser.AUTH_USER.ID),
+    true
+  )
+val DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS__DOCUMENTS_SHARELINKB_DOCUMENT_ID_C3012FD7_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleDocumentsRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS,
+    DSL.name("documents_sharelinkb_document_id_c3012fd7_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS.DOCUMENT_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.ID),
+    true
+  )
+val DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS__DOCUMENTS_SHARELINKB_SHARELINKBUNDLE_ID_7ECA8F52_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleDocumentsRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSharelinkbundleRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS,
+    DSL.name("documents_sharelinkb_sharelinkbundle_id_7eca8f52_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS.SHARELINKBUNDLE_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_SHARELINKBUNDLE_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.ID),
     true
   )
 val DOCUMENTS_STORAGEPATH__DOCUMENTS_STORAGEPATH_OWNER_ID_C8F01FE8_FK_AUTH_USER_ID: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsStoragepathRecord, com.functionaldude.paperless.jooq.`public`.tables.records.AuthUserRecord> =
@@ -1835,6 +1946,60 @@ val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS__DOCUMENTS_WORKFLOWTR_WORKFLOW
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAllTags.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS,
     DSL.name("documents_workflowtr_workflowtrigger_id_da8dc5d4_fk_documents"),
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAllTags.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS.WORKFLOWTRIGGER_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_WORKFLOWTRIGGER_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DOCUMENTS_WORKFLOWTRIGGER.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS__DOCUMENTS_WORKFLOWTR_CORRESPONDENT_ID_E2F177B2_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyCorrespondentsRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsCorrespondentRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS,
+    DSL.name("documents_workflowtr_correspondent_id_e2f177b2_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS.CORRESPONDENT_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_SENDER_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsCorrespondent.DOCUMENTS_CORRESPONDENT.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS__DOCUMENTS_WORKFLOWTR_WORKFLOWTRIGGER_ID_4A205AA9_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyCorrespondentsRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS,
+    DSL.name("documents_workflowtr_workflowtrigger_id_4a205aa9_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS.WORKFLOWTRIGGER_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_WORKFLOWTRIGGER_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DOCUMENTS_WORKFLOWTRIGGER.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES__DOCUMENTS_WORKFLOWTR_DOCUMENTTYPE_ID_E1418DB1_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumenttypeRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES,
+    DSL.name("documents_workflowtr_documenttype_id_e1418db1_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES.DOCUMENTTYPE_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENTTYPE_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocumenttype.DOCUMENTS_DOCUMENTTYPE.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES__DOCUMENTS_WORKFLOWTR_WORKFLOWTRIGGER_ID_8665EE72_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES,
+    DSL.name("documents_workflowtr_workflowtrigger_id_8665ee72_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES.WORKFLOWTRIGGER_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_WORKFLOWTRIGGER_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DOCUMENTS_WORKFLOWTRIGGER.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS__DOCUMENTS_WORKFLOWTR_STORAGEPATH_ID_4F759B0D_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyStoragePathsRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsStoragepathRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS,
+    DSL.name("documents_workflowtr_storagepath_id_4f759b0d_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS.STORAGEPATH_ID),
+    com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_STORAGEPATH_PKEY,
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsStoragepath.DOCUMENTS_STORAGEPATH.ID),
+    true
+  )
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS__DOCUMENTS_WORKFLOWTR_WORKFLOWTRIGGER_ID_5E9A227F_FK_DOCUMENTS: ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerFilterHasAnyStoragePathsRecord, com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowtriggerRecord> =
+  Internal.createForeignKey(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS,
+    DSL.name("documents_workflowtr_workflowtrigger_id_5e9a227f_fk_documents"),
+    arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS.WORKFLOWTRIGGER_ID),
     com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_WORKFLOWTRIGGER_PKEY,
     arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DOCUMENTS_WORKFLOWTRIGGER.ID),
     true

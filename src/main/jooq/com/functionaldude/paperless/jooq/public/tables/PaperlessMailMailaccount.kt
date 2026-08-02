@@ -101,8 +101,8 @@ open class PaperlessMailMailaccount(
   /**
    * The column <code>public.paperless_mail_mailaccount.imap_security</code>.
    */
-  val IMAP_SECURITY: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailaccountRecord, Int?> =
-    createField(DSL.name("imap_security"), SQLDataType.INTEGER.nullable(false), this, "")
+  val IMAP_SECURITY: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailaccountRecord, Short?> =
+    createField(DSL.name("imap_security"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.paperless_mail_mailaccount.username</code>.
@@ -143,8 +143,8 @@ open class PaperlessMailMailaccount(
   /**
    * The column <code>public.paperless_mail_mailaccount.account_type</code>.
    */
-  val ACCOUNT_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailaccountRecord, Int?> =
-    createField(DSL.name("account_type"), SQLDataType.INTEGER.nullable(false), this, "")
+  val ACCOUNT_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailMailaccountRecord, Short?> =
+    createField(DSL.name("account_type"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.paperless_mail_mailaccount.refresh_token</code>.
@@ -286,6 +286,12 @@ open class PaperlessMailMailaccount(
         this,
         DSL.name("paperless_mail_mailaccount_account_type_check"),
         "((account_type >= 0))",
+        true
+      ),
+      Internal.createCheck(
+        this,
+        DSL.name("paperless_mail_mailaccount_imap_port_7cad02d2_check"),
+        "((imap_port >= 0))",
         true
       ),
       Internal.createCheck(

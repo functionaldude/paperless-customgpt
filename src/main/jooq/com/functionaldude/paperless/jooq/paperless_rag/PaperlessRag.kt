@@ -7,6 +7,12 @@ package com.functionaldude.paperless.jooq.paperless_rag
 import com.functionaldude.paperless.jooq.DefaultCatalog
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentChunk
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentSource
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2Authorization
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2AuthorizationConsent
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2RegisteredClient
+
+import kotlin.collections.List
+
 import org.jooq.Catalog
 import org.jooq.Table
 import org.jooq.impl.SchemaImpl
@@ -35,10 +41,28 @@ open class PaperlessRag : SchemaImpl("paperless_rag", DefaultCatalog.DEFAULT_CAT
    */
   val DOCUMENT_SOURCE: DocumentSource get() = DocumentSource.DOCUMENT_SOURCE
 
+  /**
+   * The table <code>paperless_rag.oauth2_authorization</code>.
+   */
+  val OAUTH2_AUTHORIZATION: Oauth2Authorization get() = Oauth2Authorization.OAUTH2_AUTHORIZATION
+
+  /**
+   * The table <code>paperless_rag.oauth2_authorization_consent</code>.
+   */
+  val OAUTH2_AUTHORIZATION_CONSENT: Oauth2AuthorizationConsent get() = Oauth2AuthorizationConsent.OAUTH2_AUTHORIZATION_CONSENT
+
+  /**
+   * The table <code>paperless_rag.oauth2_registered_client</code>.
+   */
+  val OAUTH2_REGISTERED_CLIENT: Oauth2RegisteredClient get() = Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT
+
   override fun getCatalog(): Catalog = DefaultCatalog.DEFAULT_CATALOG
 
   override fun getTables(): List<Table<*>> = listOf(
     DocumentChunk.DOCUMENT_CHUNK,
-    DocumentSource.DOCUMENT_SOURCE
+    DocumentSource.DOCUMENT_SOURCE,
+    Oauth2Authorization.OAUTH2_AUTHORIZATION,
+    Oauth2AuthorizationConsent.OAUTH2_AUTHORIZATION_CONSENT,
+    Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT
   )
 }

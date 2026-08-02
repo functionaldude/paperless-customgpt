@@ -13,7 +13,7 @@ import java.io.Serializable
 @Suppress("UNCHECKED_CAST")
 data class DocumentsSavedviewfilterrule(
   val id: Int? = null,
-  val ruleType: Int? = null,
+  val ruleType: Short? = null,
   val value: String? = null,
   val savedViewId: Int? = null
 ) : Serializable {

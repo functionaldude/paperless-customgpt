@@ -4,12 +4,34 @@
 package com.functionaldude.paperless.jooq.`public`.tables
 
 
-import org.jooq.*
+import java.time.OffsetDateTime
+
+import kotlin.collections.Collection
+import kotlin.collections.List
+
+import org.jooq.Condition
+import org.jooq.Field
+import org.jooq.ForeignKey
+import org.jooq.Identity
+import org.jooq.Index
+import org.jooq.InverseForeignKey
+import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
+import org.jooq.Record
+import org.jooq.SQL
+import org.jooq.Schema
+import org.jooq.Select
+import org.jooq.Stringly
+import org.jooq.Table
+import org.jooq.TableField
+import org.jooq.TableOptions
+import org.jooq.UniqueKey
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
 import org.jooq.impl.SQLDataType
 import org.jooq.impl.TableImpl
-import java.time.OffsetDateTime
 
 
 /**
@@ -451,6 +473,27 @@ open class AuthUser(
 
   val documentsSharelink: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DocumentsSharelinkPath
     get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DocumentsSharelinkPath = documentsSharelink()
+
+  private lateinit var _documentsSharelinkbundle: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DocumentsSharelinkbundlePath
+
+  /**
+   * Get the implicit to-many join path to the
+   * <code>public.documents_sharelinkbundle</code> table
+   */
+  fun documentsSharelinkbundle(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DocumentsSharelinkbundlePath {
+    if (!this::_documentsSharelinkbundle.isInitialized)
+      _documentsSharelinkbundle =
+        com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DocumentsSharelinkbundlePath(
+          this,
+          null,
+          com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_SHARELINKBUNDLE__DOCUMENTS_SHARELINKBUNDLE_OWNER_ID_9138D0AF_FK_AUTH_USER_ID.inverseKey
+        )
+
+    return _documentsSharelinkbundle;
+  }
+
+  val documentsSharelinkbundle: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DocumentsSharelinkbundlePath
+    get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DocumentsSharelinkbundlePath = documentsSharelinkbundle()
 
   private lateinit var _documentsStoragepath: com.functionaldude.paperless.jooq.`public`.tables.DocumentsStoragepath.DocumentsStoragepathPath
 

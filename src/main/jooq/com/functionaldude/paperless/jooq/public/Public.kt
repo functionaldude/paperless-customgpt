@@ -167,6 +167,16 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
   val DOCUMENTS_SHARELINK: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK
 
   /**
+   * The table <code>public.documents_sharelinkbundle</code>.
+   */
+  val DOCUMENTS_SHARELINKBUNDLE: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE
+
+  /**
+   * The table <code>public.documents_sharelinkbundle_documents</code>.
+   */
+  val DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS
+
+  /**
    * The table <code>public.documents_storagepath</code>.
    */
   val DOCUMENTS_STORAGEPATH: com.functionaldude.paperless.jooq.`public`.tables.DocumentsStoragepath get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsStoragepath.DOCUMENTS_STORAGEPATH
@@ -320,6 +330,24 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
 
   /**
    * The table
+   * <code>public.documents_workflowtrigger_filter_has_any_correspondents</code>.
+   */
+  val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS
+
+  /**
+   * The table
+   * <code>public.documents_workflowtrigger_filter_has_any_document_types</code>.
+   */
+  val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES
+
+  /**
+   * The table
+   * <code>public.documents_workflowtrigger_filter_has_any_storage_paths</code>.
+   */
+  val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS
+
+  /**
+   * The table
    * <code>public.documents_workflowtrigger_filter_has_not_correspondents</code>.
    */
   val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_CORRESPONDENTS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotCorrespondents get() = com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_CORRESPONDENTS
@@ -433,6 +461,8 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsSavedview.DOCUMENTS_SAVEDVIEW,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsSavedviewfilterrule.DOCUMENTS_SAVEDVIEWFILTERRULE,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsStoragepath.DOCUMENTS_STORAGEPATH,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsTag.DOCUMENTS_TAG,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsUisettings.DOCUMENTS_UISETTINGS,
@@ -461,6 +491,9 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowrun.DOCUMENTS_WORKFLOWRUN,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DOCUMENTS_WORKFLOWTRIGGER,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAllTags.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_CORRESPONDENTS,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_DOCUMENT_TYPES,
     com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_STORAGE_PATHS,

@@ -4,10 +4,11 @@
 package com.functionaldude.paperless.jooq.`public`.tables.records
 
 
+import java.time.OffsetDateTime
+
 import org.jooq.JSONB
 import org.jooq.Record1
 import org.jooq.impl.UpdatableRecordImpl
-import java.time.OffsetDateTime
 
 
 /**

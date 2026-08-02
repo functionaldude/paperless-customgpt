@@ -18,34 +18,34 @@ import org.jooq.impl.CatalogImpl
  */
 @Suppress("UNCHECKED_CAST")
 open class DefaultCatalog : CatalogImpl("") {
-  companion object {
+    companion object {
+
+        /**
+         * The reference instance of <code>DEFAULT_CATALOG</code>
+         */
+        val DEFAULT_CATALOG: DefaultCatalog = DefaultCatalog()
+    }
 
     /**
-     * The reference instance of <code>DEFAULT_CATALOG</code>
+     * The schema <code>paperless_rag</code>.
      */
-    val DEFAULT_CATALOG: DefaultCatalog = DefaultCatalog()
-  }
+    val PAPERLESS_RAG: PaperlessRag get(): PaperlessRag = PaperlessRag.PAPERLESS_RAG
 
-  /**
-   * The schema <code>paperless_rag</code>.
-   */
-  val PAPERLESS_RAG: PaperlessRag get(): PaperlessRag = PaperlessRag.PAPERLESS_RAG
+    /**
+     * The schema <code>public</code>.
+     */
+    val PUBLIC: com.functionaldude.paperless.jooq.`public`.Public get(): com.functionaldude.paperless.jooq.`public`.Public = com.functionaldude.paperless.jooq.`public`.Public.PUBLIC
 
-  /**
-   * The schema <code>public</code>.
-   */
-  val PUBLIC: com.functionaldude.paperless.jooq.`public`.Public get(): com.functionaldude.paperless.jooq.`public`.Public = com.functionaldude.paperless.jooq.`public`.Public.PUBLIC
+    override fun getSchemas(): List<Schema> = listOf(
+        PaperlessRag.PAPERLESS_RAG,
+        com.functionaldude.paperless.jooq.`public`.Public.PUBLIC
+    )
 
-  override fun getSchemas(): List<Schema> = listOf(
-    PaperlessRag.PAPERLESS_RAG,
-    com.functionaldude.paperless.jooq.`public`.Public.PUBLIC
-  )
-
-  /**
-   * A reference to the 3.19 minor release of the code generator. If this
-   * doesn't compile, it's because the runtime library uses an older minor
-   * release, namely: 3.19. You can turn off the generation of this reference
-   * by specifying /configuration/generator/generate/jooqVersionReference
-   */
-  private val REQUIRE_RUNTIME_JOOQ_VERSION = Constants.VERSION_3_19
+    /**
+     * A reference to the 3.19 minor release of the code generator. If this
+     * doesn't compile, it's because the runtime library uses an older minor
+     * release, namely: 3.19. You can turn off the generation of this reference
+     * by specifying /configuration/generator/generate/jooqVersionReference
+     */
+    private val REQUIRE_RUNTIME_JOOQ_VERSION = Constants.VERSION_3_19
 }

@@ -4,12 +4,13 @@
 package com.functionaldude.paperless.jooq.`public`.tables.pojos
 
 
-import org.jooq.JSONB
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import java.util.*
+import java.util.UUID
+
+import org.jooq.JSONB
 
 
 /**

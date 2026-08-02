@@ -4,11 +4,12 @@
 package com.functionaldude.paperless.jooq.`public`.tables.records
 
 
-import org.jooq.Record1
-import org.jooq.impl.UpdatableRecordImpl
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import java.util.*
+import java.util.UUID
+
+import org.jooq.Record1
+import org.jooq.impl.UpdatableRecordImpl
 
 
 /**
@@ -46,65 +47,77 @@ open class DocumentsDocumentRecord() :
     set(value): Unit = set(6, value)
     get(): OffsetDateTime? = get(6) as OffsetDateTime?
 
-  open var storageType: String?
+  open var filename: String?
     set(value): Unit = set(7, value)
     get(): String? = get(7) as String?
 
-  open var filename: String?
-    set(value): Unit = set(8, value)
-    get(): String? = get(8) as String?
-
   open var archiveSerialNumber: Int?
+    set(value): Unit = set(8, value)
+    get(): Int? = get(8) as Int?
+
+  open var documentTypeId: Int?
     set(value): Unit = set(9, value)
     get(): Int? = get(9) as Int?
 
-  open var documentTypeId: Int?
-    set(value): Unit = set(10, value)
-    get(): Int? = get(10) as Int?
-
   open var mimeType: String?
+    set(value): Unit = set(10, value)
+    get(): String? = get(10) as String?
+
+  open var archiveChecksum: String?
     set(value): Unit = set(11, value)
     get(): String? = get(11) as String?
 
-  open var archiveChecksum: String?
+  open var archiveFilename: String?
     set(value): Unit = set(12, value)
     get(): String? = get(12) as String?
 
-  open var archiveFilename: String?
-    set(value): Unit = set(13, value)
-    get(): String? = get(13) as String?
-
   open var storagePathId: Int?
-    set(value): Unit = set(14, value)
-    get(): Int? = get(14) as Int?
+    set(value): Unit = set(13, value)
+    get(): Int? = get(13) as Int?
 
   open var originalFilename: String?
-    set(value): Unit = set(15, value)
-    get(): String? = get(15) as String?
+    set(value): Unit = set(14, value)
+    get(): String? = get(14) as String?
 
   open var ownerId: Int?
-    set(value): Unit = set(16, value)
-    get(): Int? = get(16) as Int?
+    set(value): Unit = set(15, value)
+    get(): Int? = get(15) as Int?
 
   open var deletedAt: OffsetDateTime?
+    set(value): Unit = set(16, value)
+    get(): OffsetDateTime? = get(16) as OffsetDateTime?
+
+  open var restoredAt: OffsetDateTime?
     set(value): Unit = set(17, value)
     get(): OffsetDateTime? = get(17) as OffsetDateTime?
 
-  open var restoredAt: OffsetDateTime?
-    set(value): Unit = set(18, value)
-    get(): OffsetDateTime? = get(18) as OffsetDateTime?
-
   open var transactionId: UUID?
-    set(value): Unit = set(19, value)
-    get(): UUID? = get(19) as UUID?
+    set(value): Unit = set(18, value)
+    get(): UUID? = get(18) as UUID?
 
   open var pageCount: Int?
-    set(value): Unit = set(20, value)
-    get(): Int? = get(20) as Int?
+    set(value): Unit = set(19, value)
+    get(): Int? = get(19) as Int?
 
   open var created: LocalDate?
+    set(value): Unit = set(20, value)
+    get(): LocalDate? = get(20) as LocalDate?
+
+  open var contentLength: Int?
     set(value): Unit = set(21, value)
-    get(): LocalDate? = get(21) as LocalDate?
+    get(): Int? = get(21) as Int?
+
+  open var rootDocumentId: Int?
+    set(value): Unit = set(22, value)
+    get(): Int? = get(22) as Int?
+
+  open var versionLabel: String?
+    set(value): Unit = set(23, value)
+    get(): String? = get(23) as String?
+
+  open var versionIndex: Int?
+    set(value): Unit = set(24, value)
+    get(): Int? = get(24) as Int?
 
   // -------------------------------------------------------------------------
   // Primary key information
@@ -123,7 +136,6 @@ open class DocumentsDocumentRecord() :
     correspondentId: Int? = null,
     checksum: String? = null,
     added: OffsetDateTime? = null,
-    storageType: String? = null,
     filename: String? = null,
     archiveSerialNumber: Int? = null,
     documentTypeId: Int? = null,
@@ -137,7 +149,11 @@ open class DocumentsDocumentRecord() :
     restoredAt: OffsetDateTime? = null,
     transactionId: UUID? = null,
     pageCount: Int? = null,
-    created: LocalDate? = null
+    created: LocalDate? = null,
+    contentLength: Int? = null,
+    rootDocumentId: Int? = null,
+    versionLabel: String? = null,
+    versionIndex: Int? = null
   ) : this() {
     this.id = id
     this.title = title
@@ -146,7 +162,6 @@ open class DocumentsDocumentRecord() :
     this.correspondentId = correspondentId
     this.checksum = checksum
     this.added = added
-    this.storageType = storageType
     this.filename = filename
     this.archiveSerialNumber = archiveSerialNumber
     this.documentTypeId = documentTypeId
@@ -161,6 +176,10 @@ open class DocumentsDocumentRecord() :
     this.transactionId = transactionId
     this.pageCount = pageCount
     this.created = created
+    this.contentLength = contentLength
+    this.rootDocumentId = rootDocumentId
+    this.versionLabel = versionLabel
+    this.versionIndex = versionIndex
     resetChangedOnNotNull()
   }
 
@@ -176,7 +195,6 @@ open class DocumentsDocumentRecord() :
       this.correspondentId = value.correspondentId
       this.checksum = value.checksum
       this.added = value.added
-      this.storageType = value.storageType
       this.filename = value.filename
       this.archiveSerialNumber = value.archiveSerialNumber
       this.documentTypeId = value.documentTypeId
@@ -191,6 +209,10 @@ open class DocumentsDocumentRecord() :
       this.transactionId = value.transactionId
       this.pageCount = value.pageCount
       this.created = value.created
+      this.contentLength = value.contentLength
+      this.rootDocumentId = value.rootDocumentId
+      this.versionLabel = value.versionLabel
+      this.versionIndex = value.versionIndex
       resetChangedOnNotNull()
     }
   }

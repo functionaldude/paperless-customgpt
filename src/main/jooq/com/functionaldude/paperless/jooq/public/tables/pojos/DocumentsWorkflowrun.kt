@@ -6,7 +6,7 @@ package com.functionaldude.paperless.jooq.`public`.tables.pojos
 
 import java.io.Serializable
 import java.time.OffsetDateTime
-import java.util.*
+import java.util.UUID
 
 
 /**
@@ -15,7 +15,7 @@ import java.util.*
 @Suppress("UNCHECKED_CAST")
 data class DocumentsWorkflowrun(
   val id: Int? = null,
-  val type: Int? = null,
+  val type: Short? = null,
   val runAt: OffsetDateTime? = null,
   val documentId: Int? = null,
   val workflowId: Int? = null,

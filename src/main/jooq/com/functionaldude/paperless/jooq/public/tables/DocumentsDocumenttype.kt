@@ -92,8 +92,8 @@ open class DocumentsDocumenttype(
   /**
    * The column <code>public.documents_documenttype.matching_algorithm</code>.
    */
-  val MATCHING_ALGORITHM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumenttypeRecord, Int?> =
-    createField(DSL.name("matching_algorithm"), SQLDataType.INTEGER.nullable(false), this, "")
+  val MATCHING_ALGORITHM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumenttypeRecord, Short?> =
+    createField(DSL.name("matching_algorithm"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.documents_documenttype.is_insensitive</code>.
@@ -297,6 +297,28 @@ open class DocumentsDocumenttype(
   val documentsWorkflowtriggerFilterHasNotDocumentTypes: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotDocumentTypes.DocumentsWorkflowtriggerFilterHasNotDocumentTypesPath
     get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotDocumentTypes.DocumentsWorkflowtriggerFilterHasNotDocumentTypesPath = documentsWorkflowtriggerFilterHasNotDocumentTypes()
 
+  private lateinit var _documentsWorkflowtriggerFilterHasAnyDocumentTypes: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesPath
+
+  /**
+   * Get the implicit to-many join path to the
+   * <code>public.documents_workflowtrigger_filter_has_any_document_types</code>
+   * table
+   */
+  fun documentsWorkflowtriggerFilterHasAnyDocumentTypes(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesPath {
+    if (!this::_documentsWorkflowtriggerFilterHasAnyDocumentTypes.isInitialized)
+      _documentsWorkflowtriggerFilterHasAnyDocumentTypes =
+        com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesPath(
+          this,
+          null,
+          com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES__DOCUMENTS_WORKFLOWTR_DOCUMENTTYPE_ID_E1418DB1_FK_DOCUMENTS.inverseKey
+        )
+
+    return _documentsWorkflowtriggerFilterHasAnyDocumentTypes;
+  }
+
+  val documentsWorkflowtriggerFilterHasAnyDocumentTypes: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesPath
+    get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DocumentsWorkflowtriggerFilterHasAnyDocumentTypesPath = documentsWorkflowtriggerFilterHasAnyDocumentTypes()
+
   private lateinit var _documentsWorkflowtrigger: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DocumentsWorkflowtriggerPath
 
   /**
@@ -338,6 +360,24 @@ open class DocumentsDocumenttype(
 
   val paperlessMailMailrule: com.functionaldude.paperless.jooq.`public`.tables.PaperlessMailMailrule.PaperlessMailMailrulePath
     get(): com.functionaldude.paperless.jooq.`public`.tables.PaperlessMailMailrule.PaperlessMailMailrulePath = paperlessMailMailrule()
+
+  /**
+   * Get the implicit many-to-many join path to the
+   * <code>public.documents_workflowtrigger</code> table, via the
+   * <code>documents_workflowtr_workflowtrigger_id_8665ee72_fk_documents</code>
+   * key
+   */
+  val documentsWorkflowtrWorkflowtriggerId_8665ee72FkDocuments: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DocumentsWorkflowtriggerPath
+    get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DocumentsWorkflowtriggerPath = documentsWorkflowtriggerFilterHasAnyDocumentTypes().documentsWorkflowtrigger()
+
+  /**
+   * Get the implicit many-to-many join path to the
+   * <code>public.documents_workflowtrigger</code> table, via the
+   * <code>documents_workflowtr_workflowtrigger_id_d0ca143d_fk_documents</code>
+   * key
+   */
+  val documentsWorkflowtrWorkflowtriggerIdD0ca143dFkDocuments: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DocumentsWorkflowtriggerPath
+    get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtrigger.DocumentsWorkflowtriggerPath = documentsWorkflowtriggerFilterHasNotDocumentTypes().documentsWorkflowtrigger()
 
   override fun getChecks(): List<Check<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumenttypeRecord>> =
     listOf(

@@ -4,8 +4,9 @@
 package com.functionaldude.paperless.jooq.`public`.tables.pojos
 
 
-import org.jooq.JSONB
 import java.io.Serializable
+
+import org.jooq.JSONB
 
 
 /**
@@ -14,7 +15,7 @@ import java.io.Serializable
 @Suppress("UNCHECKED_CAST")
 data class DocumentsWorkflowaction(
   val id: Int? = null,
-  val type: Int? = null,
+  val type: Short? = null,
   val assignTitle: String? = null,
   val assignCorrespondentId: Int? = null,
   val assignDocumentTypeId: Int? = null,
@@ -30,7 +31,8 @@ data class DocumentsWorkflowaction(
   val emailId: Int? = null,
   val webhookId: Int? = null,
   val assignCustomFieldsValues: JSONB? = null,
-  val order: Int? = null
+  val order: Int? = null,
+  val passwords: JSONB? = null
 ) : Serializable {
 
   override fun equals(other: Any?): Boolean {
@@ -131,6 +133,11 @@ data class DocumentsWorkflowaction(
         return false
     } else if (this.order != o.order)
       return false
+    if (this.passwords == null) {
+      if (o.passwords != null)
+        return false
+    } else if (this.passwords != o.passwords)
+      return false
     return true
   }
 
@@ -156,6 +163,7 @@ data class DocumentsWorkflowaction(
     result =
       prime * result + (if (this.assignCustomFieldsValues == null) 0 else this.assignCustomFieldsValues.hashCode())
     result = prime * result + (if (this.order == null) 0 else this.order.hashCode())
+    result = prime * result + (if (this.passwords == null) 0 else this.passwords.hashCode())
     return result
   }
 
@@ -180,6 +188,7 @@ data class DocumentsWorkflowaction(
     sb.append(", ").append(webhookId)
     sb.append(", ").append(assignCustomFieldsValues)
     sb.append(", ").append(order)
+    sb.append(", ").append(passwords)
 
     sb.append(")")
     return sb.toString()

@@ -15,7 +15,7 @@ data class DocumentsStoragepath(
   val id: Int? = null,
   val name: String? = null,
   val match: String? = null,
-  val matchingAlgorithm: Int? = null,
+  val matchingAlgorithm: Short? = null,
   val isInsensitive: Boolean? = null,
   val path: String? = null,
   val ownerId: Int? = null

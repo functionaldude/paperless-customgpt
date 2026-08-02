@@ -92,8 +92,8 @@ open class DocumentsTag(
   /**
    * The column <code>public.documents_tag.matching_algorithm</code>.
    */
-  val MATCHING_ALGORITHM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsTagRecord, Int?> =
-    createField(DSL.name("matching_algorithm"), SQLDataType.INTEGER.nullable(false), this, "")
+  val MATCHING_ALGORITHM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsTagRecord, Short?> =
+    createField(DSL.name("matching_algorithm"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.documents_tag.is_insensitive</code>.

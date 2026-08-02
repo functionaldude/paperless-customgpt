@@ -6,8 +6,14 @@ package com.functionaldude.paperless.jooq.paperless_rag.keys
 
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentChunk
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentSource
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2Authorization
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2AuthorizationConsent
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2RegisteredClient
 import com.functionaldude.paperless.jooq.paperless_rag.tables.records.DocumentChunkRecord
 import com.functionaldude.paperless.jooq.paperless_rag.tables.records.DocumentSourceRecord
+import com.functionaldude.paperless.jooq.paperless_rag.tables.records.Oauth2AuthorizationConsentRecord
+import com.functionaldude.paperless.jooq.paperless_rag.tables.records.Oauth2AuthorizationRecord
+import com.functionaldude.paperless.jooq.paperless_rag.tables.records.Oauth2RegisteredClientRecord
 
 import org.jooq.ForeignKey
 import org.jooq.UniqueKey
@@ -42,6 +48,27 @@ val DOCUMENT_SOURCE_PKEY: UniqueKey<DocumentSourceRecord> = Internal.createUniqu
   DocumentSource.DOCUMENT_SOURCE,
   DSL.name("document_source_pkey"),
   arrayOf(DocumentSource.DOCUMENT_SOURCE.ID),
+  true
+)
+val OAUTH2_AUTHORIZATION_PKEY: UniqueKey<Oauth2AuthorizationRecord> = Internal.createUniqueKey(
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  DSL.name("oauth2_authorization_pkey"),
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.ID),
+  true
+)
+val OAUTH2_AUTHORIZATION_CONSENT_PKEY: UniqueKey<Oauth2AuthorizationConsentRecord> = Internal.createUniqueKey(
+  Oauth2AuthorizationConsent.OAUTH2_AUTHORIZATION_CONSENT,
+  DSL.name("oauth2_authorization_consent_pkey"),
+  arrayOf(
+    Oauth2AuthorizationConsent.OAUTH2_AUTHORIZATION_CONSENT.REGISTERED_CLIENT_ID,
+    Oauth2AuthorizationConsent.OAUTH2_AUTHORIZATION_CONSENT.PRINCIPAL_NAME
+  ),
+  true
+)
+val OAUTH2_REGISTERED_CLIENT_PKEY: UniqueKey<Oauth2RegisteredClientRecord> = Internal.createUniqueKey(
+  Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT,
+  DSL.name("oauth2_registered_client_pkey"),
+  arrayOf(Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT.ID),
   true
 )
 

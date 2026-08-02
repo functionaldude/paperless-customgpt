@@ -83,8 +83,8 @@ open class DocumentsWorkflowrun(
   /**
    * The column <code>public.documents_workflowrun.type</code>.
    */
-  val TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowrunRecord, Int?> =
-    createField(DSL.name("type"), SQLDataType.INTEGER, this, "")
+  val TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsWorkflowrunRecord, Short?> =
+    createField(DSL.name("type"), SQLDataType.SMALLINT, this, "")
 
   /**
    * The column <code>public.documents_workflowrun.run_at</code>.
