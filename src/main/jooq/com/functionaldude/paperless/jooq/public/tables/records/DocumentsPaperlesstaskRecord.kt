@@ -4,9 +4,11 @@
 package com.functionaldude.paperless.jooq.`public`.tables.records
 
 
+import java.time.OffsetDateTime
+
+import org.jooq.JSONB
 import org.jooq.Record1
 import org.jooq.impl.UpdatableRecordImpl
-import java.time.OffsetDateTime
 
 
 /**
@@ -20,49 +22,57 @@ open class DocumentsPaperlesstaskRecord() :
     set(value): Unit = set(0, value)
     get(): Int? = get(0) as Int?
 
-  open var taskId: String?
+  open var ownerId: Int?
     set(value): Unit = set(1, value)
-    get(): String? = get(1) as String?
+    get(): Int? = get(1) as Int?
 
-  open var acknowledged: Boolean?
+  open var taskId: String?
     set(value): Unit = set(2, value)
-    get(): Boolean? = get(2) as Boolean?
+    get(): String? = get(2) as String?
 
-  open var dateCreated: OffsetDateTime?
+  open var taskType: String?
     set(value): Unit = set(3, value)
-    get(): OffsetDateTime? = get(3) as OffsetDateTime?
+    get(): String? = get(3) as String?
 
-  open var dateDone: OffsetDateTime?
+  open var triggerSource: String?
     set(value): Unit = set(4, value)
-    get(): OffsetDateTime? = get(4) as OffsetDateTime?
-
-  open var dateStarted: OffsetDateTime?
-    set(value): Unit = set(5, value)
-    get(): OffsetDateTime? = get(5) as OffsetDateTime?
-
-  open var result: String?
-    set(value): Unit = set(6, value)
-    get(): String? = get(6) as String?
+    get(): String? = get(4) as String?
 
   open var status: String?
+    set(value): Unit = set(5, value)
+    get(): String? = get(5) as String?
+
+  open var dateCreated: OffsetDateTime?
+    set(value): Unit = set(6, value)
+    get(): OffsetDateTime? = get(6) as OffsetDateTime?
+
+  open var dateStarted: OffsetDateTime?
     set(value): Unit = set(7, value)
-    get(): String? = get(7) as String?
+    get(): OffsetDateTime? = get(7) as OffsetDateTime?
 
-  open var taskName: String?
+  open var dateDone: OffsetDateTime?
     set(value): Unit = set(8, value)
-    get(): String? = get(8) as String?
+    get(): OffsetDateTime? = get(8) as OffsetDateTime?
 
-  open var taskFileName: String?
+  open var durationSeconds: Double?
     set(value): Unit = set(9, value)
-    get(): String? = get(9) as String?
+    get(): Double? = get(9) as Double?
 
-  open var ownerId: Int?
+  open var waitTimeSeconds: Double?
     set(value): Unit = set(10, value)
-    get(): Int? = get(10) as Int?
+    get(): Double? = get(10) as Double?
 
-  open var type: String?
+  open var inputData: JSONB?
     set(value): Unit = set(11, value)
-    get(): String? = get(11) as String?
+    get(): JSONB? = get(11) as JSONB?
+
+  open var resultData: JSONB?
+    set(value): Unit = set(12, value)
+    get(): JSONB? = get(12) as JSONB?
+
+  open var acknowledged: Boolean?
+    set(value): Unit = set(13, value)
+    get(): Boolean? = get(13) as Boolean?
 
   // -------------------------------------------------------------------------
   // Primary key information
@@ -75,30 +85,34 @@ open class DocumentsPaperlesstaskRecord() :
    */
   constructor(
     id: Int? = null,
-    taskId: String? = null,
-    acknowledged: Boolean? = null,
-    dateCreated: OffsetDateTime? = null,
-    dateDone: OffsetDateTime? = null,
-    dateStarted: OffsetDateTime? = null,
-    result: String? = null,
-    status: String? = null,
-    taskName: String? = null,
-    taskFileName: String? = null,
     ownerId: Int? = null,
-    type: String? = null
+    taskId: String? = null,
+    taskType: String? = null,
+    triggerSource: String? = null,
+    status: String? = null,
+    dateCreated: OffsetDateTime? = null,
+    dateStarted: OffsetDateTime? = null,
+    dateDone: OffsetDateTime? = null,
+    durationSeconds: Double? = null,
+    waitTimeSeconds: Double? = null,
+    inputData: JSONB? = null,
+    resultData: JSONB? = null,
+    acknowledged: Boolean? = null
   ) : this() {
     this.id = id
-    this.taskId = taskId
-    this.acknowledged = acknowledged
-    this.dateCreated = dateCreated
-    this.dateDone = dateDone
-    this.dateStarted = dateStarted
-    this.result = result
-    this.status = status
-    this.taskName = taskName
-    this.taskFileName = taskFileName
     this.ownerId = ownerId
-    this.type = type
+    this.taskId = taskId
+    this.taskType = taskType
+    this.triggerSource = triggerSource
+    this.status = status
+    this.dateCreated = dateCreated
+    this.dateStarted = dateStarted
+    this.dateDone = dateDone
+    this.durationSeconds = durationSeconds
+    this.waitTimeSeconds = waitTimeSeconds
+    this.inputData = inputData
+    this.resultData = resultData
+    this.acknowledged = acknowledged
     resetChangedOnNotNull()
   }
 
@@ -108,17 +122,19 @@ open class DocumentsPaperlesstaskRecord() :
   constructor(value: com.functionaldude.paperless.jooq.`public`.tables.pojos.DocumentsPaperlesstask?) : this() {
     if (value != null) {
       this.id = value.id
-      this.taskId = value.taskId
-      this.acknowledged = value.acknowledged
-      this.dateCreated = value.dateCreated
-      this.dateDone = value.dateDone
-      this.dateStarted = value.dateStarted
-      this.result = value.result
-      this.status = value.status
-      this.taskName = value.taskName
-      this.taskFileName = value.taskFileName
       this.ownerId = value.ownerId
-      this.type = value.type
+      this.taskId = value.taskId
+      this.taskType = value.taskType
+      this.triggerSource = value.triggerSource
+      this.status = value.status
+      this.dateCreated = value.dateCreated
+      this.dateStarted = value.dateStarted
+      this.dateDone = value.dateDone
+      this.durationSeconds = value.durationSeconds
+      this.waitTimeSeconds = value.waitTimeSeconds
+      this.inputData = value.inputData
+      this.resultData = value.resultData
+      this.acknowledged = value.acknowledged
       resetChangedOnNotNull()
     }
   }

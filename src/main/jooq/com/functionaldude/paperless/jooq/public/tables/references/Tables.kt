@@ -173,6 +173,18 @@ val DOCUMENTS_SHARELINK: com.functionaldude.paperless.jooq.`public`.tables.Docum
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK
 
 /**
+ * The table <code>public.documents_sharelinkbundle</code>.
+ */
+val DOCUMENTS_SHARELINKBUNDLE: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle =
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE
+
+/**
+ * The table <code>public.documents_sharelinkbundle_documents</code>.
+ */
+val DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments =
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS
+
+/**
  * The table <code>public.documents_storagepath</code>.
  */
 val DOCUMENTS_STORAGEPATH: com.functionaldude.paperless.jooq.`public`.tables.DocumentsStoragepath =
@@ -339,6 +351,27 @@ val DOCUMENTS_WORKFLOWTRIGGER: com.functionaldude.paperless.jooq.`public`.tables
  */
 val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAllTags =
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAllTags.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ALL_TAGS
+
+/**
+ * The table
+ * <code>public.documents_workflowtrigger_filter_has_any_correspondents</code>.
+ */
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents =
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS
+
+/**
+ * The table
+ * <code>public.documents_workflowtrigger_filter_has_any_document_types</code>.
+ */
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes =
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES
+
+/**
+ * The table
+ * <code>public.documents_workflowtrigger_filter_has_any_storage_paths</code>.
+ */
+val DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths =
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS
 
 /**
  * The table

@@ -27,9 +27,9 @@ open class DocumentsStoragepathRecord() :
     set(value): Unit = set(2, value)
     get(): String? = get(2) as String?
 
-  open var matchingAlgorithm: Int?
+  open var matchingAlgorithm: Short?
     set(value): Unit = set(3, value)
-    get(): Int? = get(3) as Int?
+    get(): Short? = get(3) as Short?
 
   @Suppress("INAPPLICABLE_JVM_NAME")
   @set:JvmName("setIsInsensitive")
@@ -58,7 +58,7 @@ open class DocumentsStoragepathRecord() :
     id: Int? = null,
     name: String? = null,
     match: String? = null,
-    matchingAlgorithm: Int? = null,
+    matchingAlgorithm: Short? = null,
     isInsensitive: Boolean? = null,
     path: String? = null,
     ownerId: Int? = null

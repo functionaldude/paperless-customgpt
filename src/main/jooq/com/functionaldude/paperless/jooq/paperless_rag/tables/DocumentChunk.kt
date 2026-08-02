@@ -12,10 +12,37 @@ import com.functionaldude.paperless.jooq.paperless_rag.keys.UQ_DOCUMENT_CHUNK_DO
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentSource.DocumentSourcePath
 import com.functionaldude.paperless.jooq.paperless_rag.tables.records.DocumentChunkRecord
 import com.functionaldude.paperless_customGPT.PGVectorBinding
-import org.jooq.*
-import org.jooq.impl.*
-import org.jooq.impl.Internal
+
 import java.time.OffsetDateTime
+
+import kotlin.collections.Collection
+import kotlin.collections.List
+
+import org.jooq.Condition
+import org.jooq.Field
+import org.jooq.ForeignKey
+import org.jooq.Identity
+import org.jooq.Index
+import org.jooq.InverseForeignKey
+import org.jooq.JSONB
+import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
+import org.jooq.Record
+import org.jooq.SQL
+import org.jooq.Schema
+import org.jooq.Select
+import org.jooq.Stringly
+import org.jooq.Table
+import org.jooq.TableField
+import org.jooq.TableOptions
+import org.jooq.UniqueKey
+import org.jooq.impl.DSL
+import org.jooq.impl.DefaultDataType
+import org.jooq.impl.Internal
+import org.jooq.impl.SQLDataType
+import org.jooq.impl.TableImpl
 
 
 /**

@@ -7,7 +7,7 @@ package com.functionaldude.paperless.jooq.`public`.tables.pojos
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import java.util.*
+import java.util.UUID
 
 
 /**
@@ -22,7 +22,6 @@ data class DocumentsDocument(
   val correspondentId: Int? = null,
   val checksum: String? = null,
   val added: OffsetDateTime? = null,
-  val storageType: String? = null,
   val filename: String? = null,
   val archiveSerialNumber: Int? = null,
   val documentTypeId: Int? = null,
@@ -36,7 +35,11 @@ data class DocumentsDocument(
   val restoredAt: OffsetDateTime? = null,
   val transactionId: UUID? = null,
   val pageCount: Int? = null,
-  val created: LocalDate? = null
+  val created: LocalDate? = null,
+  val contentLength: Int? = null,
+  val rootDocumentId: Int? = null,
+  val versionLabel: String? = null,
+  val versionIndex: Int? = null
 ) : Serializable {
 
   override fun equals(other: Any?): Boolean {
@@ -81,11 +84,6 @@ data class DocumentsDocument(
       if (o.added != null)
         return false
     } else if (this.added != o.added)
-      return false
-    if (this.storageType == null) {
-      if (o.storageType != null)
-        return false
-    } else if (this.storageType != o.storageType)
       return false
     if (this.filename == null) {
       if (o.filename != null)
@@ -157,6 +155,26 @@ data class DocumentsDocument(
         return false
     } else if (this.created != o.created)
       return false
+    if (this.contentLength == null) {
+      if (o.contentLength != null)
+        return false
+    } else if (this.contentLength != o.contentLength)
+      return false
+    if (this.rootDocumentId == null) {
+      if (o.rootDocumentId != null)
+        return false
+    } else if (this.rootDocumentId != o.rootDocumentId)
+      return false
+    if (this.versionLabel == null) {
+      if (o.versionLabel != null)
+        return false
+    } else if (this.versionLabel != o.versionLabel)
+      return false
+    if (this.versionIndex == null) {
+      if (o.versionIndex != null)
+        return false
+    } else if (this.versionIndex != o.versionIndex)
+      return false
     return true
   }
 
@@ -170,7 +188,6 @@ data class DocumentsDocument(
     result = prime * result + (if (this.correspondentId == null) 0 else this.correspondentId.hashCode())
     result = prime * result + (if (this.checksum == null) 0 else this.checksum.hashCode())
     result = prime * result + (if (this.added == null) 0 else this.added.hashCode())
-    result = prime * result + (if (this.storageType == null) 0 else this.storageType.hashCode())
     result = prime * result + (if (this.filename == null) 0 else this.filename.hashCode())
     result = prime * result + (if (this.archiveSerialNumber == null) 0 else this.archiveSerialNumber.hashCode())
     result = prime * result + (if (this.documentTypeId == null) 0 else this.documentTypeId.hashCode())
@@ -185,6 +202,10 @@ data class DocumentsDocument(
     result = prime * result + (if (this.transactionId == null) 0 else this.transactionId.hashCode())
     result = prime * result + (if (this.pageCount == null) 0 else this.pageCount.hashCode())
     result = prime * result + (if (this.created == null) 0 else this.created.hashCode())
+    result = prime * result + (if (this.contentLength == null) 0 else this.contentLength.hashCode())
+    result = prime * result + (if (this.rootDocumentId == null) 0 else this.rootDocumentId.hashCode())
+    result = prime * result + (if (this.versionLabel == null) 0 else this.versionLabel.hashCode())
+    result = prime * result + (if (this.versionIndex == null) 0 else this.versionIndex.hashCode())
     return result
   }
 
@@ -198,7 +219,6 @@ data class DocumentsDocument(
     sb.append(", ").append(correspondentId)
     sb.append(", ").append(checksum)
     sb.append(", ").append(added)
-    sb.append(", ").append(storageType)
     sb.append(", ").append(filename)
     sb.append(", ").append(archiveSerialNumber)
     sb.append(", ").append(documentTypeId)
@@ -213,6 +233,10 @@ data class DocumentsDocument(
     sb.append(", ").append(transactionId)
     sb.append(", ").append(pageCount)
     sb.append(", ").append(created)
+    sb.append(", ").append(contentLength)
+    sb.append(", ").append(rootDocumentId)
+    sb.append(", ").append(versionLabel)
+    sb.append(", ").append(versionIndex)
 
     sb.append(")")
     return sb.toString()

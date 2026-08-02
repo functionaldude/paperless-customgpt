@@ -81,8 +81,8 @@ open class DocumentsSavedviewfilterrule(
   /**
    * The column <code>public.documents_savedviewfilterrule.rule_type</code>.
    */
-  val RULE_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSavedviewfilterruleRecord, Int?> =
-    createField(DSL.name("rule_type"), SQLDataType.INTEGER.nullable(false), this, "")
+  val RULE_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsSavedviewfilterruleRecord, Short?> =
+    createField(DSL.name("rule_type"), SQLDataType.SMALLINT.nullable(false), this, "")
 
   /**
    * The column <code>public.documents_savedviewfilterrule.value</code>.

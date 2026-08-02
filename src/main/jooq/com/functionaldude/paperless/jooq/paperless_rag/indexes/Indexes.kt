@@ -6,6 +6,8 @@ package com.functionaldude.paperless.jooq.paperless_rag.indexes
 
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentChunk
 import com.functionaldude.paperless.jooq.paperless_rag.tables.DocumentSource
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2Authorization
+import com.functionaldude.paperless.jooq.paperless_rag.tables.Oauth2RegisteredClient
 
 import org.jooq.Index
 import org.jooq.impl.DSL
@@ -34,4 +36,64 @@ val IDX_DOCUMENT_SOURCE_STATUS: Index = Internal.createIndex(
   DocumentSource.DOCUMENT_SOURCE,
   arrayOf(DocumentSource.DOCUMENT_SOURCE.STATUS),
   false
+)
+val OAUTH2_AUTHORIZATION_ACCESS_TOKEN_VALUE_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_access_token_value_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.ACCESS_TOKEN_VALUE),
+  false
+)
+val OAUTH2_AUTHORIZATION_AUTHORIZATION_CODE_VALUE_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_authorization_code_value_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.AUTHORIZATION_CODE_VALUE),
+  false
+)
+val OAUTH2_AUTHORIZATION_DEVICE_CODE_VALUE_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_device_code_value_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.DEVICE_CODE_VALUE),
+  false
+)
+val OAUTH2_AUTHORIZATION_OIDC_ID_TOKEN_VALUE_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_oidc_id_token_value_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.OIDC_ID_TOKEN_VALUE),
+  false
+)
+val OAUTH2_AUTHORIZATION_PRINCIPAL_NAME_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_principal_name_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.PRINCIPAL_NAME),
+  false
+)
+val OAUTH2_AUTHORIZATION_REFRESH_TOKEN_VALUE_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_refresh_token_value_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.REFRESH_TOKEN_VALUE),
+  false
+)
+val OAUTH2_AUTHORIZATION_REGISTERED_CLIENT_ID_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_registered_client_id_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.REGISTERED_CLIENT_ID),
+  false
+)
+val OAUTH2_AUTHORIZATION_STATE_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_state_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.STATE),
+  false
+)
+val OAUTH2_AUTHORIZATION_USER_CODE_VALUE_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_authorization_user_code_value_idx"),
+  Oauth2Authorization.OAUTH2_AUTHORIZATION,
+  arrayOf(Oauth2Authorization.OAUTH2_AUTHORIZATION.USER_CODE_VALUE),
+  false
+)
+val OAUTH2_REGISTERED_CLIENT_CLIENT_ID_IDX: Index = Internal.createIndex(
+  DSL.name("oauth2_registered_client_client_id_idx"),
+  Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT,
+  arrayOf(Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT.CLIENT_ID),
+  true
 )

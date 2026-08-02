@@ -248,6 +248,42 @@ val DJANGO_SESSION_SESSION_KEY_C0390E0F_LIKE: Index = Internal.createIndex(
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DjangoSession.DJANGO_SESSION.SESSION_KEY),
   false
 )
+val DOCUMENTS_C_FIELD_I_30B51D_IDX: Index = Internal.createIndex(
+  DSL.name("documents_c_field_i_30b51d_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.FIELD_ID,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.VALUE_DATE
+  ),
+  false
+)
+val DOCUMENTS_C_FIELD_I_53CE4E_IDX: Index = Internal.createIndex(
+  DSL.name("documents_c_field_i_53ce4e_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.FIELD_ID,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.VALUE_MONETARY_AMOUNT
+  ),
+  false
+)
+val DOCUMENTS_C_FIELD_I_C35174_IDX: Index = Internal.createIndex(
+  DSL.name("documents_c_field_i_c35174_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.FIELD_ID,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.VALUE_FLOAT
+  ),
+  false
+)
+val DOCUMENTS_C_FIELD_I_D25AB0_IDX: Index = Internal.createIndex(
+  DSL.name("documents_c_field_i_d25ab0_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.FIELD_ID,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.VALUE_INT
+  ),
+  false
+)
 val DOCUMENTS_CORRESPONDENT_NAME_UNIQ: Index = Internal.createIndex(
   DSL.name("documents_correspondent_name_uniq"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsCorrespondent.DOCUMENTS_CORRESPONDENT,
@@ -284,6 +320,15 @@ val DOCUMENTS_CUSTOMFIELDINSTANCE_FIELD_ID_6C59E32F: Index = Internal.createInde
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsCustomfieldinstance.DOCUMENTS_CUSTOMFIELDINSTANCE.FIELD_ID),
   false
 )
+val DOCUMENTS_D_OWNER_I_EC6AB3_IDX: Index = Internal.createIndex(
+  DSL.name("documents_d_owner_i_ec6ab3_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.OWNER_ID,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.CREATED
+  ),
+  false
+)
 val DOCUMENTS_DOCUMENT_ADDED_28CFA360: Index = Internal.createIndex(
   DSL.name("documents_document_added_28cfa360"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
@@ -294,6 +339,12 @@ val DOCUMENTS_DOCUMENT_ARCHIVE_FILENAME_FC3CB023_LIKE: Index = Internal.createIn
   DSL.name("documents_document_archive_filename_fc3cb023_like"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.ARCHIVE_FILENAME),
+  false
+)
+val DOCUMENTS_DOCUMENT_CHECKSUM_75209391: Index = Internal.createIndex(
+  DSL.name("documents_document_checksum_75209391"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.CHECKSUM),
   false
 )
 val DOCUMENTS_DOCUMENT_CHECKSUM_75209391_LIKE: Index = Internal.createIndex(
@@ -332,6 +383,27 @@ val DOCUMENTS_DOCUMENT_OWNER_ID_04D2B723: Index = Internal.createIndex(
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.OWNER_ID),
   false
 )
+val DOCUMENTS_DOCUMENT_PAGE_COUNT_A5279E92: Index = Internal.createIndex(
+  DSL.name("documents_document_page_count_a5279e92"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.PAGE_COUNT),
+  false
+)
+val DOCUMENTS_DOCUMENT_ROOT_DOCUMENT_ID_78094BF2: Index = Internal.createIndex(
+  DSL.name("documents_document_root_document_id_78094bf2"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID),
+  false
+)
+val DOCUMENTS_DOCUMENT_ROOT_VERSION_INDEX_UNIQ: Index = Internal.createIndex(
+  DSL.name("documents_document_root_version_index_uniq"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.VERSION_INDEX
+  ),
+  true
+)
 val DOCUMENTS_DOCUMENT_SENDER_ID_950512B2: Index = Internal.createIndex(
   DSL.name("documents_document_sender_id_950512b2"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
@@ -368,6 +440,12 @@ val DOCUMENTS_DOCUMENT_TITLE_6B08E02A_LIKE: Index = Internal.createIndex(
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.TITLE),
   false
 )
+val DOCUMENTS_DOCUMENT_VERSION_INDEX_FEBCBE7B: Index = Internal.createIndex(
+  DSL.name("documents_document_version_index_febcbe7b"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DOCUMENTS_DOCUMENT.VERSION_INDEX),
+  false
+)
 val DOCUMENTS_DOCUMENTTYPE_NAME_UNIQ: Index = Internal.createIndex(
   DSL.name("documents_documenttype_name_uniq"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocumenttype.DOCUMENTS_DOCUMENTTYPE,
@@ -398,16 +476,98 @@ val DOCUMENTS_NOTE_USER_ID_CAB59BAE: Index = Internal.createIndex(
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsNote.DOCUMENTS_NOTE.USER_ID),
   false
 )
+val DOCUMENTS_P_OWNER_I_62C545_IDX: Index = Internal.createIndex(
+  DSL.name("documents_p_owner_i_62c545_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.OWNER_ID,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.ACKNOWLEDGED,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.DATE_CREATED
+  ),
+  false
+)
+val DOCUMENTS_P_STATUS_8AA687_IDX: Index = Internal.createIndex(
+  DSL.name("documents_p_status_8aa687_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.STATUS,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.DATE_CREATED
+  ),
+  false
+)
+val DOCUMENTS_P_TASK_TY_E4A93F_IDX: Index = Internal.createIndex(
+  DSL.name("documents_p_task_ty_e4a93f_idx"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.TASK_TYPE,
+    com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.STATUS
+  ),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_ACKNOWLEDGED_D75E68BA: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_acknowledged_d75e68ba"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.ACKNOWLEDGED),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_DATE_CREATED_90B15F1F: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_date_created_90b15f1f"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.DATE_CREATED),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_DATE_DONE_D2DF1951: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_date_done_d2df1951"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.DATE_DONE),
+  false
+)
 val DOCUMENTS_PAPERLESSTASK_OWNER_ID_E4512F84: Index = Internal.createIndex(
   DSL.name("documents_paperlesstask_owner_id_e4512f84"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.OWNER_ID),
   false
 )
+val DOCUMENTS_PAPERLESSTASK_STATUS_6748FA6C: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_status_6748fa6c"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.STATUS),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_STATUS_6748FA6C_LIKE: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_status_6748fa6c_like"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.STATUS),
+  false
+)
 val DOCUMENTS_PAPERLESSTASK_TASK_ID_24B393F9_LIKE: Index = Internal.createIndex(
   DSL.name("documents_paperlesstask_task_id_24b393f9_like"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.TASK_ID),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_TASK_TYPE_8802CD7F: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_task_type_8802cd7f"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.TASK_TYPE),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_TASK_TYPE_8802CD7F_LIKE: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_task_type_8802cd7f_like"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.TASK_TYPE),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_TRIGGER_SOURCE_71F17C67: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_trigger_source_71f17c67"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.TRIGGER_SOURCE),
+  false
+)
+val DOCUMENTS_PAPERLESSTASK_TRIGGER_SOURCE_71F17C67_LIKE: Index = Internal.createIndex(
+  DSL.name("documents_paperlesstask_trigger_source_71f17c67_like"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsPaperlesstask.DOCUMENTS_PAPERLESSTASK.TRIGGER_SOURCE),
   false
 )
 val DOCUMENTS_SAVEDVIEW_USER_ID_48BAF272: Index = Internal.createIndex(
@@ -456,6 +616,42 @@ val DOCUMENTS_SHARELINK_SLUG_47D0454D_LIKE: Index = Internal.createIndex(
   DSL.name("documents_sharelink_slug_47d0454d_like"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK,
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DOCUMENTS_SHARELINK.SLUG),
+  false
+)
+val DOCUMENTS_SHARELINKBUNDLE_CREATED_34F0EB12: Index = Internal.createIndex(
+  DSL.name("documents_sharelinkbundle_created_34f0eb12"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.CREATED),
+  false
+)
+val DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS_DOCUMENT_ID_C3012FD7: Index = Internal.createIndex(
+  DSL.name("documents_sharelinkbundle_documents_document_id_c3012fd7"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS.DOCUMENT_ID),
+  false
+)
+val DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS_SHARELINKBUNDLE_ID_7ECA8F52: Index = Internal.createIndex(
+  DSL.name("documents_sharelinkbundle_documents_sharelinkbundle_id_7eca8f52"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS.SHARELINKBUNDLE_ID),
+  false
+)
+val DOCUMENTS_SHARELINKBUNDLE_EXPIRATION_158994E9: Index = Internal.createIndex(
+  DSL.name("documents_sharelinkbundle_expiration_158994e9"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.EXPIRATION),
+  false
+)
+val DOCUMENTS_SHARELINKBUNDLE_OWNER_ID_9138D0AF: Index = Internal.createIndex(
+  DSL.name("documents_sharelinkbundle_owner_id_9138d0af"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.OWNER_ID),
+  false
+)
+val DOCUMENTS_SHARELINKBUNDLE_SLUG_0C18B39D_LIKE: Index = Internal.createIndex(
+  DSL.name("documents_sharelinkbundle_slug_0c18b39d_like"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DOCUMENTS_SHARELINKBUNDLE.SLUG),
   false
 )
 val DOCUMENTS_STORAGEPATH_NAME_UNIQ: Index = Internal.createIndex(
@@ -770,10 +966,28 @@ val DOCUMENTS_WORKFLOWTRIGGER__CORRESPONDENT_ID_AC4A7D73: Index = Internal.creat
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_CORRESPONDENTS.CORRESPONDENT_ID),
   false
 )
+val DOCUMENTS_WORKFLOWTRIGGER__CORRESPONDENT_ID_E2F177B2: Index = Internal.createIndex(
+  DSL.name("documents_workflowtrigger__correspondent_id_e2f177b2"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS.CORRESPONDENT_ID),
+  false
+)
 val DOCUMENTS_WORKFLOWTRIGGER__DOCUMENTTYPE_ID_395D37FA: Index = Internal.createIndex(
   DSL.name("documents_workflowtrigger__documenttype_id_395d37fa"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_DOCUMENT_TYPES,
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_DOCUMENT_TYPES.DOCUMENTTYPE_ID),
+  false
+)
+val DOCUMENTS_WORKFLOWTRIGGER__DOCUMENTTYPE_ID_E1418DB1: Index = Internal.createIndex(
+  DSL.name("documents_workflowtrigger__documenttype_id_e1418db1"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES.DOCUMENTTYPE_ID),
+  false
+)
+val DOCUMENTS_WORKFLOWTRIGGER__STORAGEPATH_ID_4F759B0D: Index = Internal.createIndex(
+  DSL.name("documents_workflowtrigger__storagepath_id_4f759b0d"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS.STORAGEPATH_ID),
   false
 )
 val DOCUMENTS_WORKFLOWTRIGGER__STORAGEPATH_ID_B49241EB: Index = Internal.createIndex(
@@ -788,10 +1002,28 @@ val DOCUMENTS_WORKFLOWTRIGGER__WORKFLOWTRIGGER_ID_0E4AE5AC: Index = Internal.cre
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasNotStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_NOT_STORAGE_PATHS.WORKFLOWTRIGGER_ID),
   false
 )
+val DOCUMENTS_WORKFLOWTRIGGER__WORKFLOWTRIGGER_ID_4A205AA9: Index = Internal.createIndex(
+  DSL.name("documents_workflowtrigger__workflowtrigger_id_4a205aa9"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyCorrespondents.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_CORRESPONDENTS.WORKFLOWTRIGGER_ID),
+  false
+)
+val DOCUMENTS_WORKFLOWTRIGGER__WORKFLOWTRIGGER_ID_5E9A227F: Index = Internal.createIndex(
+  DSL.name("documents_workflowtrigger__workflowtrigger_id_5e9a227f"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyStoragePaths.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_STORAGE_PATHS.WORKFLOWTRIGGER_ID),
+  false
+)
 val DOCUMENTS_WORKFLOWTRIGGER__WORKFLOWTRIGGER_ID_844712E1: Index = Internal.createIndex(
   DSL.name("documents_workflowtrigger__workflowtrigger_id_844712e1"),
   com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasTags.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_TAGS,
   arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasTags.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_TAGS.WORKFLOWTRIGGER_ID),
+  false
+)
+val DOCUMENTS_WORKFLOWTRIGGER__WORKFLOWTRIGGER_ID_8665EE72: Index = Internal.createIndex(
+  DSL.name("documents_workflowtrigger__workflowtrigger_id_8665ee72"),
+  com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES,
+  arrayOf(com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowtriggerFilterHasAnyDocumentTypes.DOCUMENTS_WORKFLOWTRIGGER_FILTER_HAS_ANY_DOCUMENT_TYPES.WORKFLOWTRIGGER_ID),
   false
 )
 val DOCUMENTS_WORKFLOWTRIGGER__WORKFLOWTRIGGER_ID_B1A69716: Index = Internal.createIndex(

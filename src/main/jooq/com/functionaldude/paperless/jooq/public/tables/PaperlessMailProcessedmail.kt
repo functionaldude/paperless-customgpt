@@ -133,6 +133,12 @@ open class PaperlessMailProcessedmail(
   val RULE_ID: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailProcessedmailRecord, Int?> =
     createField(DSL.name("rule_id"), SQLDataType.INTEGER.nullable(false), this, "")
 
+  /**
+   * The column <code>public.paperless_mail_processedmail.uid_validity</code>.
+   */
+  val UID_VALIDITY: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailProcessedmailRecord, String?> =
+    createField(DSL.name("uid_validity"), SQLDataType.VARCHAR(64), this, "")
+
   private constructor(
     alias: Name,
     aliased: Table<com.functionaldude.paperless.jooq.`public`.tables.records.PaperlessMailProcessedmailRecord>?

@@ -109,19 +109,13 @@ open class DocumentsDocument(
    * The column <code>public.documents_document.checksum</code>.
    */
   val CHECKSUM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, String?> =
-    createField(DSL.name("checksum"), SQLDataType.VARCHAR(32).nullable(false), this, "")
+    createField(DSL.name("checksum"), SQLDataType.VARCHAR(64).nullable(false), this, "")
 
   /**
    * The column <code>public.documents_document.added</code>.
    */
   val ADDED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, OffsetDateTime?> =
     createField(DSL.name("added"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false), this, "")
-
-  /**
-   * The column <code>public.documents_document.storage_type</code>.
-   */
-  val STORAGE_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, String?> =
-    createField(DSL.name("storage_type"), SQLDataType.VARCHAR(11).nullable(false), this, "")
 
   /**
    * The column <code>public.documents_document.filename</code>.
@@ -151,7 +145,7 @@ open class DocumentsDocument(
    * The column <code>public.documents_document.archive_checksum</code>.
    */
   val ARCHIVE_CHECKSUM: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, String?> =
-    createField(DSL.name("archive_checksum"), SQLDataType.VARCHAR(32), this, "")
+    createField(DSL.name("archive_checksum"), SQLDataType.VARCHAR(64), this, "")
 
   /**
    * The column <code>public.documents_document.archive_filename</code>.
@@ -206,6 +200,30 @@ open class DocumentsDocument(
    */
   val CREATED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, LocalDate?> =
     createField(DSL.name("created"), SQLDataType.LOCALDATE.nullable(false), this, "")
+
+  /**
+   * The column <code>public.documents_document.content_length</code>.
+   */
+  val CONTENT_LENGTH: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, Int?> =
+    createField(DSL.name("content_length"), SQLDataType.INTEGER, this, "")
+
+  /**
+   * The column <code>public.documents_document.root_document_id</code>.
+   */
+  val ROOT_DOCUMENT_ID: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, Int?> =
+    createField(DSL.name("root_document_id"), SQLDataType.INTEGER, this, "")
+
+  /**
+   * The column <code>public.documents_document.version_label</code>.
+   */
+  val VERSION_LABEL: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, String?> =
+    createField(DSL.name("version_label"), SQLDataType.VARCHAR(64), this, "")
+
+  /**
+   * The column <code>public.documents_document.version_index</code>.
+   */
+  val VERSION_INDEX: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, Int?> =
+    createField(DSL.name("version_index"), SQLDataType.INTEGER, this, "")
 
   private constructor(
     alias: Name,
@@ -276,18 +294,24 @@ open class DocumentsDocument(
 
   override fun getSchema(): Schema? = if (aliased()) null else com.functionaldude.paperless.jooq.`public`.Public.PUBLIC
   override fun getIndexes(): List<Index> = listOf(
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_D_OWNER_I_EC6AB3_IDX,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_ADDED_28CFA360,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_ARCHIVE_FILENAME_FC3CB023_LIKE,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_CHECKSUM_75209391,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_CHECKSUM_75209391_LIKE,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_CREATED_BEDD0818,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_DOCUMENT_TYPE_ID_1F88B50C,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_FILENAME_3EE5AD97_LIKE,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_MODIFIED_2EAE15BC,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_OWNER_ID_04D2B723,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_PAGE_COUNT_A5279E92,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_ROOT_DOCUMENT_ID_78094BF2,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_ROOT_VERSION_INDEX_UNIQ,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_SENDER_ID_950512B2,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_STORAGE_PATH_ID_07D27BDB,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_TITLE_6B08E02A,
-    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_TITLE_6B08E02A_LIKE
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_TITLE_6B08E02A_LIKE,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_DOCUMENT_VERSION_INDEX_FEBCBE7B
   )
 
   override fun getIdentity(): Identity<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord, Int?> =
@@ -300,7 +324,6 @@ open class DocumentsDocument(
     listOf(
       com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT_ARCHIVE_FILENAME_KEY,
       com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT_ARCHIVE_SERIAL_NUMBER_KEY,
-      com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT_CHECKSUM_75209391_UNIQ,
       com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT_FILENAME_3EE5AD97_UNIQ
     )
 
@@ -309,6 +332,7 @@ open class DocumentsDocument(
       com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_CORRESPONDENT_ID_6164EB0C_FK_DOCUMENTS,
       com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_DOCUMENT_TYPE_ID_1F88B50C_FK_DOCUMENTS,
       com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_OWNER_ID_04D2B723_FK_AUTH_USER_ID,
+      com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_ROOT_DOCUMENT_ID_78094BF2_FK_DOCUMENTS,
       com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_STORAGE_PATH_ID_07D27BDB_FK_DOCUMENTS
     )
 
@@ -372,6 +396,26 @@ open class DocumentsDocument(
 
   val authUser: com.functionaldude.paperless.jooq.`public`.tables.AuthUser.AuthUserPath
     get(): com.functionaldude.paperless.jooq.`public`.tables.AuthUser.AuthUserPath = authUser()
+
+  private lateinit var _documentsDocument: com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DocumentsDocumentPath
+
+  /**
+   * Get the implicit join path to the <code>public.documents_document</code>
+   * table.
+   */
+  fun documentsDocument(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DocumentsDocumentPath {
+    if (!this::_documentsDocument.isInitialized)
+      _documentsDocument = com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DocumentsDocumentPath(
+        this,
+        com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_DOCUMENT__DOCUMENTS_DOCUMENT_ROOT_DOCUMENT_ID_78094BF2_FK_DOCUMENTS,
+        null
+      )
+
+    return _documentsDocument;
+  }
+
+  val documentsDocument: com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DocumentsDocumentPath
+    get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsDocument.DocumentsDocumentPath = documentsDocument()
 
   private lateinit var _documentsStoragepath: com.functionaldude.paperless.jooq.`public`.tables.DocumentsStoragepath.DocumentsStoragepathPath
 
@@ -476,6 +520,27 @@ open class DocumentsDocument(
   val documentsSharelink: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DocumentsSharelinkPath
     get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelink.DocumentsSharelinkPath = documentsSharelink()
 
+  private lateinit var _documentsSharelinkbundleDocuments: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DocumentsSharelinkbundleDocumentsPath
+
+  /**
+   * Get the implicit to-many join path to the
+   * <code>public.documents_sharelinkbundle_documents</code> table
+   */
+  fun documentsSharelinkbundleDocuments(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DocumentsSharelinkbundleDocumentsPath {
+    if (!this::_documentsSharelinkbundleDocuments.isInitialized)
+      _documentsSharelinkbundleDocuments =
+        com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DocumentsSharelinkbundleDocumentsPath(
+          this,
+          null,
+          com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_SHARELINKBUNDLE_DOCUMENTS__DOCUMENTS_SHARELINKB_DOCUMENT_ID_C3012FD7_FK_DOCUMENTS.inverseKey
+        )
+
+    return _documentsSharelinkbundleDocuments;
+  }
+
+  val documentsSharelinkbundleDocuments: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DocumentsSharelinkbundleDocumentsPath
+    get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundleDocuments.DocumentsSharelinkbundleDocumentsPath = documentsSharelinkbundleDocuments()
+
   private lateinit var _documentsWorkflowrun: com.functionaldude.paperless.jooq.`public`.tables.DocumentsWorkflowrun.DocumentsWorkflowrunPath
 
   /**
@@ -511,6 +576,13 @@ open class DocumentsDocument(
   val documentsTag: com.functionaldude.paperless.jooq.`public`.tables.DocumentsTag.DocumentsTagPath
     get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsTag.DocumentsTagPath = documentsDocumentTags().documentsTag()
 
+  /**
+   * Get the implicit many-to-many join path to the
+   * <code>public.documents_sharelinkbundle</code> table
+   */
+  val documentsSharelinkbundle: com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DocumentsSharelinkbundlePath
+    get(): com.functionaldude.paperless.jooq.`public`.tables.DocumentsSharelinkbundle.DocumentsSharelinkbundlePath = documentsSharelinkbundleDocuments().documentsSharelinkbundle()
+
   override fun getChecks(): List<Check<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsDocumentRecord>> =
     listOf(
       Internal.createCheck(
@@ -519,7 +591,8 @@ open class DocumentsDocument(
         "((archive_serial_number >= 0))",
         true
       ),
-      Internal.createCheck(this, DSL.name("documents_document_page_count_check"), "((page_count >= 0))", true)
+      Internal.createCheck(this, DSL.name("documents_document_page_count_check"), "((page_count >= 0))", true),
+      Internal.createCheck(this, DSL.name("documents_document_version_index_check"), "((version_index >= 0))", true)
     )
 
   override fun `as`(alias: String): DocumentsDocument = DocumentsDocument(DSL.name(alias), this)

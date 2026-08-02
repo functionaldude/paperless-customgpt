@@ -14,6 +14,8 @@ import dev.langchain4j.data.document.Metadata
 import dev.langchain4j.data.segment.TextSegment
 import dev.langchain4j.model.embedding.EmbeddingModel
 import org.jooq.DSLContext
+import org.jooq.Field
+import org.jooq.impl.DSL.coalesce
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -54,6 +56,17 @@ class RagIngestionService(
   }
 
   fun findIngestCandidates(limit: Int): List<IngestionCandidate> {
+    val latestVersion = DOCUMENTS_DOCUMENT.`as`("latest_version")
+    val latestVersionMimeType: Field<String?> = dsl
+      .select(latestVersion.MIME_TYPE)
+      .from(latestVersion)
+      .where(latestVersion.ROOT_DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
+      .and(latestVersion.DELETED_AT.isNull)
+      .orderBy(latestVersion.ID.desc())
+      .limit(1)
+      .asField<String?>()
+    val effectiveMimeType: Field<String?> = coalesce(latestVersionMimeType, DOCUMENTS_DOCUMENT.MIME_TYPE)
+
     return dsl
       .select(
         DOCUMENTS_DOCUMENT.ID,
@@ -67,7 +80,9 @@ class RagIngestionService(
       .leftJoin(DOCUMENTS_CORRESPONDENT).on(DOCUMENTS_DOCUMENT.CORRESPONDENT_ID.eq(DOCUMENTS_CORRESPONDENT.ID))
       .leftJoin(DOCUMENT_SOURCE).on(DOCUMENTS_DOCUMENT.ID.eq(DOCUMENT_SOURCE.PAPERLESS_DOC_ID))
       .where(
-        DOCUMENTS_DOCUMENT.MIME_TYPE.eq(PDF_MIME).and(
+        DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull,
+        DOCUMENTS_DOCUMENT.DELETED_AT.isNull,
+        effectiveMimeType.eq(PDF_MIME).and(
           DOCUMENT_SOURCE.PAPERLESS_DOC_ID.isNull
             .or(DOCUMENTS_DOCUMENT.MODIFIED.gt(DOCUMENT_SOURCE.LAST_INGESTED_AT))
             .or(DOCUMENT_SOURCE.STATUS.eq(IngestStatus.ERROR.name))

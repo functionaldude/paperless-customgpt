@@ -4,9 +4,10 @@
 package com.functionaldude.paperless.jooq.paperless_rag.tables.pojos
 
 
-import org.jooq.JSONB
 import java.io.Serializable
 import java.time.OffsetDateTime
+
+import org.jooq.JSONB
 
 
 /**

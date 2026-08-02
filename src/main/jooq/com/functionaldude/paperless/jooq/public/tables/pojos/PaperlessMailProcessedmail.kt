@@ -22,7 +22,8 @@ data class PaperlessMailProcessedmail(
   val status: String? = null,
   val error: String? = null,
   val ownerId: Int? = null,
-  val ruleId: Int? = null
+  val ruleId: Int? = null,
+  val uidValidity: String? = null
 ) : Serializable {
 
   override fun equals(other: Any?): Boolean {
@@ -83,6 +84,11 @@ data class PaperlessMailProcessedmail(
         return false
     } else if (this.ruleId != o.ruleId)
       return false
+    if (this.uidValidity == null) {
+      if (o.uidValidity != null)
+        return false
+    } else if (this.uidValidity != o.uidValidity)
+      return false
     return true
   }
 
@@ -99,6 +105,7 @@ data class PaperlessMailProcessedmail(
     result = prime * result + (if (this.error == null) 0 else this.error.hashCode())
     result = prime * result + (if (this.ownerId == null) 0 else this.ownerId.hashCode())
     result = prime * result + (if (this.ruleId == null) 0 else this.ruleId.hashCode())
+    result = prime * result + (if (this.uidValidity == null) 0 else this.uidValidity.hashCode())
     return result
   }
 
@@ -115,6 +122,7 @@ data class PaperlessMailProcessedmail(
     sb.append(", ").append(error)
     sb.append(", ").append(ownerId)
     sb.append(", ").append(ruleId)
+    sb.append(", ").append(uidValidity)
 
     sb.append(")")
     return sb.toString()

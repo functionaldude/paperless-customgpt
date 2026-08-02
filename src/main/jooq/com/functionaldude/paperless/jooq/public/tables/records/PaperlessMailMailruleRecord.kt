@@ -39,25 +39,25 @@ open class PaperlessMailMailruleRecord() :
     set(value): Unit = set(5, value)
     get(): String? = get(5) as String?
 
-  open var maximumAge: Int?
+  open var maximumAge: Short?
     set(value): Unit = set(6, value)
-    get(): Int? = get(6) as Int?
+    get(): Short? = get(6) as Short?
 
-  open var action: Int?
+  open var action: Short?
     set(value): Unit = set(7, value)
-    get(): Int? = get(7) as Int?
+    get(): Short? = get(7) as Short?
 
   open var actionParameter: String?
     set(value): Unit = set(8, value)
     get(): String? = get(8) as String?
 
-  open var assignTitleFrom: Int?
+  open var assignTitleFrom: Short?
     set(value): Unit = set(9, value)
-    get(): Int? = get(9) as Int?
+    get(): Short? = get(9) as Short?
 
-  open var assignCorrespondentFrom: Int?
+  open var assignCorrespondentFrom: Short?
     set(value): Unit = set(10, value)
-    get(): Int? = get(10) as Int?
+    get(): Short? = get(10) as Short?
 
   open var accountId: Int?
     set(value): Unit = set(11, value)
@@ -71,21 +71,21 @@ open class PaperlessMailMailruleRecord() :
     set(value): Unit = set(13, value)
     get(): Int? = get(13) as Int?
 
-  open var order: Int?
+  open var order: Short?
     set(value): Unit = set(14, value)
-    get(): Int? = get(14) as Int?
+    get(): Short? = get(14) as Short?
 
-  open var attachmentType: Int?
+  open var attachmentType: Short?
     set(value): Unit = set(15, value)
-    get(): Int? = get(15) as Int?
+    get(): Short? = get(15) as Short?
 
   open var filterAttachmentFilenameInclude: String?
     set(value): Unit = set(16, value)
     get(): String? = get(16) as String?
 
-  open var consumptionScope: Int?
+  open var consumptionScope: Short?
     set(value): Unit = set(17, value)
-    get(): Int? = get(17) as Int?
+    get(): Short? = get(17) as Short?
 
   open var ownerId: Int?
     set(value): Unit = set(18, value)
@@ -107,9 +107,13 @@ open class PaperlessMailMailruleRecord() :
     set(value): Unit = set(22, value)
     get(): Boolean? = get(22) as Boolean?
 
-  open var pdfLayout: Int?
+  open var pdfLayout: Short?
     set(value): Unit = set(23, value)
-    get(): Int? = get(23) as Int?
+    get(): Short? = get(23) as Short?
+
+  open var stopProcessing: Boolean?
+    set(value): Unit = set(24, value)
+    get(): Boolean? = get(24) as Boolean?
 
   // -------------------------------------------------------------------------
   // Primary key information
@@ -127,24 +131,25 @@ open class PaperlessMailMailruleRecord() :
     filterFrom: String? = null,
     filterSubject: String? = null,
     filterBody: String? = null,
-    maximumAge: Int? = null,
-    action: Int? = null,
+    maximumAge: Short? = null,
+    action: Short? = null,
     actionParameter: String? = null,
-    assignTitleFrom: Int? = null,
-    assignCorrespondentFrom: Int? = null,
+    assignTitleFrom: Short? = null,
+    assignCorrespondentFrom: Short? = null,
     accountId: Int? = null,
     assignCorrespondentId: Int? = null,
     assignDocumentTypeId: Int? = null,
-    order: Int? = null,
-    attachmentType: Int? = null,
+    order: Short? = null,
+    attachmentType: Short? = null,
     filterAttachmentFilenameInclude: String? = null,
-    consumptionScope: Int? = null,
+    consumptionScope: Short? = null,
     ownerId: Int? = null,
     filterTo: String? = null,
     assignOwnerFromRule: Boolean? = null,
     filterAttachmentFilenameExclude: String? = null,
     enabled: Boolean? = null,
-    pdfLayout: Int? = null
+    pdfLayout: Short? = null,
+    stopProcessing: Boolean? = null
   ) : this() {
     this.id = id
     this.name = name
@@ -170,6 +175,7 @@ open class PaperlessMailMailruleRecord() :
     this.filterAttachmentFilenameExclude = filterAttachmentFilenameExclude
     this.enabled = enabled
     this.pdfLayout = pdfLayout
+    this.stopProcessing = stopProcessing
     resetChangedOnNotNull()
   }
 
@@ -202,6 +208,7 @@ open class PaperlessMailMailruleRecord() :
       this.filterAttachmentFilenameExclude = value.filterAttachmentFilenameExclude
       this.enabled = value.enabled
       this.pdfLayout = value.pdfLayout
+      this.stopProcessing = value.stopProcessing
       resetChangedOnNotNull()
     }
   }

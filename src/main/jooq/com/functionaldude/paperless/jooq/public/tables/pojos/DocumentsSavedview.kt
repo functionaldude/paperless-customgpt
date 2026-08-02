@@ -4,8 +4,9 @@
 package com.functionaldude.paperless.jooq.`public`.tables.pojos
 
 
-import org.jooq.JSONB
 import java.io.Serializable
+
+import org.jooq.JSONB
 
 
 /**
@@ -15,8 +16,6 @@ import java.io.Serializable
 data class DocumentsSavedview(
   val id: Int? = null,
   val name: String? = null,
-  val showOnDashboard: Boolean? = null,
-  val showInSidebar: Boolean? = null,
   val sortField: String? = null,
   val sortReverse: Boolean? = null,
   val ownerId: Int? = null,
@@ -42,16 +41,6 @@ data class DocumentsSavedview(
       if (o.name != null)
         return false
     } else if (this.name != o.name)
-      return false
-    if (this.showOnDashboard == null) {
-      if (o.showOnDashboard != null)
-        return false
-    } else if (this.showOnDashboard != o.showOnDashboard)
-      return false
-    if (this.showInSidebar == null) {
-      if (o.showInSidebar != null)
-        return false
-    } else if (this.showInSidebar != o.showInSidebar)
       return false
     if (this.sortField == null) {
       if (o.sortField != null)
@@ -91,8 +80,6 @@ data class DocumentsSavedview(
     var result = 1
     result = prime * result + (if (this.id == null) 0 else this.id.hashCode())
     result = prime * result + (if (this.name == null) 0 else this.name.hashCode())
-    result = prime * result + (if (this.showOnDashboard == null) 0 else this.showOnDashboard.hashCode())
-    result = prime * result + (if (this.showInSidebar == null) 0 else this.showInSidebar.hashCode())
     result = prime * result + (if (this.sortField == null) 0 else this.sortField.hashCode())
     result = prime * result + (if (this.sortReverse == null) 0 else this.sortReverse.hashCode())
     result = prime * result + (if (this.ownerId == null) 0 else this.ownerId.hashCode())
@@ -107,8 +94,6 @@ data class DocumentsSavedview(
 
     sb.append(id)
     sb.append(", ").append(name)
-    sb.append(", ").append(showOnDashboard)
-    sb.append(", ").append(showInSidebar)
     sb.append(", ").append(sortField)
     sb.append(", ").append(sortReverse)
     sb.append(", ").append(ownerId)

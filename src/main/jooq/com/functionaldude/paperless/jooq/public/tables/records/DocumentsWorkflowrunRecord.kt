@@ -4,10 +4,11 @@
 package com.functionaldude.paperless.jooq.`public`.tables.records
 
 
+import java.time.OffsetDateTime
+import java.util.UUID
+
 import org.jooq.Record1
 import org.jooq.impl.UpdatableRecordImpl
-import java.time.OffsetDateTime
-import java.util.*
 
 
 /**
@@ -21,9 +22,9 @@ open class DocumentsWorkflowrunRecord() :
     set(value): Unit = set(0, value)
     get(): Int? = get(0) as Int?
 
-  open var type: Int?
+  open var type: Short?
     set(value): Unit = set(1, value)
-    get(): Int? = get(1) as Int?
+    get(): Short? = get(1) as Short?
 
   open var runAt: OffsetDateTime?
     set(value): Unit = set(2, value)
@@ -60,7 +61,7 @@ open class DocumentsWorkflowrunRecord() :
    */
   constructor(
     id: Int? = null,
-    type: Int? = null,
+    type: Short? = null,
     runAt: OffsetDateTime? = null,
     documentId: Int? = null,
     workflowId: Int? = null,

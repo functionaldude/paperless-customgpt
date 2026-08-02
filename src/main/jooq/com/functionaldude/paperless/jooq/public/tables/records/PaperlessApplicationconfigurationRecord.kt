@@ -24,9 +24,9 @@ open class PaperlessApplicationconfigurationRecord() :
     set(value): Unit = set(1, value)
     get(): String? = get(1) as String?
 
-  open var pages: Int?
+  open var pages: Short?
     set(value): Unit = set(2, value)
-    get(): Int? = get(2) as Int?
+    get(): Short? = get(2) as Short?
 
   open var language: String?
     set(value): Unit = set(3, value)
@@ -36,93 +36,145 @@ open class PaperlessApplicationconfigurationRecord() :
     set(value): Unit = set(4, value)
     get(): String? = get(4) as String?
 
-  open var skipArchiveFile: String?
+  open var imageDpi: Short?
     set(value): Unit = set(5, value)
-    get(): String? = get(5) as String?
-
-  open var imageDpi: Int?
-    set(value): Unit = set(6, value)
-    get(): Int? = get(6) as Int?
+    get(): Short? = get(5) as Short?
 
   open var unpaperClean: String?
-    set(value): Unit = set(7, value)
-    get(): String? = get(7) as String?
+    set(value): Unit = set(6, value)
+    get(): String? = get(6) as String?
 
   open var deskew: Boolean?
+    set(value): Unit = set(7, value)
+    get(): Boolean? = get(7) as Boolean?
+
+  open var rotatePages: Boolean?
     set(value): Unit = set(8, value)
     get(): Boolean? = get(8) as Boolean?
 
-  open var rotatePages: Boolean?
-    set(value): Unit = set(9, value)
-    get(): Boolean? = get(9) as Boolean?
-
   open var rotatePagesThreshold: Double?
+    set(value): Unit = set(9, value)
+    get(): Double? = get(9) as Double?
+
+  open var maxImagePixels: Double?
     set(value): Unit = set(10, value)
     get(): Double? = get(10) as Double?
 
-  open var maxImagePixels: Double?
-    set(value): Unit = set(11, value)
-    get(): Double? = get(11) as Double?
-
   open var colorConversionStrategy: String?
-    set(value): Unit = set(12, value)
-    get(): String? = get(12) as String?
+    set(value): Unit = set(11, value)
+    get(): String? = get(11) as String?
 
   open var userArgs: JSONB?
-    set(value): Unit = set(13, value)
-    get(): JSONB? = get(13) as JSONB?
+    set(value): Unit = set(12, value)
+    get(): JSONB? = get(12) as JSONB?
 
   open var appLogo: String?
+    set(value): Unit = set(13, value)
+    get(): String? = get(13) as String?
+
+  open var appTitle: String?
     set(value): Unit = set(14, value)
     get(): String? = get(14) as String?
 
-  open var appTitle: String?
+  open var barcodeAsnPrefix: String?
     set(value): Unit = set(15, value)
     get(): String? = get(15) as String?
 
-  open var barcodeAsnPrefix: String?
+  open var barcodeDpi: Short?
     set(value): Unit = set(16, value)
-    get(): String? = get(16) as String?
-
-  open var barcodeDpi: Int?
-    set(value): Unit = set(17, value)
-    get(): Int? = get(17) as Int?
+    get(): Short? = get(16) as Short?
 
   open var barcodeEnableAsn: Boolean?
+    set(value): Unit = set(17, value)
+    get(): Boolean? = get(17) as Boolean?
+
+  open var barcodeEnableTag: Boolean?
     set(value): Unit = set(18, value)
     get(): Boolean? = get(18) as Boolean?
 
-  open var barcodeEnableTag: Boolean?
+  open var barcodeEnableTiffSupport: Boolean?
     set(value): Unit = set(19, value)
     get(): Boolean? = get(19) as Boolean?
 
-  open var barcodeEnableTiffSupport: Boolean?
+  open var barcodeMaxPages: Short?
     set(value): Unit = set(20, value)
-    get(): Boolean? = get(20) as Boolean?
-
-  open var barcodeMaxPages: Int?
-    set(value): Unit = set(21, value)
-    get(): Int? = get(21) as Int?
+    get(): Short? = get(20) as Short?
 
   open var barcodeRetainSplitPages: Boolean?
-    set(value): Unit = set(22, value)
-    get(): Boolean? = get(22) as Boolean?
+    set(value): Unit = set(21, value)
+    get(): Boolean? = get(21) as Boolean?
 
   open var barcodeString: String?
-    set(value): Unit = set(23, value)
-    get(): String? = get(23) as String?
+    set(value): Unit = set(22, value)
+    get(): String? = get(22) as String?
 
   open var barcodeTagMapping: JSONB?
-    set(value): Unit = set(24, value)
-    get(): JSONB? = get(24) as JSONB?
+    set(value): Unit = set(23, value)
+    get(): JSONB? = get(23) as JSONB?
 
   open var barcodeUpscale: Double?
-    set(value): Unit = set(25, value)
-    get(): Double? = get(25) as Double?
+    set(value): Unit = set(24, value)
+    get(): Double? = get(24) as Double?
 
   open var barcodesEnabled: Boolean?
+    set(value): Unit = set(25, value)
+    get(): Boolean? = get(25) as Boolean?
+
+  open var aiEnabled: Boolean?
     set(value): Unit = set(26, value)
     get(): Boolean? = get(26) as Boolean?
+
+  open var llmApiKey: String?
+    set(value): Unit = set(27, value)
+    get(): String? = get(27) as String?
+
+  open var llmBackend: String?
+    set(value): Unit = set(28, value)
+    get(): String? = get(28) as String?
+
+  open var llmEmbeddingBackend: String?
+    set(value): Unit = set(29, value)
+    get(): String? = get(29) as String?
+
+  open var llmEmbeddingModel: String?
+    set(value): Unit = set(30, value)
+    get(): String? = get(30) as String?
+
+  open var llmEndpoint: String?
+    set(value): Unit = set(31, value)
+    get(): String? = get(31) as String?
+
+  open var llmModel: String?
+    set(value): Unit = set(32, value)
+    get(): String? = get(32) as String?
+
+  open var barcodeTagSplit: Boolean?
+    set(value): Unit = set(33, value)
+    get(): Boolean? = get(33) as Boolean?
+
+  open var archiveFileGeneration: String?
+    set(value): Unit = set(34, value)
+    get(): String? = get(34) as String?
+
+  open var llmEmbeddingEndpoint: String?
+    set(value): Unit = set(35, value)
+    get(): String? = get(35) as String?
+
+  open var llmEmbeddingChunkSize: Short?
+    set(value): Unit = set(36, value)
+    get(): Short? = get(36) as Short?
+
+  open var llmContextSize: Int?
+    set(value): Unit = set(37, value)
+    get(): Int? = get(37) as Int?
+
+  open var llmOutputLanguage: String?
+    set(value): Unit = set(38, value)
+    get(): String? = get(38) as String?
+
+  open var llmRequestTimeout: Short?
+    set(value): Unit = set(39, value)
+    get(): Short? = get(39) as Short?
 
   // -------------------------------------------------------------------------
   // Primary key information
@@ -136,11 +188,10 @@ open class PaperlessApplicationconfigurationRecord() :
   constructor(
     id: Int? = null,
     outputType: String? = null,
-    pages: Int? = null,
+    pages: Short? = null,
     language: String? = null,
     mode: String? = null,
-    skipArchiveFile: String? = null,
-    imageDpi: Int? = null,
+    imageDpi: Short? = null,
     unpaperClean: String? = null,
     deskew: Boolean? = null,
     rotatePages: Boolean? = null,
@@ -151,23 +202,36 @@ open class PaperlessApplicationconfigurationRecord() :
     appLogo: String? = null,
     appTitle: String? = null,
     barcodeAsnPrefix: String? = null,
-    barcodeDpi: Int? = null,
+    barcodeDpi: Short? = null,
     barcodeEnableAsn: Boolean? = null,
     barcodeEnableTag: Boolean? = null,
     barcodeEnableTiffSupport: Boolean? = null,
-    barcodeMaxPages: Int? = null,
+    barcodeMaxPages: Short? = null,
     barcodeRetainSplitPages: Boolean? = null,
     barcodeString: String? = null,
     barcodeTagMapping: JSONB? = null,
     barcodeUpscale: Double? = null,
-    barcodesEnabled: Boolean? = null
+    barcodesEnabled: Boolean? = null,
+    aiEnabled: Boolean? = null,
+    llmApiKey: String? = null,
+    llmBackend: String? = null,
+    llmEmbeddingBackend: String? = null,
+    llmEmbeddingModel: String? = null,
+    llmEndpoint: String? = null,
+    llmModel: String? = null,
+    barcodeTagSplit: Boolean? = null,
+    archiveFileGeneration: String? = null,
+    llmEmbeddingEndpoint: String? = null,
+    llmEmbeddingChunkSize: Short? = null,
+    llmContextSize: Int? = null,
+    llmOutputLanguage: String? = null,
+    llmRequestTimeout: Short? = null
   ) : this() {
     this.id = id
     this.outputType = outputType
     this.pages = pages
     this.language = language
     this.mode = mode
-    this.skipArchiveFile = skipArchiveFile
     this.imageDpi = imageDpi
     this.unpaperClean = unpaperClean
     this.deskew = deskew
@@ -189,6 +253,20 @@ open class PaperlessApplicationconfigurationRecord() :
     this.barcodeTagMapping = barcodeTagMapping
     this.barcodeUpscale = barcodeUpscale
     this.barcodesEnabled = barcodesEnabled
+    this.aiEnabled = aiEnabled
+    this.llmApiKey = llmApiKey
+    this.llmBackend = llmBackend
+    this.llmEmbeddingBackend = llmEmbeddingBackend
+    this.llmEmbeddingModel = llmEmbeddingModel
+    this.llmEndpoint = llmEndpoint
+    this.llmModel = llmModel
+    this.barcodeTagSplit = barcodeTagSplit
+    this.archiveFileGeneration = archiveFileGeneration
+    this.llmEmbeddingEndpoint = llmEmbeddingEndpoint
+    this.llmEmbeddingChunkSize = llmEmbeddingChunkSize
+    this.llmContextSize = llmContextSize
+    this.llmOutputLanguage = llmOutputLanguage
+    this.llmRequestTimeout = llmRequestTimeout
     resetChangedOnNotNull()
   }
 
@@ -202,7 +280,6 @@ open class PaperlessApplicationconfigurationRecord() :
       this.pages = value.pages
       this.language = value.language
       this.mode = value.mode
-      this.skipArchiveFile = value.skipArchiveFile
       this.imageDpi = value.imageDpi
       this.unpaperClean = value.unpaperClean
       this.deskew = value.deskew
@@ -224,6 +301,20 @@ open class PaperlessApplicationconfigurationRecord() :
       this.barcodeTagMapping = value.barcodeTagMapping
       this.barcodeUpscale = value.barcodeUpscale
       this.barcodesEnabled = value.barcodesEnabled
+      this.aiEnabled = value.aiEnabled
+      this.llmApiKey = value.llmApiKey
+      this.llmBackend = value.llmBackend
+      this.llmEmbeddingBackend = value.llmEmbeddingBackend
+      this.llmEmbeddingModel = value.llmEmbeddingModel
+      this.llmEndpoint = value.llmEndpoint
+      this.llmModel = value.llmModel
+      this.barcodeTagSplit = value.barcodeTagSplit
+      this.archiveFileGeneration = value.archiveFileGeneration
+      this.llmEmbeddingEndpoint = value.llmEmbeddingEndpoint
+      this.llmEmbeddingChunkSize = value.llmEmbeddingChunkSize
+      this.llmContextSize = value.llmContextSize
+      this.llmOutputLanguage = value.llmOutputLanguage
+      this.llmRequestTimeout = value.llmRequestTimeout
       resetChangedOnNotNull()
     }
   }

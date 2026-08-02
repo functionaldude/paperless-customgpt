@@ -6,7 +6,7 @@ package com.functionaldude.paperless.jooq.`public`.tables.pojos
 
 import java.io.Serializable
 import java.time.OffsetDateTime
-import java.util.*
+import java.util.UUID
 
 
 /**

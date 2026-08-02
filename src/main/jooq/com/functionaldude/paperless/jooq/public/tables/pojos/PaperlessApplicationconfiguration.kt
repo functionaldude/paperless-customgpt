@@ -16,11 +16,10 @@ import org.jooq.JSONB
 data class PaperlessApplicationconfiguration(
   val id: Int? = null,
   val outputType: String? = null,
-  val pages: Int? = null,
+  val pages: Short? = null,
   val language: String? = null,
   val mode: String? = null,
-  val skipArchiveFile: String? = null,
-  val imageDpi: Int? = null,
+  val imageDpi: Short? = null,
   val unpaperClean: String? = null,
   val deskew: Boolean? = null,
   val rotatePages: Boolean? = null,
@@ -31,16 +30,30 @@ data class PaperlessApplicationconfiguration(
   val appLogo: String? = null,
   val appTitle: String? = null,
   val barcodeAsnPrefix: String? = null,
-  val barcodeDpi: Int? = null,
+  val barcodeDpi: Short? = null,
   val barcodeEnableAsn: Boolean? = null,
   val barcodeEnableTag: Boolean? = null,
   val barcodeEnableTiffSupport: Boolean? = null,
-  val barcodeMaxPages: Int? = null,
+  val barcodeMaxPages: Short? = null,
   val barcodeRetainSplitPages: Boolean? = null,
   val barcodeString: String? = null,
   val barcodeTagMapping: JSONB? = null,
   val barcodeUpscale: Double? = null,
-  val barcodesEnabled: Boolean? = null
+  val barcodesEnabled: Boolean? = null,
+  val aiEnabled: Boolean? = null,
+  val llmApiKey: String? = null,
+  val llmBackend: String? = null,
+  val llmEmbeddingBackend: String? = null,
+  val llmEmbeddingModel: String? = null,
+  val llmEndpoint: String? = null,
+  val llmModel: String? = null,
+  val barcodeTagSplit: Boolean? = null,
+  val archiveFileGeneration: String? = null,
+  val llmEmbeddingEndpoint: String? = null,
+  val llmEmbeddingChunkSize: Short? = null,
+  val llmContextSize: Int? = null,
+  val llmOutputLanguage: String? = null,
+  val llmRequestTimeout: Short? = null
 ) : Serializable {
 
   override fun equals(other: Any?): Boolean {
@@ -75,11 +88,6 @@ data class PaperlessApplicationconfiguration(
       if (o.mode != null)
         return false
     } else if (this.mode != o.mode)
-      return false
-    if (this.skipArchiveFile == null) {
-      if (o.skipArchiveFile != null)
-        return false
-    } else if (this.skipArchiveFile != o.skipArchiveFile)
       return false
     if (this.imageDpi == null) {
       if (o.imageDpi != null)
@@ -186,6 +194,76 @@ data class PaperlessApplicationconfiguration(
         return false
     } else if (this.barcodesEnabled != o.barcodesEnabled)
       return false
+    if (this.aiEnabled == null) {
+      if (o.aiEnabled != null)
+        return false
+    } else if (this.aiEnabled != o.aiEnabled)
+      return false
+    if (this.llmApiKey == null) {
+      if (o.llmApiKey != null)
+        return false
+    } else if (this.llmApiKey != o.llmApiKey)
+      return false
+    if (this.llmBackend == null) {
+      if (o.llmBackend != null)
+        return false
+    } else if (this.llmBackend != o.llmBackend)
+      return false
+    if (this.llmEmbeddingBackend == null) {
+      if (o.llmEmbeddingBackend != null)
+        return false
+    } else if (this.llmEmbeddingBackend != o.llmEmbeddingBackend)
+      return false
+    if (this.llmEmbeddingModel == null) {
+      if (o.llmEmbeddingModel != null)
+        return false
+    } else if (this.llmEmbeddingModel != o.llmEmbeddingModel)
+      return false
+    if (this.llmEndpoint == null) {
+      if (o.llmEndpoint != null)
+        return false
+    } else if (this.llmEndpoint != o.llmEndpoint)
+      return false
+    if (this.llmModel == null) {
+      if (o.llmModel != null)
+        return false
+    } else if (this.llmModel != o.llmModel)
+      return false
+    if (this.barcodeTagSplit == null) {
+      if (o.barcodeTagSplit != null)
+        return false
+    } else if (this.barcodeTagSplit != o.barcodeTagSplit)
+      return false
+    if (this.archiveFileGeneration == null) {
+      if (o.archiveFileGeneration != null)
+        return false
+    } else if (this.archiveFileGeneration != o.archiveFileGeneration)
+      return false
+    if (this.llmEmbeddingEndpoint == null) {
+      if (o.llmEmbeddingEndpoint != null)
+        return false
+    } else if (this.llmEmbeddingEndpoint != o.llmEmbeddingEndpoint)
+      return false
+    if (this.llmEmbeddingChunkSize == null) {
+      if (o.llmEmbeddingChunkSize != null)
+        return false
+    } else if (this.llmEmbeddingChunkSize != o.llmEmbeddingChunkSize)
+      return false
+    if (this.llmContextSize == null) {
+      if (o.llmContextSize != null)
+        return false
+    } else if (this.llmContextSize != o.llmContextSize)
+      return false
+    if (this.llmOutputLanguage == null) {
+      if (o.llmOutputLanguage != null)
+        return false
+    } else if (this.llmOutputLanguage != o.llmOutputLanguage)
+      return false
+    if (this.llmRequestTimeout == null) {
+      if (o.llmRequestTimeout != null)
+        return false
+    } else if (this.llmRequestTimeout != o.llmRequestTimeout)
+      return false
     return true
   }
 
@@ -197,7 +275,6 @@ data class PaperlessApplicationconfiguration(
     result = prime * result + (if (this.pages == null) 0 else this.pages.hashCode())
     result = prime * result + (if (this.language == null) 0 else this.language.hashCode())
     result = prime * result + (if (this.mode == null) 0 else this.mode.hashCode())
-    result = prime * result + (if (this.skipArchiveFile == null) 0 else this.skipArchiveFile.hashCode())
     result = prime * result + (if (this.imageDpi == null) 0 else this.imageDpi.hashCode())
     result = prime * result + (if (this.unpaperClean == null) 0 else this.unpaperClean.hashCode())
     result = prime * result + (if (this.deskew == null) 0 else this.deskew.hashCode())
@@ -220,6 +297,20 @@ data class PaperlessApplicationconfiguration(
     result = prime * result + (if (this.barcodeTagMapping == null) 0 else this.barcodeTagMapping.hashCode())
     result = prime * result + (if (this.barcodeUpscale == null) 0 else this.barcodeUpscale.hashCode())
     result = prime * result + (if (this.barcodesEnabled == null) 0 else this.barcodesEnabled.hashCode())
+    result = prime * result + (if (this.aiEnabled == null) 0 else this.aiEnabled.hashCode())
+    result = prime * result + (if (this.llmApiKey == null) 0 else this.llmApiKey.hashCode())
+    result = prime * result + (if (this.llmBackend == null) 0 else this.llmBackend.hashCode())
+    result = prime * result + (if (this.llmEmbeddingBackend == null) 0 else this.llmEmbeddingBackend.hashCode())
+    result = prime * result + (if (this.llmEmbeddingModel == null) 0 else this.llmEmbeddingModel.hashCode())
+    result = prime * result + (if (this.llmEndpoint == null) 0 else this.llmEndpoint.hashCode())
+    result = prime * result + (if (this.llmModel == null) 0 else this.llmModel.hashCode())
+    result = prime * result + (if (this.barcodeTagSplit == null) 0 else this.barcodeTagSplit.hashCode())
+    result = prime * result + (if (this.archiveFileGeneration == null) 0 else this.archiveFileGeneration.hashCode())
+    result = prime * result + (if (this.llmEmbeddingEndpoint == null) 0 else this.llmEmbeddingEndpoint.hashCode())
+    result = prime * result + (if (this.llmEmbeddingChunkSize == null) 0 else this.llmEmbeddingChunkSize.hashCode())
+    result = prime * result + (if (this.llmContextSize == null) 0 else this.llmContextSize.hashCode())
+    result = prime * result + (if (this.llmOutputLanguage == null) 0 else this.llmOutputLanguage.hashCode())
+    result = prime * result + (if (this.llmRequestTimeout == null) 0 else this.llmRequestTimeout.hashCode())
     return result
   }
 
@@ -231,7 +322,6 @@ data class PaperlessApplicationconfiguration(
     sb.append(", ").append(pages)
     sb.append(", ").append(language)
     sb.append(", ").append(mode)
-    sb.append(", ").append(skipArchiveFile)
     sb.append(", ").append(imageDpi)
     sb.append(", ").append(unpaperClean)
     sb.append(", ").append(deskew)
@@ -253,6 +343,20 @@ data class PaperlessApplicationconfiguration(
     sb.append(", ").append(barcodeTagMapping)
     sb.append(", ").append(barcodeUpscale)
     sb.append(", ").append(barcodesEnabled)
+    sb.append(", ").append(aiEnabled)
+    sb.append(", ").append(llmApiKey)
+    sb.append(", ").append(llmBackend)
+    sb.append(", ").append(llmEmbeddingBackend)
+    sb.append(", ").append(llmEmbeddingModel)
+    sb.append(", ").append(llmEndpoint)
+    sb.append(", ").append(llmModel)
+    sb.append(", ").append(barcodeTagSplit)
+    sb.append(", ").append(archiveFileGeneration)
+    sb.append(", ").append(llmEmbeddingEndpoint)
+    sb.append(", ").append(llmEmbeddingChunkSize)
+    sb.append(", ").append(llmContextSize)
+    sb.append(", ").append(llmOutputLanguage)
+    sb.append(", ").append(llmRequestTimeout)
 
     sb.append(")")
     return sb.toString()

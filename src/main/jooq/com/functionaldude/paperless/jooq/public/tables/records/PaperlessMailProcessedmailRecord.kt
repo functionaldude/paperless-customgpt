@@ -4,9 +4,10 @@
 package com.functionaldude.paperless.jooq.`public`.tables.records
 
 
+import java.time.OffsetDateTime
+
 import org.jooq.Record1
 import org.jooq.impl.UpdatableRecordImpl
-import java.time.OffsetDateTime
 
 
 /**
@@ -56,6 +57,10 @@ open class PaperlessMailProcessedmailRecord() :
     set(value): Unit = set(9, value)
     get(): Int? = get(9) as Int?
 
+  open var uidValidity: String?
+    set(value): Unit = set(10, value)
+    get(): String? = get(10) as String?
+
   // -------------------------------------------------------------------------
   // Primary key information
   // -------------------------------------------------------------------------
@@ -75,7 +80,8 @@ open class PaperlessMailProcessedmailRecord() :
     status: String? = null,
     error: String? = null,
     ownerId: Int? = null,
-    ruleId: Int? = null
+    ruleId: Int? = null,
+    uidValidity: String? = null
   ) : this() {
     this.id = id
     this.folder = folder
@@ -87,6 +93,7 @@ open class PaperlessMailProcessedmailRecord() :
     this.error = error
     this.ownerId = ownerId
     this.ruleId = ruleId
+    this.uidValidity = uidValidity
     resetChangedOnNotNull()
   }
 
@@ -105,6 +112,7 @@ open class PaperlessMailProcessedmailRecord() :
       this.error = value.error
       this.ownerId = value.ownerId
       this.ruleId = value.ruleId
+      this.uidValidity = value.uidValidity
       resetChangedOnNotNull()
     }
   }

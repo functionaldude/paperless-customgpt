@@ -15,6 +15,7 @@ import org.jooq.ForeignKey
 import org.jooq.Identity
 import org.jooq.Index
 import org.jooq.InverseForeignKey
+import org.jooq.JSONB
 import org.jooq.Name
 import org.jooq.Path
 import org.jooq.PlainSQL
@@ -79,40 +80,28 @@ open class DocumentsPaperlesstask(
     createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "")
 
   /**
+   * The column <code>public.documents_paperlesstask.owner_id</code>.
+   */
+  val OWNER_ID: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, Int?> =
+    createField(DSL.name("owner_id"), SQLDataType.INTEGER, this, "")
+
+  /**
    * The column <code>public.documents_paperlesstask.task_id</code>.
    */
   val TASK_ID: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, String?> =
-    createField(DSL.name("task_id"), SQLDataType.VARCHAR(255).nullable(false), this, "")
+    createField(DSL.name("task_id"), SQLDataType.VARCHAR(72).nullable(false), this, "")
 
   /**
-   * The column <code>public.documents_paperlesstask.acknowledged</code>.
+   * The column <code>public.documents_paperlesstask.task_type</code>.
    */
-  val ACKNOWLEDGED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, Boolean?> =
-    createField(DSL.name("acknowledged"), SQLDataType.BOOLEAN.nullable(false), this, "")
+  val TASK_TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, String?> =
+    createField(DSL.name("task_type"), SQLDataType.VARCHAR(50).nullable(false), this, "")
 
   /**
-   * The column <code>public.documents_paperlesstask.date_created</code>.
+   * The column <code>public.documents_paperlesstask.trigger_source</code>.
    */
-  val DATE_CREATED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, OffsetDateTime?> =
-    createField(DSL.name("date_created"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "")
-
-  /**
-   * The column <code>public.documents_paperlesstask.date_done</code>.
-   */
-  val DATE_DONE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, OffsetDateTime?> =
-    createField(DSL.name("date_done"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "")
-
-  /**
-   * The column <code>public.documents_paperlesstask.date_started</code>.
-   */
-  val DATE_STARTED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, OffsetDateTime?> =
-    createField(DSL.name("date_started"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "")
-
-  /**
-   * The column <code>public.documents_paperlesstask.result</code>.
-   */
-  val RESULT: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, String?> =
-    createField(DSL.name("result"), SQLDataType.CLOB, this, "")
+  val TRIGGER_SOURCE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, String?> =
+    createField(DSL.name("trigger_source"), SQLDataType.VARCHAR(50).nullable(false), this, "")
 
   /**
    * The column <code>public.documents_paperlesstask.status</code>.
@@ -121,28 +110,52 @@ open class DocumentsPaperlesstask(
     createField(DSL.name("status"), SQLDataType.VARCHAR(30).nullable(false), this, "")
 
   /**
-   * The column <code>public.documents_paperlesstask.task_name</code>.
+   * The column <code>public.documents_paperlesstask.date_created</code>.
    */
-  val TASK_NAME: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, String?> =
-    createField(DSL.name("task_name"), SQLDataType.VARCHAR(255), this, "")
+  val DATE_CREATED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, OffsetDateTime?> =
+    createField(DSL.name("date_created"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false), this, "")
 
   /**
-   * The column <code>public.documents_paperlesstask.task_file_name</code>.
+   * The column <code>public.documents_paperlesstask.date_started</code>.
    */
-  val TASK_FILE_NAME: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, String?> =
-    createField(DSL.name("task_file_name"), SQLDataType.VARCHAR(255), this, "")
+  val DATE_STARTED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, OffsetDateTime?> =
+    createField(DSL.name("date_started"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "")
 
   /**
-   * The column <code>public.documents_paperlesstask.owner_id</code>.
+   * The column <code>public.documents_paperlesstask.date_done</code>.
    */
-  val OWNER_ID: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, Int?> =
-    createField(DSL.name("owner_id"), SQLDataType.INTEGER, this, "")
+  val DATE_DONE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, OffsetDateTime?> =
+    createField(DSL.name("date_done"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "")
 
   /**
-   * The column <code>public.documents_paperlesstask.type</code>.
+   * The column <code>public.documents_paperlesstask.duration_seconds</code>.
    */
-  val TYPE: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, String?> =
-    createField(DSL.name("type"), SQLDataType.VARCHAR(30).nullable(false), this, "")
+  val DURATION_SECONDS: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, Double?> =
+    createField(DSL.name("duration_seconds"), SQLDataType.DOUBLE, this, "")
+
+  /**
+   * The column <code>public.documents_paperlesstask.wait_time_seconds</code>.
+   */
+  val WAIT_TIME_SECONDS: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, Double?> =
+    createField(DSL.name("wait_time_seconds"), SQLDataType.DOUBLE, this, "")
+
+  /**
+   * The column <code>public.documents_paperlesstask.input_data</code>.
+   */
+  val INPUT_DATA: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, JSONB?> =
+    createField(DSL.name("input_data"), SQLDataType.JSONB.nullable(false), this, "")
+
+  /**
+   * The column <code>public.documents_paperlesstask.result_data</code>.
+   */
+  val RESULT_DATA: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, JSONB?> =
+    createField(DSL.name("result_data"), SQLDataType.JSONB, this, "")
+
+  /**
+   * The column <code>public.documents_paperlesstask.acknowledged</code>.
+   */
+  val ACKNOWLEDGED: TableField<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, Boolean?> =
+    createField(DSL.name("acknowledged"), SQLDataType.BOOLEAN.nullable(false), this, "")
 
   private constructor(
     alias: Name,
@@ -216,8 +229,20 @@ open class DocumentsPaperlesstask(
 
   override fun getSchema(): Schema? = if (aliased()) null else com.functionaldude.paperless.jooq.`public`.Public.PUBLIC
   override fun getIndexes(): List<Index> = listOf(
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_P_OWNER_I_62C545_IDX,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_P_STATUS_8AA687_IDX,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_P_TASK_TY_E4A93F_IDX,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_ACKNOWLEDGED_D75E68BA,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_DATE_CREATED_90B15F1F,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_DATE_DONE_D2DF1951,
     com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_OWNER_ID_E4512F84,
-    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_TASK_ID_24B393F9_LIKE
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_STATUS_6748FA6C,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_STATUS_6748FA6C_LIKE,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_TASK_ID_24B393F9_LIKE,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_TASK_TYPE_8802CD7F,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_TASK_TYPE_8802CD7F_LIKE,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_TRIGGER_SOURCE_71F17C67,
+    com.functionaldude.paperless.jooq.`public`.indexes.DOCUMENTS_PAPERLESSTASK_TRIGGER_SOURCE_71F17C67_LIKE
   )
 
   override fun getIdentity(): Identity<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, Int?> =
@@ -227,7 +252,7 @@ open class DocumentsPaperlesstask(
     com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_PAPERLESSTASK_PKEY
 
   override fun getUniqueKeys(): List<UniqueKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord>> =
-    listOf(com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_PAPERLESSTASK_TASK_ID_24B393F9_UNIQ)
+    listOf(com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_PAPERLESSTASK_TASK_ID_KEY)
 
   override fun getReferences(): List<ForeignKey<com.functionaldude.paperless.jooq.`public`.tables.records.DocumentsPaperlesstaskRecord, *>> =
     listOf(com.functionaldude.paperless.jooq.`public`.keys.DOCUMENTS_PAPERLESSTASK__DOCUMENTS_PAPERLESSTASK_OWNER_ID_E4512F84_FK_AUTH_USER_ID)

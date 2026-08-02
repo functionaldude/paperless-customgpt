@@ -4,9 +4,10 @@
 package com.functionaldude.paperless.jooq.`public`.tables.records
 
 
+import java.time.OffsetDateTime
+
 import org.jooq.Record1
 import org.jooq.impl.UpdatableRecordImpl
-import java.time.OffsetDateTime
 
 
 /**
@@ -32,9 +33,9 @@ open class PaperlessMailMailaccountRecord() :
     set(value): Unit = set(3, value)
     get(): Int? = get(3) as Int?
 
-  open var imapSecurity: Int?
+  open var imapSecurity: Short?
     set(value): Unit = set(4, value)
-    get(): Int? = get(4) as Int?
+    get(): Short? = get(4) as Short?
 
   open var username: String?
     set(value): Unit = set(5, value)
@@ -62,9 +63,9 @@ open class PaperlessMailMailaccountRecord() :
     set(value): Unit = set(10, value)
     get(): OffsetDateTime? = get(10) as OffsetDateTime?
 
-  open var accountType: Int?
+  open var accountType: Short?
     set(value): Unit = set(11, value)
-    get(): Int? = get(11) as Int?
+    get(): Short? = get(11) as Short?
 
   open var refreshToken: String?
     set(value): Unit = set(12, value)
@@ -84,14 +85,14 @@ open class PaperlessMailMailaccountRecord() :
     name: String? = null,
     imapServer: String? = null,
     imapPort: Int? = null,
-    imapSecurity: Int? = null,
+    imapSecurity: Short? = null,
     username: String? = null,
     password: String? = null,
     characterSet: String? = null,
     ownerId: Int? = null,
     isToken: Boolean? = null,
     expiration: OffsetDateTime? = null,
-    accountType: Int? = null,
+    accountType: Short? = null,
     refreshToken: String? = null
   ) : this() {
     this.id = id

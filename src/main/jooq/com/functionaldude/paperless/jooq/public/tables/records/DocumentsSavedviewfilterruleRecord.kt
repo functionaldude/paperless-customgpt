@@ -19,9 +19,9 @@ open class DocumentsSavedviewfilterruleRecord() :
     set(value): Unit = set(0, value)
     get(): Int? = get(0) as Int?
 
-  open var ruleType: Int?
+  open var ruleType: Short?
     set(value): Unit = set(1, value)
-    get(): Int? = get(1) as Int?
+    get(): Short? = get(1) as Short?
 
   open var value: String?
     set(value): Unit = set(2, value)
@@ -40,7 +40,7 @@ open class DocumentsSavedviewfilterruleRecord() :
   /**
    * Create a detached, initialised DocumentsSavedviewfilterruleRecord
    */
-  constructor(id: Int? = null, ruleType: Int? = null, value: String? = null, savedViewId: Int? = null) : this() {
+  constructor(id: Int? = null, ruleType: Short? = null, value: String? = null, savedViewId: Int? = null) : this() {
     this.id = id
     this.ruleType = ruleType
     this.value = value

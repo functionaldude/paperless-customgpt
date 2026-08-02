@@ -18,24 +18,25 @@ data class PaperlessMailMailrule(
   val filterFrom: String? = null,
   val filterSubject: String? = null,
   val filterBody: String? = null,
-  val maximumAge: Int? = null,
-  val action: Int? = null,
+  val maximumAge: Short? = null,
+  val action: Short? = null,
   val actionParameter: String? = null,
-  val assignTitleFrom: Int? = null,
-  val assignCorrespondentFrom: Int? = null,
+  val assignTitleFrom: Short? = null,
+  val assignCorrespondentFrom: Short? = null,
   val accountId: Int? = null,
   val assignCorrespondentId: Int? = null,
   val assignDocumentTypeId: Int? = null,
-  val order: Int? = null,
-  val attachmentType: Int? = null,
+  val order: Short? = null,
+  val attachmentType: Short? = null,
   val filterAttachmentFilenameInclude: String? = null,
-  val consumptionScope: Int? = null,
+  val consumptionScope: Short? = null,
   val ownerId: Int? = null,
   val filterTo: String? = null,
   val assignOwnerFromRule: Boolean? = null,
   val filterAttachmentFilenameExclude: String? = null,
   val enabled: Boolean? = null,
-  val pdfLayout: Int? = null
+  val pdfLayout: Short? = null,
+  val stopProcessing: Boolean? = null
 ) : Serializable {
 
   override fun equals(other: Any?): Boolean {
@@ -166,6 +167,11 @@ data class PaperlessMailMailrule(
         return false
     } else if (this.pdfLayout != o.pdfLayout)
       return false
+    if (this.stopProcessing == null) {
+      if (o.stopProcessing != null)
+        return false
+    } else if (this.stopProcessing != o.stopProcessing)
+      return false
     return true
   }
 
@@ -198,6 +204,7 @@ data class PaperlessMailMailrule(
       prime * result + (if (this.filterAttachmentFilenameExclude == null) 0 else this.filterAttachmentFilenameExclude.hashCode())
     result = prime * result + (if (this.enabled == null) 0 else this.enabled.hashCode())
     result = prime * result + (if (this.pdfLayout == null) 0 else this.pdfLayout.hashCode())
+    result = prime * result + (if (this.stopProcessing == null) 0 else this.stopProcessing.hashCode())
     return result
   }
 
@@ -228,6 +235,7 @@ data class PaperlessMailMailrule(
     sb.append(", ").append(filterAttachmentFilenameExclude)
     sb.append(", ").append(enabled)
     sb.append(", ").append(pdfLayout)
+    sb.append(", ").append(stopProcessing)
 
     sb.append(")")
     return sb.toString()

@@ -20,9 +20,9 @@ open class DocumentsWorkflowactionRecord() :
     set(value): Unit = set(0, value)
     get(): Int? = get(0) as Int?
 
-  open var type: Int?
+  open var type: Short?
     set(value): Unit = set(1, value)
-    get(): Int? = get(1) as Int?
+    get(): Short? = get(1) as Short?
 
   open var assignTitle: String?
     set(value): Unit = set(2, value)
@@ -88,6 +88,10 @@ open class DocumentsWorkflowactionRecord() :
     set(value): Unit = set(17, value)
     get(): Int? = get(17) as Int?
 
+  open var passwords: JSONB?
+    set(value): Unit = set(18, value)
+    get(): JSONB? = get(18) as JSONB?
+
   // -------------------------------------------------------------------------
   // Primary key information
   // -------------------------------------------------------------------------
@@ -99,7 +103,7 @@ open class DocumentsWorkflowactionRecord() :
    */
   constructor(
     id: Int? = null,
-    type: Int? = null,
+    type: Short? = null,
     assignTitle: String? = null,
     assignCorrespondentId: Int? = null,
     assignDocumentTypeId: Int? = null,
@@ -115,7 +119,8 @@ open class DocumentsWorkflowactionRecord() :
     emailId: Int? = null,
     webhookId: Int? = null,
     assignCustomFieldsValues: JSONB? = null,
-    order: Int? = null
+    order: Int? = null,
+    passwords: JSONB? = null
   ) : this() {
     this.id = id
     this.type = type
@@ -135,6 +140,7 @@ open class DocumentsWorkflowactionRecord() :
     this.webhookId = webhookId
     this.assignCustomFieldsValues = assignCustomFieldsValues
     this.order = order
+    this.passwords = passwords
     resetChangedOnNotNull()
   }
 
@@ -161,6 +167,7 @@ open class DocumentsWorkflowactionRecord() :
       this.webhookId = value.webhookId
       this.assignCustomFieldsValues = value.assignCustomFieldsValues
       this.order = value.order
+      this.passwords = value.passwords
       resetChangedOnNotNull()
     }
   }
