@@ -20,7 +20,7 @@ class PaperlessMcpTools(
 ) {
   @McpTool(
     name = "listDocuments",
-    description = "Returns every Paperless PDF document together with metadata and extracted content.",
+    description = "Returns a paginated list of Paperless PDF documents together with metadata and extracted content.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
@@ -29,8 +29,26 @@ class PaperlessMcpTools(
       openWorldHint = false
     )
   )
-  fun listDocuments(): DocumentList {
-    return DocumentList(paperlessDocumentService.findAllDocuments())
+  fun listDocuments(
+    @McpToolParam(description = "Maximum number of documents to return. Defaults to 50 and values over 100 are clamped.")
+    limit: Int? = null,
+    @McpToolParam(description = "Zero-based offset for the next page. Defaults to 0.")
+    offset: Int? = null,
+  ): DocumentList {
+    val requestedLimit = limit ?: DEFAULT_PAGE_SIZE
+    if (requestedLimit <= 0) {
+      throw ResponseStatusException(HttpStatus.BAD_REQUEST, "limit must be greater than zero")
+    }
+
+    val requestedOffset = offset ?: 0
+    if (requestedOffset < 0) {
+      throw ResponseStatusException(HttpStatus.BAD_REQUEST, "offset must not be negative")
+    }
+
+    return paperlessDocumentService.findDocumentsPage(
+      limit = requestedLimit.coerceAtMost(MAX_PAGE_SIZE),
+      offset = requestedOffset,
+    )
   }
 
   @McpTool(
@@ -184,5 +202,7 @@ class PaperlessMcpTools(
   companion object {
     const val DEFAULT_TOP_K = 5
     const val MAX_TOP_K = 50
+    const val DEFAULT_PAGE_SIZE = 50
+    const val MAX_PAGE_SIZE = 100
   }
 }

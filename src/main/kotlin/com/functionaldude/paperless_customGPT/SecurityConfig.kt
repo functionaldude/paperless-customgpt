@@ -21,6 +21,10 @@ class SecurityConfig(
   private val mcpBearerAuthenticationEntryPoint: McpBearerAuthenticationEntryPoint,
 ) {
 
+  init {
+    appProperties.auth.validate()
+  }
+
   @Bean
   fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
     http
@@ -39,6 +43,7 @@ class SecurityConfig(
           .requestMatchers("/error").permitAll()
           .requestMatchers("/").permitAll()
           .requestMatchers("/.well-known/oauth-protected-resource/**").permitAll()
+          .requestMatchers("/mcp", "/mcp/**").hasAuthority("SCOPE_${appProperties.auth.normalizedRequiredScope}")
           .anyRequest().authenticated()
       }
       .with(McpServerOAuth2Configurer.mcpServerOAuth2()) { oauth2 ->

@@ -40,9 +40,10 @@ class RagQueryService(
 
     val queryEmbedding = embeddingDimensionReducer.reduce(embeddingModel.embed(query).content().vector())
 
-    // jooq doesn’t know the <-> operator
-    val similarityField = DSL.field(
-      "({0} <-> {1})",
+    // jOOQ does not know the pgvector cosine-distance (<=>) operator. It matches
+    // the vector_cosine_ops HNSW index created by the RAG migration.
+    val distanceField = DSL.field(
+      "({0} <=> {1})",
       Double::class.java,
       DOCUMENT_CHUNK.EMBEDDING,
       DSL.`val`(queryEmbedding, DOCUMENT_CHUNK.EMBEDDING.dataType)
@@ -59,7 +60,7 @@ class RagQueryService(
         DOCUMENT_CHUNK.CHUNK_INDEX,
         DOCUMENT_CHUNK.CONTENT,
         DOCUMENT_CHUNK.METADATA,
-        similarityField.`as`("score"),
+        distanceField.`as`("distance"),
         DOCUMENT_SOURCE.PAPERLESS_DOC_ID,
         DOCUMENT_SOURCE.TITLE,
         DOCUMENT_SOURCE.CORRESPONDENT,
@@ -67,19 +68,26 @@ class RagQueryService(
       .from(DOCUMENT_CHUNK)
       .join(DOCUMENT_SOURCE).on(DOCUMENT_CHUNK.DOCUMENT_SOURCE_ID.eq(DOCUMENT_SOURCE.PAPERLESS_DOC_ID))
       .where(conditions)
-      .orderBy(DSL.field("score").asc())
-      .limit(topK)
+      .orderBy(DSL.field("distance").asc())
+      .limit((topK * CANDIDATE_MULTIPLIER).coerceAtMost(MAX_CANDIDATES))
       .fetch { record ->
         RagSearchResult(
           paperlessDocId = record.get(DOCUMENT_SOURCE.PAPERLESS_DOC_ID)!!,
           title = record.get(DOCUMENT_SOURCE.TITLE),
           correspondentName = record.get(DOCUMENT_SOURCE.CORRESPONDENT),
           snippet = record.get(DOCUMENT_CHUNK.CONTENT)!!,
-          score = record.get("score", Double::class.java)!!,
+          score = 1.0 - record.get("distance", Double::class.java)!!,
           sourceUrl = paperlessUrlProvider.documentUrl(record.get(DOCUMENT_SOURCE.PAPERLESS_DOC_ID)!!),
         )
       }
+      .distinctBy { it.paperlessDocId }
+      .take(topK)
 
     return records
+  }
+
+  companion object {
+    private const val CANDIDATE_MULTIPLIER = 5
+    private const val MAX_CANDIDATES = 250
   }
 }

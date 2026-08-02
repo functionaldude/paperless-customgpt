@@ -65,6 +65,8 @@ class RagIntegrationTests {
 
     assertThat(results).isNotEmpty
     assertThat(results.any { it.paperlessDocId == DOC_ID }).isTrue
+    assertThat(results.map { it.paperlessDocId }).doesNotHaveDuplicates()
+    assertThat(results.map { it.score }).isSortedAccordingTo(reverseOrder())
   }
 
   @Test

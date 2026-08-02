@@ -20,6 +20,7 @@ The database variables are required at runtime. All others have local-developmen
 | `OIDC_ISSUER_URI`                        | `http://localhost:9000/application/o/paperless/`    | Issuer that signs ChatGPT access tokens. The JWKS URL is derived as `<issuer>/jwks/`.                  |
 | `OIDC_AUDIENCE`                          | `<APP_PUBLIC_URL>/mcp`                              | Required JWT audience. Override when the provider emits another audience, such as the OAuth client ID. |
 | `OIDC_SCOPES`                            | `openid,profile,email,paperless_gpt,offline_access` | Comma-separated scopes advertised in protected-resource and MCP tool metadata.                         |
+| `OIDC_REQUIRED_SCOPE`                    | `paperless_gpt`                                     | Scope required on every MCP request; it must be included in `OIDC_SCOPES`.                             |
 | `MCP_TOOL_LOGGING`                       | `OFF`                                               | MCP tool call logging: `OFF`, `INFO` for tool names, or `DEBUG` for tool names and input parameters.   |
 | `OPENAI_BASE_URL`                        | `http://localhost:1234/v1`                          | OpenAI-compatible embedding API base URL.                                                              |
 | `OPENAI_MODEL_NAME`                      | `text-embedding-multilingual-e5-base`               | Embedding model name.                                                                                  |
@@ -47,6 +48,23 @@ connector UI must be added to that client's allowed redirect URIs.
 This service advertises the configured OIDC issuer through MCP protected-resource metadata. It does not expose dynamic
 client
 registration, client credentials, or token endpoint auth method metadata.
+
+### ChatGPT deep research compatibility
+
+The MCP endpoint exposes two read-only tools tailored to ChatGPT deep research:
+
+- `search(query)` returns up to ten distinct Paperless documents as citation-ready `id`, `title`, and `url` results.
+- `fetch(id)` returns one document's full extracted `text`, citation-ready `url`, and metadata.
+
+Existing `searchRag`, `findDocumentById`, and filtered lookup tools remain available for direct tool use.
+`listDocuments`
+is paginated: it defaults to 50 documents, accepts `limit` and `offset`, caps a page at 100 documents, and returns
+`nextOffset` when another page exists.
+
+For ChatGPT, deploy the endpoint at a remote HTTPS URL or connect a private deployment through OpenAI Secure MCP Tunnel.
+Enable Developer mode, add the `/mcp` URL as an OAuth-protected app, and grant the `paperless_gpt` scope. Ensure the
+identity provider supports authorization-code flow with PKCE and issues refresh tokens for `offline_access` so longer
+research tasks retain access.
 
 Spring Boot packages `src/main/resources/application.yaml` into the executable jar, so deployment-time configuration is
 provided through the environment variables above.
