@@ -37,7 +37,8 @@ app:
   auth:
     issuer-uri: ${OIDC_ISSUER_URI:http://localhost:9000/application/o/paperless/}
     audience: ${OIDC_AUDIENCE:}
-    scopes: ${OIDC_SCOPES:openid,profile,email}
+    scopes: ${OIDC_SCOPES:openid,profile,email,paperless_gpt,offline_access}
+    required-scope: ${OIDC_REQUIRED_SCOPE:paperless_gpt}
 
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}

@@ -67,4 +67,18 @@ class DocumentIntegrationTests {
       )
     ).extracting<Int> { it.id }.doesNotContain(DOC_ID)
   }
+
+  @Test
+  fun `document pages are bounded and expose the next offset when more documents exist`() {
+    val firstPage = paperlessDocumentService.findDocumentsPage(limit = 1, offset = 0)
+
+    assertThat(firstPage.documents).hasSize(1)
+    assertThat(firstPage.documents.single().id).isEqualTo(paperlessDocumentService.findAllDocuments().first().id)
+
+    firstPage.nextOffset?.let { nextOffset ->
+      assertThat(nextOffset).isEqualTo(1)
+      assertThat(paperlessDocumentService.findDocumentsPage(limit = 1, offset = nextOffset).documents)
+        .allSatisfy { document -> assertThat(document.id).isNotEqualTo(firstPage.documents.single().id) }
+    }
+  }
 }

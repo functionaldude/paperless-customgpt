@@ -8,7 +8,10 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import com.functionaldude.paperless_customGPT.security.AppProperties
 import io.modelcontextprotocol.server.McpServerFeatures
 import io.modelcontextprotocol.spec.McpSchema
+import io.modelcontextprotocol.spec.McpSchema.CallToolResult
+import io.modelcontextprotocol.spec.McpSchema.TextContent
 import org.springframework.ai.util.JacksonUtils
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.config.BeanPostProcessor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -35,7 +38,10 @@ class McpToolAuthMetadataConfig {
   companion object {
     @Bean
     @JvmStatic
-    fun mcpToolSecuritySchemesPostProcessor(appProperties: AppProperties): BeanPostProcessor {
+    fun mcpToolSecuritySchemesPostProcessor(
+      appProperties: AppProperties,
+      @Qualifier("mcpServerObjectMapper") objectMapper: ObjectMapper,
+    ): BeanPostProcessor {
       val scopes = appProperties.auth.scopes
 
       return object : BeanPostProcessor {
@@ -45,11 +51,15 @@ class McpToolAuthMetadataConfig {
           }
 
           if (bean.all { it is McpServerFeatures.SyncToolSpecification }) {
-            return bean.map { secureSyncToolSpecification(it as McpServerFeatures.SyncToolSpecification, scopes) }
+            return bean.map {
+              secureSyncToolSpecification(it as McpServerFeatures.SyncToolSpecification, scopes, objectMapper)
+            }
           }
 
           if (bean.all { it is McpServerFeatures.AsyncToolSpecification }) {
-            return bean.map { secureAsyncToolSpecification(it as McpServerFeatures.AsyncToolSpecification, scopes) }
+            return bean.map {
+              secureAsyncToolSpecification(it as McpServerFeatures.AsyncToolSpecification, scopes, objectMapper)
+            }
           }
 
           return bean
@@ -60,18 +70,47 @@ class McpToolAuthMetadataConfig {
     private fun secureSyncToolSpecification(
       specification: McpServerFeatures.SyncToolSpecification,
       scopes: List<String>,
+      objectMapper: ObjectMapper,
     ): McpServerFeatures.SyncToolSpecification = McpServerFeatures.SyncToolSpecification.builder()
       .tool(withOAuthSecurityScheme(specification.tool(), scopes))
-      .callHandler(specification.callHandler())
+      .callHandler { exchange, request ->
+        addCompatibilityTextContent(
+          specification.tool().name(),
+          specification.callHandler().apply(exchange, request),
+          objectMapper,
+        )
+      }
       .build()
 
     private fun secureAsyncToolSpecification(
       specification: McpServerFeatures.AsyncToolSpecification,
       scopes: List<String>,
+      objectMapper: ObjectMapper,
     ): McpServerFeatures.AsyncToolSpecification = McpServerFeatures.AsyncToolSpecification.builder()
       .tool(withOAuthSecurityScheme(specification.tool(), scopes))
-      .callHandler(specification.callHandler())
+      .callHandler { exchange, request ->
+        specification.callHandler().apply(exchange, request)
+          .map { result -> addCompatibilityTextContent(specification.tool().name(), result, objectMapper) }
+      }
       .build()
+
+    private fun addCompatibilityTextContent(
+      toolName: String,
+      result: CallToolResult,
+      objectMapper: ObjectMapper,
+    ): CallToolResult {
+      if (toolName !in CHATGPT_COMPATIBILITY_TOOL_NAMES || result.isError() == true || result.structuredContent() == null) {
+        return result
+      }
+
+      val json = objectMapper.writeValueAsString(result.structuredContent())
+      return CallToolResult.builder()
+        .content(result.content().orEmpty() + TextContent(json))
+        .isError(result.isError())
+        .structuredContent(result.structuredContent())
+        .meta(result.meta())
+        .build()
+    }
 
     private fun withOAuthSecurityScheme(tool: McpSchema.Tool, scopes: List<String>): McpSchema.Tool {
       val metadata = linkedMapOf<String, Any>().apply {
@@ -91,6 +130,8 @@ class McpToolAuthMetadataConfig {
         metadata,
       )
     }
+
+    private val CHATGPT_COMPATIBILITY_TOOL_NAMES = setOf("search", "fetch")
   }
 }
 

@@ -47,9 +47,13 @@ data class DocumentDto(
 )
 
 @JsonClassDescription("Wrapper containing Paperless documents.")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class DocumentList(
   @field:JsonPropertyDescription("Paperless documents matching the tool request.")
   val documents: List<DocumentDto>,
+  @field:JsonProperty(required = false)
+  @field:JsonPropertyDescription("Offset to pass to listDocuments for the next page, if one exists.")
+  val nextOffset: Int? = null,
 )
 
 @Service
@@ -60,6 +64,8 @@ class PaperlessDocumentService(
   private fun findDocs(
     conditions: Collection<Condition>,
     orderBy: Collection<SortField<*>> = listOf(DOCUMENTS_DOCUMENT.MODIFIED.desc()),
+    limit: Int? = null,
+    offset: Int = 0,
   ): List<DocumentDto> {
     val latestVersion = DOCUMENTS_DOCUMENT.`as`("latest_version")
     val latestVersionContent: Field<String?> = dsl
@@ -88,7 +94,7 @@ class PaperlessDocumentService(
       effectiveMimeType.eq(PDF_MIME),
     ) + conditions
 
-    return dsl
+    val query = dsl
       .select(
         DOCUMENTS_DOCUMENT.ID,
         DOCUMENTS_DOCUMENT.TITLE,
@@ -115,22 +121,35 @@ class PaperlessDocumentService(
         DOCUMENTS_CORRESPONDENT.NAME,
       )
       .orderBy(orderBy)
-      .fetch { record ->
-        DocumentDto(
-          id = record.get(DOCUMENTS_DOCUMENT.ID)!!,
-          title = record.get(DOCUMENTS_DOCUMENT.TITLE) ?: "(untitled)",
-          documentDate = record.get(DOCUMENTS_DOCUMENT.CREATED)!!,
-          modifiedAt = record.get(DOCUMENTS_DOCUMENT.MODIFIED),
-          mimeType = record.get(selectedEffectiveMimeType)!!,
-          content = record.get(selectedEffectiveContent)!!,
-          ownerUsername = record.get(AUTH_USER.USERNAME),
-          note = record.get(DOCUMENTS_NOTE.NOTE),
-          correspondentName = record.get(DOCUMENTS_CORRESPONDENT.NAME),
-          tags = record.get("tag_names", Array<String>::class.java)?.filterNotNull()?.toList() ?: emptyList(),
-          sourceUrl = paperlessUrlProvider.documentUrl(record.get(DOCUMENTS_DOCUMENT.ID)!!),
-        )
+
+    return if (limit == null) {
+      query.fetch { record ->
+        toDocumentDto(record, selectedEffectiveMimeType, selectedEffectiveContent)
       }
+    } else {
+      query.limit(limit).offset(offset).fetch { record ->
+        toDocumentDto(record, selectedEffectiveMimeType, selectedEffectiveContent)
+      }
+    }
   }
+
+  private fun toDocumentDto(
+    record: org.jooq.Record,
+    selectedEffectiveMimeType: Field<String?>,
+    selectedEffectiveContent: Field<String?>,
+  ): DocumentDto = DocumentDto(
+    id = record.get(DOCUMENTS_DOCUMENT.ID)!!,
+    title = record.get(DOCUMENTS_DOCUMENT.TITLE) ?: "(untitled)",
+    documentDate = record.get(DOCUMENTS_DOCUMENT.CREATED)!!,
+    modifiedAt = record.get(DOCUMENTS_DOCUMENT.MODIFIED),
+    mimeType = record.get(selectedEffectiveMimeType)!!,
+    content = record.get(selectedEffectiveContent)!!,
+    ownerUsername = record.get(AUTH_USER.USERNAME),
+    note = record.get(DOCUMENTS_NOTE.NOTE),
+    correspondentName = record.get(DOCUMENTS_CORRESPONDENT.NAME),
+    tags = record.get("tag_names", Array<String>::class.java)?.filterNotNull()?.toList() ?: emptyList(),
+    sourceUrl = paperlessUrlProvider.documentUrl(record.get(DOCUMENTS_DOCUMENT.ID)!!),
+  )
 
   private fun findDocs(
     vararg conditions: Condition,
@@ -138,6 +157,21 @@ class PaperlessDocumentService(
   ): List<DocumentDto> = findDocs(conditions.toList(), listOf(orderBy))
 
   fun findAllDocuments(): List<DocumentDto> = findDocs()
+
+  fun findDocumentsPage(limit: Int, offset: Int): DocumentList {
+    val documents = findDocs(
+      conditions = emptyList(),
+      orderBy = PAGE_ORDER,
+      limit = limit + 1,
+      offset = offset,
+    )
+    val hasNextPage = documents.size > limit
+
+    return DocumentList(
+      documents = documents.take(limit),
+      nextOffset = if (hasNextPage) offset + limit else null,
+    )
+  }
 
   fun findDocumentById(id: Int): DocumentDto? = findDocs(
     DOCUMENTS_DOCUMENT.ID.eq(id),
@@ -184,6 +218,11 @@ class PaperlessDocumentService(
 
     private val CREATION_DATE_ORDER = listOf(
       DOCUMENTS_DOCUMENT.CREATED.desc(),
+      DOCUMENTS_DOCUMENT.ID.desc(),
+    )
+
+    private val PAGE_ORDER = listOf(
+      DOCUMENTS_DOCUMENT.MODIFIED.desc(),
       DOCUMENTS_DOCUMENT.ID.desc(),
     )
   }

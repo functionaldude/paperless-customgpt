@@ -1,6 +1,7 @@
 package com.functionaldude.paperless_customGPT.security
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 
 class AppPropertiesTest {
@@ -23,5 +24,13 @@ class AppPropertiesTest {
 
     assertThat(auth.jwkSetUri)
       .isEqualTo("https://idp.example.test/application/o/paperless/jwks/")
+  }
+
+  @Test
+  fun `required scope must be advertised`() {
+    val auth = AppProperties.Auth(scopes = listOf("openid"), requiredScope = "paperless_gpt")
+
+    assertThatIllegalArgumentException().isThrownBy(auth::validate)
+      .withMessageContaining("required-scope")
   }
 }
