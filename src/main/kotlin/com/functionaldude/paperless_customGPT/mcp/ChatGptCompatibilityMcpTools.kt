@@ -52,7 +52,7 @@ class ChatGptCompatibilityMcpTools(
 
   @McpTool(
     name = "fetch",
-    description = "Use this after search to retrieve one Paperless document. It returns extracted text plus a metadata resourceUrl for reading the original visual PDF when layout or OCR accuracy matters.",
+    description = "Use this after search to retrieve one Paperless document's extracted text and metadata. Use getRawDocument when the original visual PDF is needed for layout or OCR accuracy.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
@@ -83,7 +83,6 @@ class ChatGptCompatibilityMcpTools(
         note = document.note,
         correspondentName = document.correspondentName,
         tags = document.tags,
-        resourceUrl = document.resourceUrl,
       ),
     )
   }
@@ -136,6 +135,4 @@ data class ChatGptFetchMetadata(
   val correspondentName: String?,
   @field:JsonProperty(required = false)
   val tags: List<String>?,
-  @field:JsonPropertyDescription("MCP resource URI for reading the original visual document as a binary blob.")
-  val resourceUrl: String,
 )

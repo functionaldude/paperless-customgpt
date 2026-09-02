@@ -27,7 +27,6 @@ class ChatGptCompatibilityMcpToolsTest {
           "snippet",
           0.8,
           "https://paperless.example/documents/262",
-          "paperless://documents/262/content",
         ),
       )
     )
@@ -57,7 +56,6 @@ class ChatGptCompatibilityMcpToolsTest {
     assertThat(response.metadata.documentDate).isEqualTo(LocalDate.parse("2026-01-01"))
     assertThat(response.metadata.correspondentName).isEqualTo("A1")
     assertThat(response.metadata.tags).containsExactly("invoice")
-    assertThat(response.metadata.resourceUrl).isEqualTo("paperless://documents/262/content")
   }
 
   @Test
@@ -83,6 +81,5 @@ class ChatGptCompatibilityMcpToolsTest {
     correspondentName = "A1",
     tags = listOf("invoice"),
     sourceUrl = "https://paperless.example/documents/262",
-    resourceUrl = "paperless://documents/262/content",
   )
 }
