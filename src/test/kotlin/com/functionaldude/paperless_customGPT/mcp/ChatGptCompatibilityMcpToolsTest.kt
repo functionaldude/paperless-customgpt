@@ -89,6 +89,7 @@ class ChatGptCompatibilityMcpToolsTest {
     ownerUsername = null,
     note = null,
     correspondentName = "A1",
+    documentType = "Invoice",
     tags = listOf("invoice"),
     sourceUrl = "https://paperless.example/documents/262",
   )

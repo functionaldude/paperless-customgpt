@@ -40,6 +40,9 @@ data class DocumentDto(
   @field:JsonPropertyDescription("Name of the correspondent linked to the document.")
   val correspondentName: String?,
   @field:JsonProperty(required = false)
+  @field:JsonPropertyDescription("Name of the Paperless document type linked to the document.")
+  val documentType: String?,
+  @field:JsonProperty(required = false)
   @field:JsonPropertyDescription("Tags linked to the document.")
   val tags: List<String>?,
   @field:JsonPropertyDescription("Direct link to the document inside Paperless.")
@@ -112,12 +115,14 @@ class PaperlessDocumentService(
         AUTH_USER.USERNAME,
         DOCUMENTS_NOTE.NOTE,
         DOCUMENTS_CORRESPONDENT.NAME,
+        DOCUMENTS_DOCUMENTTYPE.NAME,
         arrayAgg(DOCUMENTS_TAG.NAME).`as`("tag_names"),
       )
       .from(DOCUMENTS_DOCUMENT)
       .leftJoin(AUTH_USER).on(DOCUMENTS_DOCUMENT.OWNER_ID.eq(AUTH_USER.ID))
       .leftJoin(DOCUMENTS_NOTE).on(DOCUMENTS_DOCUMENT.ID.eq(DOCUMENTS_NOTE.DOCUMENT_ID))
       .leftJoin(DOCUMENTS_CORRESPONDENT).on(DOCUMENTS_DOCUMENT.CORRESPONDENT_ID.eq(DOCUMENTS_CORRESPONDENT.ID))
+      .leftJoin(DOCUMENTS_DOCUMENTTYPE).on(DOCUMENTS_DOCUMENT.DOCUMENT_TYPE_ID.eq(DOCUMENTS_DOCUMENTTYPE.ID))
       .leftJoin(DOCUMENTS_DOCUMENT_TAGS).on(DOCUMENTS_DOCUMENT_TAGS.DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
       .leftJoin(DOCUMENTS_TAG).on(DOCUMENTS_TAG.ID.eq(DOCUMENTS_DOCUMENT_TAGS.TAG_ID))
       .where(effectiveConditions)
@@ -126,6 +131,7 @@ class PaperlessDocumentService(
         AUTH_USER.USERNAME,
         DOCUMENTS_NOTE.NOTE,
         DOCUMENTS_CORRESPONDENT.NAME,
+        DOCUMENTS_DOCUMENTTYPE.NAME,
       )
       .orderBy(orderBy)
 
@@ -154,6 +160,7 @@ class PaperlessDocumentService(
     ownerUsername = record.get(AUTH_USER.USERNAME),
     note = record.get(DOCUMENTS_NOTE.NOTE),
     correspondentName = record.get(DOCUMENTS_CORRESPONDENT.NAME),
+    documentType = record.get(DOCUMENTS_DOCUMENTTYPE.NAME),
     tags = record.get("tag_names", Array<String>::class.java)?.filterNotNull()?.toList() ?: emptyList(),
     sourceUrl = paperlessUrlProvider.documentUrl(record.get(DOCUMENTS_DOCUMENT.ID)!!),
   )
@@ -194,6 +201,16 @@ class PaperlessDocumentService(
   ): List<DocumentDto> = findDocs(
     conditions = documentFilterConditions(fromDate, toDate) +
         DOCUMENTS_CORRESPONDENT.NAME.containsIgnoreCase(correspondentName),
+    orderBy = CREATION_DATE_ORDER,
+  )
+
+  fun findDocumentsByDocumentType(
+    documentTypeName: String,
+    fromDate: LocalDate? = null,
+    toDate: LocalDate? = null,
+  ): List<DocumentDto> = findDocs(
+    conditions = documentFilterConditions(fromDate, toDate) +
+        DOCUMENTS_DOCUMENTTYPE.NAME.equalIgnoreCase(documentTypeName),
     orderBy = CREATION_DATE_ORDER,
   )
 
