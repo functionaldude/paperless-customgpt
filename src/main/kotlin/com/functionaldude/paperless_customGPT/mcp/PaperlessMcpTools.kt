@@ -1,6 +1,5 @@
 package com.functionaldude.paperless_customGPT.mcp
 
-import com.functionaldude.paperless_customGPT.documents.DocumentDto
 import com.functionaldude.paperless_customGPT.documents.DocumentList
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentBinaryService
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
@@ -116,10 +115,12 @@ class PaperlessMcpTools(
   fun findDocumentsByIds(
     @McpToolParam(description = "Numeric Paperless document ids.")
     ids: List<Int>,
-  ): List<DocumentDto> = ids
-    .mapNotNull(paperlessDocumentService::findDocumentById)
-    .takeIf { it.isNotEmpty() }
-    ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
+  ): DocumentList = DocumentList(
+    documents = ids
+      .mapNotNull(paperlessDocumentService::findDocumentById)
+      .takeIf { it.isNotEmpty() }
+      ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
+  )
 
   @McpTool(
     name = "findDocumentsByCorrespondent",

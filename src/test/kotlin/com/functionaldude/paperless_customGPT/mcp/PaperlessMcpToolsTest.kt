@@ -57,7 +57,7 @@ class PaperlessMcpToolsTest {
 
     val result = tools.findDocumentsByIds(listOf(262, 404, 263))
 
-    assertThat(result).containsExactly(firstDocument, secondDocument)
+    assertThat(result.documents).containsExactly(firstDocument, secondDocument)
   }
 
   @Test
