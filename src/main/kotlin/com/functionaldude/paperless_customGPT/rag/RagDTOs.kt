@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription
 @JsonClassDescription("Single semantic search hit with additional metadata to aid follow-up calls.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class RagSearchResult(
-  @field:JsonPropertyDescription("Document id that can be used with the findDocumentById tool to fetch the full record.")
+  @field:JsonPropertyDescription("Document id that can be used with the findDocumentsByIds tool to fetch the full record.")
   val paperlessDocId: Int,
   @field:JsonProperty(required = false)
   @field:JsonPropertyDescription("Document title if Paperless stored one.")
@@ -16,7 +16,7 @@ data class RagSearchResult(
   @field:JsonProperty(required = false)
   @field:JsonPropertyDescription("Counterparty or correspondent responsible for the document.")
   val correspondentName: String?,
-  @field:JsonPropertyDescription("Best-matching stored text chunk, not the complete document. Use findDocumentById to retrieve full content.")
+  @field:JsonPropertyDescription("Best-matching stored text chunk, not the complete document. Use findDocumentsByIds to retrieve full content.")
   val snippet: String,
   @field:JsonPropertyDescription("Vector similarity score. Higher values are more relevant.")
   val score: Double,

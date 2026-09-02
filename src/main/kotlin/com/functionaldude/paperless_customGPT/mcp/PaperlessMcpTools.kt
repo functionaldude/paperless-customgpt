@@ -23,8 +23,8 @@ class PaperlessMcpTools(
   private val paperlessDocumentBinaryService: PaperlessDocumentBinaryService,
 ) {
   @McpTool(
-    name = "getRawDocument",
-    description = "Returns the original visual Paperless document. Use this when layout, scans, handwriting, tables, or OCR accuracy matter.",
+    name = "getRawDocuments",
+    description = "Returns the original visual Paperless documents. Use this when layout, scans, handwriting, tables, or OCR accuracy matter.",
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
       destructiveHint = false,
@@ -32,27 +32,41 @@ class PaperlessMcpTools(
       openWorldHint = false,
     ),
   )
-  fun getRawDocument(
-    @McpToolParam(description = "Numeric Paperless document id.")
-    id: String,
+  fun getRawDocuments(
+    @McpToolParam(description = "Numeric Paperless document ids.")
+    ids: List<Int>,
   ): CallToolResult {
-    val documentId = id.toIntOrNull()
-      ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Document id must be a number")
-    val document = paperlessDocumentBinaryService.findDocument(documentId)
-      ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
+    val result = CallToolResult.builder()
 
-    return CallToolResult.builder()
-      .addContent(
-        EmbeddedResource(
-          Annotations(listOf(Role.USER, Role.ASSISTANT), 1.0),
-          BlobResourceContents(
-            "paperless://documents/$documentId/content",
-            document.mimeType,
-            Base64.getEncoder().encodeToString(document.content),
-          ),
-        ),
+    val documents = ids
+      .mapNotNull { documentId ->
+        documentId to (paperlessDocumentBinaryService.findDocument(documentId) ?: return@mapNotNull null)
+      }
+      .takeIf { it.isNotEmpty() } ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
+
+    documents.forEach { (documentId, document) ->
+      val content = BlobResourceContents
+        .builder(
+          "paperless://documents/$documentId/content",
+          Base64.getEncoder().encodeToString(document.content),
+        )
+        .mimeType(document.mimeType)
+        .build()
+
+      result.addContent(
+        EmbeddedResource
+          .builder(content)
+          .annotations(
+            Annotations.builder()
+              .audience(listOf(Role.USER, Role.ASSISTANT))
+              .priority(1.0)
+              .build(),
+          )
+          .build(),
       )
-      .build()
+    }
+
+    return result.build()
   }
 
   @McpTool(
@@ -89,8 +103,8 @@ class PaperlessMcpTools(
   }
 
   @McpTool(
-    name = "findDocumentById",
-    description = "Looks up the Paperless document for the supplied identifier and returns its metadata and content.",
+    name = "findDocumentsByIds",
+    description = "Looks up Paperless documents for the supplied identifiers and returns their metadata and content.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
@@ -99,16 +113,13 @@ class PaperlessMcpTools(
       openWorldHint = false
     )
   )
-  fun findDocumentById(
-    @McpToolParam(description = "Numeric Paperless document id.")
-    id: String
-  ): DocumentDto {
-    val documentId = id.toIntOrNull()
-      ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Document id must be a number")
-
-    return paperlessDocumentService.findDocumentById(documentId)
-      ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
-  }
+  fun findDocumentsByIds(
+    @McpToolParam(description = "Numeric Paperless document ids.")
+    ids: List<Int>,
+  ): List<DocumentDto> = ids
+    .mapNotNull(paperlessDocumentService::findDocumentById)
+    .takeIf { it.isNotEmpty() }
+    ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
 
   @McpTool(
     name = "findDocumentsByCorrespondent",
@@ -180,7 +191,7 @@ class PaperlessMcpTools(
 
   @McpTool(
     name = "searchRag",
-    description = "Uses pgvector similarity search to retrieve the most relevant Paperless documents and their best-matching text snippets. Use getRawDocument when the original visual document may improve accuracy; use findDocumentById for complete extracted text.",
+    description = "Uses pgvector similarity search to retrieve the most relevant Paperless documents and their best-matching text snippets. Use getRawDocuments when the original visual documents may improve accuracy; use findDocumentsByIds for complete extracted text.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
