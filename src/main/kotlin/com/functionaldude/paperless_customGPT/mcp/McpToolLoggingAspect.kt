@@ -1,13 +1,11 @@
 package com.functionaldude.paperless_customGPT.mcp
 
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.json.JsonMapper
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.reflect.MethodSignature
 import org.slf4j.LoggerFactory
-import org.springaicommunity.mcp.annotation.McpTool
+import org.springframework.ai.mcp.annotation.McpTool
 import org.springframework.ai.util.JacksonUtils
 import org.springframework.stereotype.Component
 
@@ -15,9 +13,7 @@ import org.springframework.stereotype.Component
 @Component
 class McpToolLoggingAspect {
   private val log = LoggerFactory.getLogger("mcp.tools")
-  private val objectMapper = JsonMapper.builder()
-    .addModules(JacksonUtils.instantiateAvailableModules())
-    .build()
+  private val objectMapper = JacksonUtils.getDefaultJsonMapper()
 
   @Around("@annotation(mcpTool)")
   fun logToolCall(joinPoint: ProceedingJoinPoint, mcpTool: McpTool): Any? {
@@ -41,7 +37,7 @@ class McpToolLoggingAspect {
 
     return try {
       objectMapper.writeValueAsString(parameters)
-    } catch (_: JsonProcessingException) {
+    } catch (_: Exception) {
       "<unserializable>"
     }
   }

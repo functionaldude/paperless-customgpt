@@ -1,9 +1,9 @@
 import org.jooq.meta.jaxb.Logging.WARN
 
 plugins {
-	kotlin("jvm") version "2.2.21"
-	kotlin("plugin.spring") version "2.2.21"
-  id("org.springframework.boot") version "4.0.2"
+  kotlin("jvm") version "2.3.21"
+  kotlin("plugin.spring") version "2.3.21"
+  id("org.springframework.boot") version "4.1.1"
 	id("io.spring.dependency-management") version "1.1.7"
   id("org.jooq.jooq-codegen-gradle") version "3.19.26"
 }
@@ -14,7 +14,7 @@ description = "API for a custom GPT & Paperless"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+    languageVersion = JavaLanguageVersion.of(25)
 	}
 }
 
@@ -22,11 +22,12 @@ repositories {
 	mavenCentral()
 }
 
-extra["springModulithVersion"] = "2.0.2"
-extra["springAiVersion"] = "1.1.2"
+extra["springModulithVersion"] = "2.1.1"
+extra["springAiVersion"] = "2.0.1"
 
-val langchain4jVersion = "1.8.0" // or latest
-val mcpSecurityVersion = "0.1.2"
+val langchain4jVersion = "1.19.0"
+val langchain4jBetaVersion = "${langchain4jVersion}-beta29"
+val mcpSecurityVersion = "0.1.14"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -50,9 +51,8 @@ dependencies {
   implementation("dev.langchain4j:langchain4j-open-ai:${langchain4jVersion}")
   implementation("dev.langchain4j:langchain4j-http-client:${langchain4jVersion}")
   implementation("dev.langchain4j:langchain4j-http-client-jdk:${langchain4jVersion}")
-  implementation("dev.langchain4j:langchain4j-ollama:1.8.0")
-  implementation("dev.langchain4j:langchain4j-pgvector:${langchain4jVersion}-beta15")
-  implementation("dev.langchain4j:langchain4j-spring-boot-starter:${langchain4jVersion}-beta15")
+  implementation("dev.langchain4j:langchain4j-ollama:${langchain4jVersion}")
+  implementation("dev.langchain4j:langchain4j-pgvector:${langchain4jBetaVersion}")
   implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc")
   implementation("org.springaicommunity:mcp-server-security:${mcpSecurityVersion}")
 

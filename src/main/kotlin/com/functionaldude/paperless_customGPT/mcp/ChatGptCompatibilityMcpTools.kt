@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import com.functionaldude.paperless_customGPT.rag.RagQueryService
-import org.springaicommunity.mcp.annotation.McpTool
-import org.springaicommunity.mcp.annotation.McpToolParam
+import org.springframework.ai.mcp.annotation.McpTool
+import org.springframework.ai.mcp.annotation.McpToolParam
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ResponseStatusException
