@@ -98,6 +98,7 @@ class PaperlessMcpToolsTest {
     ownerUsername = null,
     note = null,
     correspondentName = null,
+    documentType = null,
     tags = null,
     sourceUrl = "https://paperless.example/documents/$id",
   )

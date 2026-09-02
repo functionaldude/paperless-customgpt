@@ -132,6 +132,7 @@ class RagIngestionService(
       appendLine("Title: ${paperlessDocument.title}")
       paperlessDocument.correspondentName?.let { appendLine("Correspondent: $it") }
       appendLine("Date: ${paperlessDocument.documentDate}")
+      paperlessDocument.documentType?.takeIf { it.isNotBlank() }?.let { appendLine("Type: $it") }
       paperlessDocument.tags?.takeIf { it.isNotEmpty() }?.let { appendLine("Tags: ${it.joinToString(", ")}") }
       paperlessDocument.note?.takeIf { it.isNotBlank() }?.let { appendLine("Note: $it") }
       appendLine()

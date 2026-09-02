@@ -24,6 +24,7 @@ class McpDtoSerializationTest {
         ownerUsername = null,
         note = null,
         correspondentName = null,
+        documentType = null,
         tags = emptyList(),
         sourceUrl = "https://paperless.example/documents/262",
       )
@@ -33,6 +34,7 @@ class McpDtoSerializationTest {
     assertThat(json).doesNotContain(""""ownerUsername"""")
     assertThat(json).doesNotContain(""""note"""")
     assertThat(json).doesNotContain(""""correspondentName"""")
+    assertThat(json).doesNotContain(""""documentType"""")
     assertThat(json).contains(""""tags":[]""")
     assertThat(json).doesNotContain(""""resourceUrl"""")
   }
