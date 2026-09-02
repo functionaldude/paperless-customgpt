@@ -14,6 +14,7 @@ import java.nio.file.Path
 data class BinaryDocument(
   val content: ByteArray,
   val mimeType: String,
+  val fileName: String,
 ) {
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -23,6 +24,7 @@ data class BinaryDocument(
 
     if (!content.contentEquals(other.content)) return false
     if (mimeType != other.mimeType) return false
+    if (fileName != other.fileName) return false
 
     return true
   }
@@ -30,6 +32,7 @@ data class BinaryDocument(
   override fun hashCode(): Int {
     var result = content.contentHashCode()
     result = 31 * result + mimeType.hashCode()
+    result = 31 * result + fileName.hashCode()
     return result
   }
 }
@@ -39,61 +42,65 @@ class PaperlessDocumentBinaryService(
   private val dsl: DSLContext,
   @Value("\${paperless.media-root}") mediaRoot: String,
 ) {
-  private val documentRoot = mediaRoot.trim().removeSuffix("/").plus("/documents/originals")
-  private val mediaRoot = Path.of(documentRoot).toAbsolutePath().normalize()
+  private val documentsRoot = Path.of(mediaRoot.trim().removeSuffix("/"), "documents")
+    .toAbsolutePath()
+    .normalize()
+  private val originalsRoot = documentsRoot.resolve("originals")
+  private val archiveRoot = documentsRoot.resolve("archive")
 
   fun findDocument(documentId: Int): BinaryDocument? {
     val latestVersion = DOCUMENTS_DOCUMENT.`as`("latest_binary_version")
-    val latestFilename: Field<String?> = dsl
-      .select(coalesce(latestVersion.FILENAME, latestVersion.ARCHIVE_FILENAME))
+    val latestVersionId: Field<Int?> = dsl
+      .select(latestVersion.ID)
       .from(latestVersion)
       .where(latestVersion.ROOT_DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
       .and(latestVersion.DELETED_AT.isNull)
       .orderBy(latestVersion.ID.desc())
       .limit(1)
-      .asField<String?>()
-    val latestMimeType: Field<String?> = dsl
-      .select(latestVersion.MIME_TYPE)
-      .from(latestVersion)
-      .where(latestVersion.ROOT_DOCUMENT_ID.eq(DOCUMENTS_DOCUMENT.ID))
-      .and(latestVersion.DELETED_AT.isNull)
-      .orderBy(latestVersion.ID.desc())
-      .limit(1)
-      .asField<String?>()
+      .asField<Int?>()
+    val effectiveDocument = DOCUMENTS_DOCUMENT.`as`("effective_binary_document")
     val effectiveMimeType = coalesce(
-      latestMimeType,
-      DOCUMENTS_DOCUMENT.MIME_TYPE,
+      effectiveDocument.MIME_TYPE,
       inline(PaperlessDocumentService.DEFAULT_MIME_TYPE),
     )
 
     val record = dsl
       .select(
-        coalesce(
-          latestFilename,
-          DOCUMENTS_DOCUMENT.FILENAME,
-          DOCUMENTS_DOCUMENT.ARCHIVE_FILENAME
-        ).`as`("effective_filename"),
+        effectiveDocument.FILENAME.`as`("effective_filename"),
+        effectiveDocument.ARCHIVE_FILENAME.`as`("effective_archive_filename"),
+        effectiveDocument.ORIGINAL_FILENAME.`as`("effective_original_filename"),
         effectiveMimeType.`as`("effective_mime_type"),
       )
       .from(DOCUMENTS_DOCUMENT)
+      .join(effectiveDocument)
+      .on(effectiveDocument.ID.eq(coalesce(latestVersionId, DOCUMENTS_DOCUMENT.ID)))
       .where(DOCUMENTS_DOCUMENT.ID.eq(documentId))
       .and(DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull)
       .and(DOCUMENTS_DOCUMENT.DELETED_AT.isNull)
       .fetchOne() ?: return null
 
-    val filename = record.get("effective_filename", String::class.java) ?: return null
+    val filename = record.get("effective_filename", String::class.java)
+    val archiveFilename = record.get("effective_archive_filename", String::class.java)
+    val originalFilename = record.get("effective_original_filename", String::class.java) ?: return null
+    val fileName = originalFilename
+      .replace('\\', '/')
+      .substringAfterLast('/')
+      .takeIf { it.isNotBlank() }
+      ?: return null
     val mimeType = record.get("effective_mime_type", String::class.java)
       ?: PaperlessDocumentService.DEFAULT_MIME_TYPE
-    val path = resolveFile(filename) ?: return null
+    val source = filename?.let { resolveFile(originalsRoot, it) }
+      ?: archiveFilename?.let { resolveFile(archiveRoot, it) }
+      ?: return null
 
     return try {
-      BinaryDocument(Files.readAllBytes(path), mimeType)
+      BinaryDocument(Files.readAllBytes(source), mimeType, fileName)
     } catch (_: IOException) {
       null
     }
   }
 
-  private fun resolveFile(filename: String): Path? {
+  private fun resolveFile(root: Path, filename: String): Path? {
     val relativePath = try {
       Path.of(filename)
     } catch (_: RuntimeException) {
@@ -101,11 +108,11 @@ class PaperlessDocumentBinaryService(
     }
     if (relativePath.isAbsolute) return null
 
-    val candidate = mediaRoot.resolve(relativePath).normalize()
-    if (!candidate.startsWith(mediaRoot) || !Files.isRegularFile(candidate)) return null
+    val candidate = root.resolve(relativePath).normalize()
+    if (!candidate.startsWith(root) || !Files.isRegularFile(candidate)) return null
 
     return try {
-      val realRoot = mediaRoot.toRealPath()
+      val realRoot = root.toRealPath()
       candidate.toRealPath().takeIf { it.startsWith(realRoot) && Files.isRegularFile(it) }
     } catch (_: IOException) {
       null

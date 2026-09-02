@@ -11,6 +11,7 @@ import org.springframework.ai.mcp.annotation.McpToolParam
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ResponseStatusException
+import java.net.URI
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
 import java.util.*
@@ -46,7 +47,7 @@ class PaperlessMcpTools(
     documents.forEach { (documentId, document) ->
       val content = BlobResourceContents
         .builder(
-          "paperless://documents/$documentId/content",
+          URI("paperless", "documents", "/$documentId/$documentId-${document.fileName}", null, null).toASCIIString(),
           Base64.getEncoder().encodeToString(document.content),
         )
         .mimeType(document.mimeType)

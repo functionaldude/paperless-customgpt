@@ -22,20 +22,30 @@ class PaperlessMcpToolsTest {
     val document = "PK\\u0003\\u0004office document".toByteArray()
     val secondDocument = "second document".toByteArray()
     `when`(binaryService.findDocument(262)).thenReturn(
-      BinaryDocument(document, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+      BinaryDocument(
+        document,
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "Quarterly report #1 (final).docx",
+      )
     )
-    `when`(binaryService.findDocument(263)).thenReturn(BinaryDocument(secondDocument, "image/png"))
+    `when`(binaryService.findDocument(263)).thenReturn(
+      BinaryDocument(
+        secondDocument,
+        "image/png",
+        "scan überblick.png"
+      )
+    )
 
     val result = tools.getRawDocuments(listOf(262, 263))
 
     assertThat(result.content()).hasSize(2)
     val firstContent = (result.content()[0] as EmbeddedResource).resource() as BlobResourceContents
-    assertThat(firstContent.uri()).isEqualTo("paperless://documents/262/content")
+    assertThat(firstContent.uri()).isEqualTo("paperless://documents/262/262-Quarterly%20report%20%231%20(final).docx")
     assertThat(firstContent.mimeType()).isEqualTo("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     assertThat(Base64.getDecoder().decode(firstContent.blob())).isEqualTo(document)
 
     val secondContent = (result.content()[1] as EmbeddedResource).resource() as BlobResourceContents
-    assertThat(secondContent.uri()).isEqualTo("paperless://documents/263/content")
+    assertThat(secondContent.uri()).isEqualTo("paperless://documents/263/263-scan%20%C3%BCberblick.png")
     assertThat(secondContent.mimeType()).isEqualTo("image/png")
     assertThat(Base64.getDecoder().decode(secondContent.blob())).isEqualTo(secondDocument)
   }
