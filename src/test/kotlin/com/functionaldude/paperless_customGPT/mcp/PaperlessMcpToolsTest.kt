@@ -20,9 +20,11 @@ class PaperlessMcpToolsTest {
   private val tools = PaperlessMcpTools(documentService, ragQueryService, binaryService)
 
   @Test
-  fun `get raw document returns one base64 encoded embedded resource`() {
-    val pdf = "%PDF-test".toByteArray()
-    `when`(binaryService.findDocument(262)).thenReturn(BinaryDocument(pdf, "application/pdf"))
+  fun `get raw document returns a non PDF binary with its stored MIME type`() {
+    val document = "PK\\u0003\\u0004office document".toByteArray()
+    `when`(binaryService.findDocument(262)).thenReturn(
+      BinaryDocument(document, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    )
 
     val result = tools.getRawDocument("262")
 
@@ -30,8 +32,8 @@ class PaperlessMcpToolsTest {
     val embeddedResource = result.content().single() as EmbeddedResource
     val content = embeddedResource.resource() as BlobResourceContents
     assertThat(content.uri()).isEqualTo("paperless://documents/262/content")
-    assertThat(content.mimeType()).isEqualTo("application/pdf")
-    assertThat(Base64.getDecoder().decode(content.blob())).isEqualTo(pdf)
+    assertThat(content.mimeType()).isEqualTo("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    assertThat(Base64.getDecoder().decode(content.blob())).isEqualTo(document)
   }
 
   @Test

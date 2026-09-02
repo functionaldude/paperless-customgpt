@@ -63,9 +63,10 @@ Existing `searchRag`, `findDocumentById`, and filtered lookup tools remain avail
 is paginated: it defaults to 50 documents, accepts `limit` and `offset`, caps a page at 100 documents, and returns
 `nextOffset` when another page exists.
 
-Use `getRawDocument(id)` to retrieve a document's original PDF through `tools/call` as one base64-encoded embedded
-resource with its MIME type. Mount the Paperless media directory read-only at `PAPERLESS_MEDIA_ROOT`; original files are
-preferred, with Paperless archive files used as a fallback.
+Use `getRawDocument(id)` to retrieve a document's original binary content through `tools/call` as one base64-encoded
+embedded resource with its MIME type. All Paperless document formats are eligible; documents without a stored MIME type
+are sent as `application/octet-stream`. Mount the Paperless media directory read-only at `PAPERLESS_MEDIA_ROOT`;
+original files are preferred, with Paperless archive files used as a fallback.
 
 For ChatGPT, deploy the endpoint at a remote HTTPS URL or connect a private deployment through OpenAI Secure MCP Tunnel.
 Enable Developer mode, add the `/mcp` URL as an OAuth-protected app, and grant the `paperless_gpt` scope. Ensure the

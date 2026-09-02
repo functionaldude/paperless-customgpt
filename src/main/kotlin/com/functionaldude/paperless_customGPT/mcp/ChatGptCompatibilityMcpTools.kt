@@ -52,7 +52,7 @@ class ChatGptCompatibilityMcpTools(
 
   @McpTool(
     name = "fetch",
-    description = "Use this after search to retrieve one Paperless document's extracted text and metadata. Use getRawDocument when the original visual PDF is needed for layout or OCR accuracy.",
+    description = "Use this after search to retrieve one Paperless document's extracted text and metadata. Use getRawDocument when the original document is needed for layout or OCR accuracy.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,

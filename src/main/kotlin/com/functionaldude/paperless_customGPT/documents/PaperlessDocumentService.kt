@@ -28,7 +28,7 @@ data class DocumentDto(
   val modifiedAt: OffsetDateTime?,
   @field:JsonPropertyDescription("Persisted MIME type of the document.")
   val mimeType: String,
-  @field:JsonPropertyDescription("Full text content extracted from the source PDF.")
+  @field:JsonPropertyDescription("Full text content extracted from the source document, when available.")
   val content: String,
   @field:JsonProperty(required = false)
   @field:JsonPropertyDescription("Optional Paperless username of the document owner.")
@@ -84,14 +84,21 @@ class PaperlessDocumentService(
       .orderBy(latestVersion.ID.desc())
       .limit(1)
       .asField<String?>()
-    val effectiveContent: Field<String?> = coalesce(latestVersionContent, DOCUMENTS_DOCUMENT.CONTENT)
-    val effectiveMimeType: Field<String?> = coalesce(latestVersionMimeType, DOCUMENTS_DOCUMENT.MIME_TYPE)
+    val effectiveContent: Field<String?> = coalesce(
+      latestVersionContent,
+      DOCUMENTS_DOCUMENT.CONTENT,
+      inline(""),
+    )
+    val effectiveMimeType: Field<String?> = coalesce(
+      latestVersionMimeType,
+      DOCUMENTS_DOCUMENT.MIME_TYPE,
+      inline(DEFAULT_MIME_TYPE),
+    )
     val selectedEffectiveContent = effectiveContent.`as`("effective_content")
     val selectedEffectiveMimeType = effectiveMimeType.`as`("effective_mime_type")
     val effectiveConditions = listOf(
       DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull,
       DOCUMENTS_DOCUMENT.DELETED_AT.isNull,
-      effectiveMimeType.eq(PDF_MIME),
     ) + conditions
 
     val query = dsl
@@ -142,8 +149,8 @@ class PaperlessDocumentService(
     title = record.get(DOCUMENTS_DOCUMENT.TITLE) ?: "(untitled)",
     documentDate = record.get(DOCUMENTS_DOCUMENT.CREATED)!!,
     modifiedAt = record.get(DOCUMENTS_DOCUMENT.MODIFIED),
-    mimeType = record.get(selectedEffectiveMimeType)!!,
-    content = record.get(selectedEffectiveContent)!!,
+    mimeType = record.get(selectedEffectiveMimeType) ?: DEFAULT_MIME_TYPE,
+    content = record.get(selectedEffectiveContent) ?: "",
     ownerUsername = record.get(AUTH_USER.USERNAME),
     note = record.get(DOCUMENTS_NOTE.NOTE),
     correspondentName = record.get(DOCUMENTS_CORRESPONDENT.NAME),
@@ -156,7 +163,10 @@ class PaperlessDocumentService(
     orderBy: SortField<*> = DOCUMENTS_DOCUMENT.CREATED.desc()
   ): List<DocumentDto> = findDocs(conditions.toList(), listOf(orderBy))
 
-  fun findAllDocuments(): List<DocumentDto> = findDocs()
+  fun findAllDocuments(): List<DocumentDto> = findDocs(
+    conditions = emptyList(),
+    orderBy = PAGE_ORDER,
+  )
 
   fun findDocumentsPage(limit: Int, offset: Int): DocumentList {
     val documents = findDocs(
@@ -215,6 +225,7 @@ class PaperlessDocumentService(
 
   companion object {
     const val PDF_MIME = "application/pdf"
+    const val DEFAULT_MIME_TYPE = "application/octet-stream"
 
     private val CREATION_DATE_ORDER = listOf(
       DOCUMENTS_DOCUMENT.CREATED.desc(),
