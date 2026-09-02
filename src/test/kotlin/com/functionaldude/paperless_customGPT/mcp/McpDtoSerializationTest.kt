@@ -31,7 +31,6 @@ class McpDtoSerializationTest {
         correspondentName = null,
         tags = emptyList(),
         sourceUrl = "https://paperless.example/documents/262",
-        resourceUrl = "paperless://documents/262/content",
       )
     )
 
@@ -40,7 +39,7 @@ class McpDtoSerializationTest {
     assertThat(json).doesNotContain(""""note"""")
     assertThat(json).doesNotContain(""""correspondentName"""")
     assertThat(json).contains(""""tags":[]""")
-    assertThat(json).contains(""""resourceUrl":"paperless://documents/262/content"""")
+    assertThat(json).doesNotContain(""""resourceUrl"""")
   }
 
   @Test
@@ -53,12 +52,11 @@ class McpDtoSerializationTest {
         snippet = "snippet",
         score = 0.42,
         sourceUrl = "https://paperless.example/documents/262",
-        resourceUrl = "paperless://documents/262/content",
       )
     )
 
     assertThat(json).doesNotContain(""""title"""")
     assertThat(json).doesNotContain(""""correspondentName"""")
-    assertThat(json).contains(""""resourceUrl":"paperless://documents/262/content"""")
+    assertThat(json).doesNotContain(""""resourceUrl"""")
   }
 }

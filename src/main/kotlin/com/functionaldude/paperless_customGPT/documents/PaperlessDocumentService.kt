@@ -44,8 +44,6 @@ data class DocumentDto(
   val tags: List<String>?,
   @field:JsonPropertyDescription("Direct link to the document inside Paperless.")
   val sourceUrl: String,
-  @field:JsonPropertyDescription("MCP resource URI for reading the original visual document as a binary blob.")
-  val resourceUrl: String,
 )
 
 @JsonClassDescription("Wrapper containing Paperless documents.")
@@ -62,7 +60,6 @@ data class DocumentList(
 class PaperlessDocumentService(
   private val dsl: DSLContext,
   private val paperlessUrlProvider: PaperlessUrlProvider,
-  private val paperlessResourceUriProvider: PaperlessResourceUriProvider,
 ) {
   private fun findDocs(
     conditions: Collection<Condition>,
@@ -152,7 +149,6 @@ class PaperlessDocumentService(
     correspondentName = record.get(DOCUMENTS_CORRESPONDENT.NAME),
     tags = record.get("tag_names", Array<String>::class.java)?.filterNotNull()?.toList() ?: emptyList(),
     sourceUrl = paperlessUrlProvider.documentUrl(record.get(DOCUMENTS_DOCUMENT.ID)!!),
-    resourceUrl = paperlessResourceUriProvider.documentResourceUri(record.get(DOCUMENTS_DOCUMENT.ID)!!),
   )
 
   private fun findDocs(

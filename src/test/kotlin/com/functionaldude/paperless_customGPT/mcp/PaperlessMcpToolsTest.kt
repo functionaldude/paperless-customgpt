@@ -1,16 +1,49 @@
 package com.functionaldude.paperless_customGPT.mcp
 
+import com.functionaldude.paperless_customGPT.documents.BinaryDocument
 import com.functionaldude.paperless_customGPT.documents.DocumentList
+import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentBinaryService
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import com.functionaldude.paperless_customGPT.rag.RagQueryService
+import io.modelcontextprotocol.spec.McpSchema.BlobResourceContents
+import io.modelcontextprotocol.spec.McpSchema.EmbeddedResource
+import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
+import java.util.*
 
 class PaperlessMcpToolsTest {
   private val documentService = mock(PaperlessDocumentService::class.java)
   private val ragQueryService = mock(RagQueryService::class.java)
-  private val tools = PaperlessMcpTools(documentService, ragQueryService)
+  private val binaryService = mock(PaperlessDocumentBinaryService::class.java)
+  private val tools = PaperlessMcpTools(documentService, ragQueryService, binaryService)
+
+  @Test
+  fun `get raw document returns one base64 encoded embedded resource`() {
+    val pdf = "%PDF-test".toByteArray()
+    `when`(binaryService.findDocument(262)).thenReturn(BinaryDocument(pdf, "application/pdf"))
+
+    val result = tools.getRawDocument("262")
+
+    assertThat(result.content()).hasSize(1)
+    val embeddedResource = result.content().single() as EmbeddedResource
+    val content = embeddedResource.resource() as BlobResourceContents
+    assertThat(content.uri()).isEqualTo("paperless://documents/262/content")
+    assertThat(content.mimeType()).isEqualTo("application/pdf")
+    assertThat(Base64.getDecoder().decode(content.blob())).isEqualTo(pdf)
+  }
+
+  @Test
+  fun `get raw document rejects invalid and missing ids`() {
+    assertThatThrownBy { tools.getRawDocument("invalid") }
+      .hasMessageContaining("Document id must be a number")
+
+    `when`(binaryService.findDocument(404)).thenReturn(null)
+
+    assertThatThrownBy { tools.getRawDocument("404") }
+      .hasMessageContaining("Document not found")
+  }
 
   @Test
   fun `list documents applies its default page size and clamps oversized pages`() {

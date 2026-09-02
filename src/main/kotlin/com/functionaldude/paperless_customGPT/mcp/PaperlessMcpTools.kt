@@ -2,9 +2,11 @@ package com.functionaldude.paperless_customGPT.mcp
 
 import com.functionaldude.paperless_customGPT.documents.DocumentDto
 import com.functionaldude.paperless_customGPT.documents.DocumentList
+import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentBinaryService
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
 import com.functionaldude.paperless_customGPT.rag.RagQueryResponse
 import com.functionaldude.paperless_customGPT.rag.RagQueryService
+import io.modelcontextprotocol.spec.McpSchema.*
 import org.springaicommunity.mcp.annotation.McpTool
 import org.springaicommunity.mcp.annotation.McpToolParam
 import org.springframework.http.HttpStatus
@@ -12,12 +14,47 @@ import org.springframework.stereotype.Component
 import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
+import java.util.*
 
 @Component
 class PaperlessMcpTools(
   private val paperlessDocumentService: PaperlessDocumentService,
   private val ragQueryService: RagQueryService,
+  private val paperlessDocumentBinaryService: PaperlessDocumentBinaryService,
 ) {
+  @McpTool(
+    name = "getRawDocument",
+    description = "Returns the original visual Paperless document. Use this when layout, scans, handwriting, tables, or OCR accuracy matter.",
+    annotations = McpTool.McpAnnotations(
+      readOnlyHint = true,
+      destructiveHint = false,
+      idempotentHint = true,
+      openWorldHint = false,
+    ),
+  )
+  fun getRawDocument(
+    @McpToolParam(description = "Numeric Paperless document id.")
+    id: String,
+  ): CallToolResult {
+    val documentId = id.toIntOrNull()
+      ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Document id must be a number")
+    val document = paperlessDocumentBinaryService.findDocument(documentId)
+      ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
+
+    return CallToolResult.builder()
+      .addContent(
+        EmbeddedResource(
+          Annotations(listOf(Role.USER, Role.ASSISTANT), 1.0),
+          BlobResourceContents(
+            "paperless://documents/$documentId/content",
+            document.mimeType,
+            Base64.getEncoder().encodeToString(document.content),
+          ),
+        ),
+      )
+      .build()
+  }
+
   @McpTool(
     name = "listDocuments",
     description = "Returns a paginated list of Paperless PDF documents together with metadata and extracted content.",
@@ -143,7 +180,7 @@ class PaperlessMcpTools(
 
   @McpTool(
     name = "searchRag",
-    description = "Uses pgvector similarity search to retrieve the most relevant Paperless documents and their best-matching text snippets. Read a result's resourceUrl when the original visual document may improve accuracy; use findDocumentById for complete extracted text.",
+    description = "Uses pgvector similarity search to retrieve the most relevant Paperless documents and their best-matching text snippets. Use getRawDocument when the original visual document may improve accuracy; use findDocumentById for complete extracted text.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,

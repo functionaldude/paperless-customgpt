@@ -2,7 +2,6 @@ package com.functionaldude.paperless_customGPT.rag
 
 import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMENT_CHUNK
 import com.functionaldude.paperless.jooq.paperless_rag.tables.references.DOCUMENT_SOURCE
-import com.functionaldude.paperless_customGPT.documents.PaperlessResourceUriProvider
 import com.functionaldude.paperless_customGPT.documents.PaperlessUrlProvider
 import com.functionaldude.paperless_customGPT.rag.api.IngestStatus
 import com.functionaldude.paperless_customGPT.rag.internal.EmbeddingDimensionReducer
@@ -20,7 +19,6 @@ class RagQueryService(
   private val embeddingModel: EmbeddingModel,
   private val embeddingDimensionReducer: EmbeddingDimensionReducer,
   private val paperlessUrlProvider: PaperlessUrlProvider,
-  private val paperlessResourceUriProvider: PaperlessResourceUriProvider,
   @Value("\${rag.hnsw-ef-search:400}") private val hnswEfSearch: Int,
   @Value("\${OPENAI_MODEL_NAME:text-embedding-multilingual-e5-base}") private val embeddingModelName: String,
   @Value("\${rag.qwen3-query-instruction}") private val qwen3QueryInstruction: String,
@@ -89,7 +87,6 @@ class RagQueryService(
             snippet = record.get(DOCUMENT_CHUNK.CONTENT)!!,
             score = 1.0 - record.get("distance", Double::class.java)!!,
             sourceUrl = paperlessUrlProvider.documentUrl(record.get(DOCUMENT_SOURCE.PAPERLESS_DOC_ID)!!),
-            resourceUrl = paperlessResourceUriProvider.documentResourceUri(record.get(DOCUMENT_SOURCE.PAPERLESS_DOC_ID)!!),
           )
         }
       val documents = candidates.distinctBy { it.paperlessDocId }
