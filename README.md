@@ -16,6 +16,7 @@ The database variables are required at runtime. All others have local-developmen
 | `PAPERLESS_DB_USER`                      | Required                                            | Database username.                                                                                     |
 | `PAPERLESS_DB_PASSWORD`                  | Required                                            | Database password.                                                                                     |
 | `PAPERLESS_BASE_URL`                     | `http://localhost:8000`                             | Public Paperless UI URL used for document source links.                                                |
+| `PAPERLESS_MEDIA_ROOT`                   | `/usr/src/paperless/media`                          | Paperless media directory, mounted read-only, used to serve document binary MCP resources.             |
 | `APP_PUBLIC_URL`                         | `http://localhost:8080`                             | Externally reachable service URL used to advertise the MCP resource.                                   |
 | `OIDC_ISSUER_URI`                        | `http://localhost:9000/application/o/paperless/`    | Issuer that signs ChatGPT access tokens. The JWKS URL is derived as `<issuer>/jwks/`.                  |
 | `OIDC_AUDIENCE`                          | `<APP_PUBLIC_URL>/mcp`                              | Required JWT audience. Override when the provider emits another audience, such as the OAuth client ID. |
@@ -62,6 +63,11 @@ Existing `searchRag`, `findDocumentById`, and filtered lookup tools remain avail
 is paginated: it defaults to 50 documents, accepts `limit` and `offset`, caps a page at 100 documents, and returns
 `nextOffset` when another page exists.
 
+Document and RAG results include a `resourceUrl` such as `paperless://documents/233/content`. The MCP server advertises
+the `paperless://documents/{id}/content` resource template and returns the matching PDF from `resources/read` as one
+base64-encoded binary resource with its MIME type. Mount the Paperless media directory read-only at
+`PAPERLESS_MEDIA_ROOT`; original files are preferred, with Paperless archive files used as a fallback.
+
 For ChatGPT, deploy the endpoint at a remote HTTPS URL or connect a private deployment through OpenAI Secure MCP Tunnel.
 Enable Developer mode, add the `/mcp` URL as an OAuth-protected app, and grant the `paperless_gpt` scope. Ensure the
 identity provider supports authorization-code flow with PKCE and issues refresh tokens for `offline_access` so longer
@@ -84,10 +90,12 @@ the required environment variables:
 
 ```bash
 docker run --rm -p 8080:8080 \
+  --mount type=bind,source=/path/to/paperless/media,target=/usr/src/paperless/media,readonly \
   -e PAPERLESS_DB_URL=jdbc:postgresql://postgres/paperless \
   -e PAPERLESS_DB_USER=paperless \
   -e PAPERLESS_DB_PASSWORD=paperless \
   -e PAPERLESS_BASE_URL=https://paperless.example.com \
+  -e PAPERLESS_MEDIA_ROOT=/usr/src/paperless/media \
   -e APP_PUBLIC_URL=https://paperless-gpt.example.com \
   -e OIDC_ISSUER_URI=https://idp.example.com/application/o/paperless/ \
   -e OIDC_AUDIENCE=https://paperless-gpt.example.com/mcp \
@@ -108,6 +116,7 @@ service create`:
 ```bash
 docker service create --name paperless-gpt \
   --with-registry-auth \
+  --mount type=bind,source=/path/to/paperless/media,target=/usr/src/paperless/media,readonly \
   --env PAPERLESS_DB_URL=jdbc:postgresql://postgres/paperless \
   --env PAPERLESS_DB_USER=paperless \
   --env PAPERLESS_DB_PASSWORD=paperless \

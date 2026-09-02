@@ -25,6 +25,7 @@ class DocumentIntegrationTests {
     assertThat(document.ownerUsername).contains("functionaldude")
     assertThat(document.correspondentName).contains("A1")
     assertThat(document.sourceUrl).endsWith("/documents/$DOC_ID")
+    assertThat(document.resourceUrl).isEqualTo("paperless://documents/$DOC_ID/content")
     assertThat(document.tags).contains("via E-Mail")
   }
 

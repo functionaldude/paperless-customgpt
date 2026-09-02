@@ -22,6 +22,8 @@ data class RagSearchResult(
   val score: Double,
   @field:JsonPropertyDescription("Direct link to the source document inside Paperless.")
   val sourceUrl: String,
+  @field:JsonPropertyDescription("MCP resource URI for reading the original visual document as a binary blob.")
+  val resourceUrl: String,
 )
 
 @JsonClassDescription("Wrapper containing RAG search hits.")
