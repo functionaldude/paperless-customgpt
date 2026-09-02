@@ -1,7 +1,5 @@
 package com.functionaldude.paperless_customGPT.mcp
 
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.databind.json.JsonMapper
 import com.functionaldude.paperless_customGPT.documents.DocumentDto
 import com.functionaldude.paperless_customGPT.rag.RagSearchResult
 import org.assertj.core.api.Assertions.assertThat
@@ -11,10 +9,7 @@ import java.time.LocalDate
 
 class McpDtoSerializationTest {
 
-  private val objectMapper = JsonMapper.builder()
-    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-    .addModules(JacksonUtils.instantiateAvailableModules())
-    .build()
+  private val objectMapper = JacksonUtils.getDefaultJsonMapper()
 
   @Test
   fun `document output omits null optional fields`() {
