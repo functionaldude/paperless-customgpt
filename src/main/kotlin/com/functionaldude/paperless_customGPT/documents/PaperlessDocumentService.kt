@@ -204,6 +204,16 @@ class PaperlessDocumentService(
     orderBy = CREATION_DATE_ORDER,
   )
 
+  fun findDocumentsByDocumentType(
+    documentTypeName: String,
+    fromDate: LocalDate? = null,
+    toDate: LocalDate? = null,
+  ): List<DocumentDto> = findDocs(
+    conditions = documentFilterConditions(fromDate, toDate) +
+        DOCUMENTS_DOCUMENTTYPE.NAME.equalIgnoreCase(documentTypeName),
+    orderBy = CREATION_DATE_ORDER,
+  )
+
   fun findDocumentsByTag(
     tagName: String,
     fromDate: LocalDate? = null,

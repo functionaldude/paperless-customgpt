@@ -88,6 +88,39 @@ class PaperlessMcpToolsTest {
       .hasMessageContaining("offset must not be negative")
   }
 
+  @Test
+  fun `find documents by document type normalizes input and wraps results`() {
+    val matchingDocument = document(262, "Invoice")
+    val fromDate = LocalDate.parse("2026-01-01")
+    val toDate = LocalDate.parse("2026-01-31")
+    `when`(documentService.findDocumentsByDocumentType("Invoice", fromDate, toDate))
+      .thenReturn(listOf(matchingDocument))
+
+    val result = tools.findDocumentsByDocumentType(
+      documentTypeName = "  Invoice  ",
+      fromDate = "2026-01-01",
+      toDate = "2026-01-31",
+    )
+
+    assertThat(result.documents).containsExactly(matchingDocument)
+    verify(documentService).findDocumentsByDocumentType("Invoice", fromDate, toDate)
+  }
+
+  @Test
+  fun `find documents by document type rejects invalid input`() {
+    assertThatThrownBy { tools.findDocumentsByDocumentType("  ") }
+      .hasMessageContaining("Document type name must not be blank")
+    assertThatThrownBy { tools.findDocumentsByDocumentType("Invoice", fromDate = "01-01-2026") }
+      .hasMessageContaining("fromDate must use YYYY-MM-DD format")
+    assertThatThrownBy {
+      tools.findDocumentsByDocumentType(
+        documentTypeName = "Invoice",
+        fromDate = "2026-02-01",
+        toDate = "2026-01-31",
+      )
+    }.hasMessageContaining("fromDate must not be after toDate")
+  }
+
   private fun document(id: Int, title: String) = DocumentDto(
     id = id,
     title = title,

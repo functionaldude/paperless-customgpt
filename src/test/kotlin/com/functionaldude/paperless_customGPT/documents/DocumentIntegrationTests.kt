@@ -52,6 +52,24 @@ class DocumentIntegrationTests {
   }
 
   @Test
+  fun `findDocumentsByDocumentType filters and orders by creation date`() {
+    val document = paperlessDocumentService.findDocumentById(DOC_ID)!!
+    val documentType = requireNotNull(document.documentType)
+
+    val documents = paperlessDocumentService.findDocumentsByDocumentType(documentType.uppercase())
+
+    assertThat(documents).extracting<Int> { it.id }.contains(DOC_ID)
+    assertThat(documents.map { it.documentDate }).isSortedAccordingTo(reverseOrder())
+    assertThat(documents.first { it.id == DOC_ID }.documentType).isEqualTo(documentType)
+    assertThat(
+      paperlessDocumentService.findDocumentsByDocumentType(
+        documentType,
+        toDate = document.documentDate.minusDays(1),
+      )
+    ).extracting<Int> { it.id }.doesNotContain(DOC_ID)
+  }
+
+  @Test
   fun `findDocumentsByTag filters and preserves all document tags`() {
     val document = paperlessDocumentService.findDocumentById(DOC_ID)!!
 

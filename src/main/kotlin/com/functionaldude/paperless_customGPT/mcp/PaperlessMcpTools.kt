@@ -156,6 +156,40 @@ class PaperlessMcpTools(
   }
 
   @McpTool(
+    name = "findDocumentsByDocumentType",
+    description = "Finds Paperless documents assigned to a document type with the supplied name.",
+    generateOutputSchema = true,
+    annotations = McpTool.McpAnnotations(
+      readOnlyHint = true,
+      destructiveHint = false,
+      idempotentHint = true,
+      openWorldHint = false
+    )
+  )
+  fun findDocumentsByDocumentType(
+    @McpToolParam(description = "Exact Paperless document type name to match, ignoring case.")
+    documentTypeName: String,
+    @McpToolParam(description = "Optional inclusive earliest document creation date in YYYY-MM-DD format.")
+    fromDate: String? = null,
+    @McpToolParam(description = "Optional inclusive latest document creation date in YYYY-MM-DD format.")
+    toDate: String? = null,
+  ): DocumentList {
+    val normalizedName = documentTypeName.trim()
+    if (normalizedName.isEmpty()) {
+      throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Document type name must not be blank")
+    }
+    val dateRange = parseDateRange(fromDate, toDate)
+
+    return DocumentList(
+      paperlessDocumentService.findDocumentsByDocumentType(
+        normalizedName,
+        dateRange.from,
+        dateRange.to,
+      )
+    )
+  }
+
+  @McpTool(
     name = "findDocumentsByTag",
     description = "Finds Paperless documents that have a tag with the supplied name.",
     generateOutputSchema = true,
