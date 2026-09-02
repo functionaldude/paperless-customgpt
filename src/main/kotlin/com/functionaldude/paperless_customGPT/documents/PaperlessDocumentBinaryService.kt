@@ -4,6 +4,7 @@ import com.functionaldude.paperless.jooq.public.tables.references.DOCUMENTS_DOCU
 import org.jooq.DSLContext
 import org.jooq.Field
 import org.jooq.impl.DSL.coalesce
+import org.jooq.impl.DSL.inline
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.IOException
@@ -59,7 +60,11 @@ class PaperlessDocumentBinaryService(
       .orderBy(latestVersion.ID.desc())
       .limit(1)
       .asField<String?>()
-    val effectiveMimeType = coalesce(latestMimeType, DOCUMENTS_DOCUMENT.MIME_TYPE)
+    val effectiveMimeType = coalesce(
+      latestMimeType,
+      DOCUMENTS_DOCUMENT.MIME_TYPE,
+      inline(PaperlessDocumentService.DEFAULT_MIME_TYPE),
+    )
 
     val record = dsl
       .select(
@@ -74,11 +79,11 @@ class PaperlessDocumentBinaryService(
       .where(DOCUMENTS_DOCUMENT.ID.eq(documentId))
       .and(DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull)
       .and(DOCUMENTS_DOCUMENT.DELETED_AT.isNull)
-      .and(effectiveMimeType.eq(PaperlessDocumentService.PDF_MIME))
       .fetchOne() ?: return null
 
     val filename = record.get("effective_filename", String::class.java) ?: return null
-    val mimeType = record.get("effective_mime_type", String::class.java) ?: return null
+    val mimeType = record.get("effective_mime_type", String::class.java)
+      ?: PaperlessDocumentService.DEFAULT_MIME_TYPE
     val path = resolveFile(filename) ?: return null
 
     return try {

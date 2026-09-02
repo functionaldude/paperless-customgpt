@@ -59,6 +59,16 @@ class ChatGptCompatibilityMcpToolsTest {
   }
 
   @Test
+  fun `fetch returns empty text for a document without OCR content`() {
+    `when`(documentService.findDocumentById(262)).thenReturn(document(content = "", mimeType = "image/jpeg"))
+
+    val response = tools.fetch("262")
+
+    assertThat(response.text).isEmpty()
+    assertThat(response.metadata.mimeType).isEqualTo("image/jpeg")
+  }
+
+  @Test
   fun `fetch rejects invalid and missing document ids`() {
     assertThatThrownBy { tools.fetch("not-a-number") }
       .hasMessageContaining("Document id must be a number")
@@ -69,13 +79,13 @@ class ChatGptCompatibilityMcpToolsTest {
       .hasMessageContaining("Document not found")
   }
 
-  private fun document() = DocumentDto(
+  private fun document(content: String = "full text", mimeType: String = "application/pdf") = DocumentDto(
     id = 262,
     title = "Invoice",
     documentDate = LocalDate.parse("2026-01-01"),
     modifiedAt = null,
-    mimeType = "application/pdf",
-    content = "full text",
+    mimeType = mimeType,
+    content = content,
     ownerUsername = null,
     note = null,
     correspondentName = "A1",

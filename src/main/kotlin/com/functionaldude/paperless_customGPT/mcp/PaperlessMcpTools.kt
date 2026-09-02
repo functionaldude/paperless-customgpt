@@ -57,7 +57,7 @@ class PaperlessMcpTools(
 
   @McpTool(
     name = "listDocuments",
-    description = "Returns a paginated list of Paperless PDF documents together with metadata and extracted content.",
+    description = "Returns a paginated list of Paperless documents together with metadata and extracted content when available.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
@@ -112,7 +112,7 @@ class PaperlessMcpTools(
 
   @McpTool(
     name = "findDocumentsByCorrespondent",
-    description = "Finds Paperless PDF documents whose correspondent name contains the supplied text.",
+    description = "Finds Paperless documents whose correspondent name contains the supplied text.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
@@ -146,7 +146,7 @@ class PaperlessMcpTools(
 
   @McpTool(
     name = "findDocumentsByTag",
-    description = "Finds Paperless PDF documents that have a tag with the supplied name.",
+    description = "Finds Paperless documents that have a tag with the supplied name.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
