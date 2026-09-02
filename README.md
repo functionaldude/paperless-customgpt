@@ -58,12 +58,13 @@ The MCP endpoint exposes two read-only tools tailored to ChatGPT deep research:
 - `search(query)` returns up to ten distinct Paperless documents as citation-ready `id`, `title`, and `url` results.
 - `fetch(id)` returns one document's full extracted `text`, citation-ready `url`, and metadata.
 
-Existing `searchRag`, `findDocumentById`, and filtered lookup tools remain available for direct tool use.
+Existing `searchRag`, `findDocumentsByIds`, and filtered lookup tools remain available for direct tool use.
 `listDocuments`
 is paginated: it defaults to 50 documents, accepts `limit` and `offset`, caps a page at 100 documents, and returns
 `nextOffset` when another page exists.
 
-Use `getRawDocument(id)` to retrieve a document's original binary content through `tools/call` as one base64-encoded
+Use `getRawDocuments(ids)` to retrieve one or more documents' original binary content through `tools/call` as
+base64-encoded
 embedded resource with its MIME type. All Paperless document formats are eligible; documents without a stored MIME type
 are sent as `application/octet-stream`. Mount the Paperless media directory read-only at `PAPERLESS_MEDIA_ROOT`;
 original files are preferred, with Paperless archive files used as a fallback.
