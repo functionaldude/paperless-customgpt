@@ -40,6 +40,9 @@ app:
     scopes: ${OIDC_SCOPES:openid,profile,email,paperless_gpt,offline_access}
     required-scope: ${OIDC_REQUIRED_SCOPE:paperless_gpt}
 
+paperless:
+  media-root: ${PAPERLESS_MEDIA_ROOT:/usr/src/paperless/media}
+
 rag:
   embedding-dimensions: ${RAG_EMBEDDING_DIMENSIONS:1536}
   hnsw-ef-search: ${RAG_HNSW_EF_SEARCH:400}

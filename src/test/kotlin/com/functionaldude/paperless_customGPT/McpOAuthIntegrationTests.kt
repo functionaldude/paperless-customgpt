@@ -120,6 +120,7 @@ class McpOAuthIntegrationTests(
     assertThat(response.contentAsString).contains(""""name":"fetch"""")
     assertThat(response.contentAsString).contains(""""id"""")
     assertThat(response.contentAsString).contains(""""url"""")
+    assertThat(response.contentAsString).contains(""""resourceUrl"""")
     assertThat(response.contentAsString).contains(""""readOnlyHint":true""")
     assertThat(response.contentAsString).contains(""""destructiveHint":false""")
     assertThat(response.contentAsString).contains(""""idempotentHint":true""")
@@ -130,6 +131,37 @@ class McpOAuthIntegrationTests(
       .contains(""""securitySchemes":[{"type":"oauth2","scopes":["openid","paperless_gpt"]}]""")
     assertThat(response.contentAsString)
       .contains(""""_meta":{"securitySchemes":[{"type":"oauth2","scopes":["openid","paperless_gpt"]}]}""")
+  }
+
+  @Test
+  fun `mcp advertises the binary document resource template`() {
+    val sessionId = initializeMcp()
+
+    val response = mockMvc.perform(
+      post("/mcp")
+        .header("Mcp-Session-Id", sessionId)
+        .contentType("application/json")
+        .accept("application/json", "text/event-stream")
+        .with(paperlessJwt())
+        .content(
+          """
+          {
+            "jsonrpc": "2.0",
+            "id": 6,
+            "method": "resources/templates/list",
+            "params": {}
+          }
+          """.trimIndent()
+        )
+    )
+      .andExpect(status().isOk)
+      .andReturn()
+      .response
+
+    assertThat(response.contentAsString)
+      .contains("\"uriTemplate\":\"paperless://documents/{id}/content\"")
+      .contains("\"name\":\"paperless-document\"")
+      .contains("\"mimeType\":\"application/pdf\"")
   }
 
   @Test
