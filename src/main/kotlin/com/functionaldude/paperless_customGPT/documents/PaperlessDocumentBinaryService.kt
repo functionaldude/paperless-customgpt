@@ -38,7 +38,8 @@ class PaperlessDocumentBinaryService(
   private val dsl: DSLContext,
   @Value("\${paperless.media-root}") mediaRoot: String,
 ) {
-  private val mediaRoot = Path.of(mediaRoot).toAbsolutePath().normalize()
+  private val documentRoot = mediaRoot.trim().removeSuffix("/").plus("/documents/originals")
+  private val mediaRoot = Path.of(documentRoot).toAbsolutePath().normalize()
 
   fun findDocument(documentId: Int): BinaryDocument? {
     val latestVersion = DOCUMENTS_DOCUMENT.`as`("latest_binary_version")
