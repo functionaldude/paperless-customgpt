@@ -119,8 +119,21 @@ fun env(key: String, default: String? = null): String {
     ?: error("Missing env var '$key'")
 }
 
-tasks.withType<Test> {
-  useJUnitPlatform()
+tasks.test {
+  useJUnitPlatform {
+    excludeTags("integration")
+  }
+}
+
+tasks.register<Test>("integrationTest") {
+  description = "Runs integration tests against the configured Paperless database and embedding service."
+  group = "verification"
+  testClassesDirs = sourceSets["test"].output.classesDirs
+  classpath = sourceSets["test"].runtimeClasspath
+  useJUnitPlatform {
+    includeTags("integration")
+  }
+  shouldRunAfter(tasks.test)
   // Provide .env values to the test JVM when not already set in the environment.
   dotenv.forEach { (key, value) ->
     if (System.getenv(key) == null) {
