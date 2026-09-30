@@ -1,6 +1,7 @@
 package com.functionaldude.paperless_customGPT
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
+@Tag("integration")
 @SpringBootTest(
   properties = [
     "app.public-url=https://paperless-gpt.example.test",
