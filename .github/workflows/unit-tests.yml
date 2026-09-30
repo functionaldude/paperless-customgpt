@@ -3,8 +3,6 @@ name: Unit tests and jar build
 on:
   pull_request:
     branches: [master]
-  push:
-    branches: [master]
 
 permissions:
   contents: read

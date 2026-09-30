@@ -214,8 +214,8 @@ dependencies.
 ### Pull request validation
 
 `.github/workflows/unit-tests.yml` runs `./gradlew --no-daemon test bootJar` on a self-hosted runner with Temurin 25 and Gradle
-caching for pull requests targeting `master` and pushes to `master`. Failed runs upload available test reports. Image
-publishing remains in the separate workflow described above.
+caching only for pull requests targeting `master`. Failed runs upload available test reports. Pushes to `master` run unit
+tests in the image publishing workflow described above, so each push runs tests in only one workflow.
 
 ### Running the service
 
