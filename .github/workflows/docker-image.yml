@@ -29,6 +29,22 @@ jobs:
           distribution: temurin
           java-version: "25"
 
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Run unit tests before publishing
+        run: ./gradlew --no-daemon test
+
+      - name: Upload test reports on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-build-unit-test-reports
+          path: |
+            build/reports/tests/test/
+            build/test-results/test/
+          if-no-files-found: ignore
+
       - name: Detect git tag for image
         id: git_tag
         run: |

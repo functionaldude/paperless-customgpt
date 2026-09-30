@@ -141,6 +141,9 @@ the resulting image to the GitHub Container Registry (GHCR).
 - **Tags:** managed automatically by `docker/metadata-action` (branch names, SHA, semver tags when applicable).
 - **Runner:** executes on the repository's self-hosted runner (update the `runs-on` stanza if you need extra labels).
 
+The image workflow runs unit tests before registry login, image building, or publishing. If tests fail, these steps are
+skipped and available test reports are uploaded. This applies to both pushes to `master` and manual runs.
+
 During the build, Gradle automatically uses the same local placeholder connection details as local development, so no
 additional environment variables are required for compilation. Provide real credentials only when executing jOOQ code
 generation tasks or when running the application.
@@ -210,7 +213,7 @@ dependencies.
 
 ### Pull request validation
 
-`.github/workflows/unit-tests.yml` runs `./gradlew --no-daemon test bootJar` on an Ubuntu runner with Temurin 25 and Gradle
+`.github/workflows/unit-tests.yml` runs `./gradlew --no-daemon test bootJar` on a self-hosted runner with Temurin 25 and Gradle
 caching for pull requests targeting `master` and pushes to `master`. Failed runs upload available test reports. Image
 publishing remains in the separate workflow described above.
 
