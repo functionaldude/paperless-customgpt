@@ -175,6 +175,30 @@ class PaperlessDocumentService(
     orderBy = PAGE_ORDER,
   )
 
+  fun findAllTags(): List<TagDto> {
+    val documentCount = countDistinct(DOCUMENTS_DOCUMENT.ID).`as`("document_count")
+
+    return dsl
+      .select(DOCUMENTS_TAG.ID, DOCUMENTS_TAG.NAME, DOCUMENTS_TAG.TN_PARENT_ID, documentCount)
+      .from(DOCUMENTS_TAG)
+      .leftJoin(DOCUMENTS_DOCUMENT_TAGS).on(DOCUMENTS_DOCUMENT_TAGS.TAG_ID.eq(DOCUMENTS_TAG.ID))
+      .leftJoin(DOCUMENTS_DOCUMENT).on(
+        DOCUMENTS_DOCUMENT.ID.eq(DOCUMENTS_DOCUMENT_TAGS.DOCUMENT_ID)
+          .and(DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull)
+          .and(DOCUMENTS_DOCUMENT.DELETED_AT.isNull)
+      )
+      .groupBy(DOCUMENTS_TAG.ID, DOCUMENTS_TAG.NAME, DOCUMENTS_TAG.TN_PARENT_ID)
+      .orderBy(DOCUMENTS_TAG.NAME.asc(), DOCUMENTS_TAG.ID.asc())
+      .fetch { record ->
+        TagDto(
+          id = record.get(DOCUMENTS_TAG.ID)!!,
+          name = record.get(DOCUMENTS_TAG.NAME)!!,
+          parentId = record.get(DOCUMENTS_TAG.TN_PARENT_ID),
+          documentCount = record.get(documentCount)!!,
+        )
+      }
+  }
+
   fun findDocumentsPage(limit: Int, offset: Int): DocumentList {
     val documents = findDocs(
       conditions = emptyList(),

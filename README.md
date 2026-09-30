@@ -63,6 +63,12 @@ Existing `searchRag`, `findDocumentsByIds`, and filtered lookup tools remain ava
 is paginated: it defaults to 50 documents, accepts `limit` and `offset`, caps a page at 100 documents, and returns
 `nextOffset` when another page exists.
 
+Use `listTags()` to discover all tags before calling `findDocumentsByTag(tagName)`. Each tag includes its `id`, exact
+`name`, `parentId` (omitted for root tags), and `documentCount`. Parent identifiers reference other tags in the same
+list, allowing the agent to reconstruct the full hierarchy. Counts include only non-deleted root documents directly
+assigned to each tag, matching `findDocumentsByTag` without date filters; document versions and documents tagged only
+with descendants are excluded. Tags with no matching documents are returned with a count of zero.
+
 Use `getRawDocuments(ids)` to retrieve one or more documents' original binary content through `tools/call` as
 base64-encoded
 embedded resource with its MIME type. All Paperless document formats are eligible; documents without a stored MIME type

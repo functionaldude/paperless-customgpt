@@ -3,6 +3,7 @@ package com.functionaldude.paperless_customGPT.mcp
 import com.functionaldude.paperless_customGPT.documents.DocumentList
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentBinaryService
 import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
+import com.functionaldude.paperless_customGPT.documents.TagList
 import com.functionaldude.paperless_customGPT.rag.RagQueryResponse
 import com.functionaldude.paperless_customGPT.rag.RagQueryService
 import io.modelcontextprotocol.spec.McpSchema.*
@@ -192,8 +193,21 @@ class PaperlessMcpTools(
   }
 
   @McpTool(
+    name = "listTags",
+    description = "Returns all Paperless tags, including unused tags, with parent tag identifiers describing the hierarchy and counts of directly assigned documents. Use the returned tag names with findDocumentsByTag.",
+    generateOutputSchema = true,
+    annotations = McpTool.McpAnnotations(
+      readOnlyHint = true,
+      destructiveHint = false,
+      idempotentHint = true,
+      openWorldHint = false
+    )
+  )
+  fun listTags(): TagList = TagList(paperlessDocumentService.findAllTags())
+
+  @McpTool(
     name = "findDocumentsByTag",
-    description = "Finds Paperless documents that have a tag with the supplied name.",
+    description = "Finds Paperless documents directly assigned to a tag with the supplied name. Use listTags to discover available tag names and their hierarchy; descendant tags are not included automatically.",
     generateOutputSchema = true,
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
