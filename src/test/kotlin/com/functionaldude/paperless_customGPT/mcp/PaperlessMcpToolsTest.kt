@@ -99,6 +99,30 @@ class PaperlessMcpToolsTest {
   }
 
   @Test
+  fun `list tags returns hierarchy and counts with names usable for document lookup`() {
+    val tags = listOf(
+      TagDto(id = 1, name = "Finance", parentId = null, documentCount = 0),
+      TagDto(id = 2, name = "Invoices", parentId = 1, documentCount = 1),
+    )
+    val matchingDocument = document(262, "Invoice")
+    `when`(documentService.findAllTags()).thenReturn(tags)
+    `when`(documentService.findDocumentsByTag("Invoices", null, null)).thenReturn(listOf(matchingDocument))
+
+    val result = tools.listTags()
+
+    assertThat(result.tags).containsExactlyElementsOf(tags)
+    assertThat(tools.findDocumentsByTag(result.tags[1].name).documents).containsExactly(matchingDocument)
+    verify(documentService).findAllTags()
+  }
+
+  @Test
+  fun `list tags returns an empty collection when no tags exist`() {
+    `when`(documentService.findAllTags()).thenReturn(emptyList())
+
+    assertThat(tools.listTags().tags).isEmpty()
+  }
+
+  @Test
   fun `find documents by document type normalizes input and wraps results`() {
     val matchingDocument = document(262, "Invoice")
     val fromDate = LocalDate.parse("2026-01-01")

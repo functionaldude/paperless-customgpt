@@ -1,6 +1,8 @@
 package com.functionaldude.paperless_customGPT.mcp
 
 import com.functionaldude.paperless_customGPT.documents.DocumentDto
+import com.functionaldude.paperless_customGPT.documents.TagDto
+import com.functionaldude.paperless_customGPT.documents.TagList
 import com.functionaldude.paperless_customGPT.rag.RagSearchResult
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -37,6 +39,30 @@ class McpDtoSerializationTest {
     assertThat(json).doesNotContain(""""documentType"""")
     assertThat(json).contains(""""tags":[]""")
     assertThat(json).doesNotContain(""""resourceUrl"""")
+  }
+
+  @Test
+  fun `tag output preserves parent links and zero counts and omits parent only for roots`() {
+    val json = objectMapper.readTree(
+      objectMapper.writeValueAsString(
+        TagList(
+          listOf(
+            TagDto(id = 1, name = "Finance", parentId = null, documentCount = 0),
+            TagDto(id = 2, name = "Invoices", parentId = 1, documentCount = 3),
+          )
+        )
+      )
+    )
+
+    val tags = json.path("tags")
+    assertThat(tags.size()).isEqualTo(2)
+    assertThat(tags[0].path("id").asInt()).isEqualTo(1)
+    assertThat(tags[0].has("parentId")).isFalse()
+    assertThat(tags[0].has("documentCount")).isTrue()
+    assertThat(tags[0].path("documentCount").asInt()).isZero()
+    assertThat(tags[1].path("name").asString()).isEqualTo("Invoices")
+    assertThat(tags[1].path("parentId").asInt()).isEqualTo(1)
+    assertThat(tags[1].path("documentCount").asInt()).isEqualTo(3)
   }
 
   @Test
