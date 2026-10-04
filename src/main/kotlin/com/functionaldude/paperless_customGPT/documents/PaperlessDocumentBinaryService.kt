@@ -37,6 +37,11 @@ data class BinaryDocument(
   }
 }
 
+data class BinaryDocumentLookup(
+  val document: BinaryDocument?,
+  val searchedPaths: List<Path> = emptyList(),
+)
+
 @Service
 class PaperlessDocumentBinaryService(
   private val dsl: DSLContext,
@@ -48,7 +53,7 @@ class PaperlessDocumentBinaryService(
   private val originalsRoot = documentsRoot.resolve("originals")
   private val archiveRoot = documentsRoot.resolve("archive")
 
-  fun findDocument(documentId: Int): BinaryDocument? {
+  fun findDocument(documentId: Int): BinaryDocumentLookup {
     val latestVersion = DOCUMENTS_DOCUMENT.`as`("latest_binary_version")
     val latestVersionId: Field<Int?> = dsl
       .select(latestVersion.ID)
@@ -77,30 +82,33 @@ class PaperlessDocumentBinaryService(
       .where(DOCUMENTS_DOCUMENT.ID.eq(documentId))
       .and(DOCUMENTS_DOCUMENT.ROOT_DOCUMENT_ID.isNull)
       .and(DOCUMENTS_DOCUMENT.DELETED_AT.isNull)
-      .fetchOne() ?: return null
+      .fetchOne() ?: return BinaryDocumentLookup(null)
 
     val filename = record.get("effective_filename", String::class.java)
     val archiveFilename = record.get("effective_archive_filename", String::class.java)
-    val originalFilename = record.get("effective_original_filename", String::class.java) ?: return null
+    val originalFilename =
+      record.get("effective_original_filename", String::class.java) ?: return BinaryDocumentLookup(null)
     val fileName = originalFilename
       .replace('\\', '/')
       .substringAfterLast('/')
       .takeIf { it.isNotBlank() }
-      ?: return null
+      ?: return BinaryDocumentLookup(null)
     val mimeType = record.get("effective_mime_type", String::class.java)
       ?: PaperlessDocumentService.DEFAULT_MIME_TYPE
-    val source = filename?.let { resolveFile(originalsRoot, it) }
-      ?: archiveFilename?.let { resolveFile(archiveRoot, it) }
-      ?: return null
+    val searchedPaths = mutableListOf<Path>()
+    val source = filename?.let { resolveFile(originalsRoot, it, searchedPaths) }
+      ?: archiveFilename?.let { resolveFile(archiveRoot, it, searchedPaths) }
+      ?: return BinaryDocumentLookup(null, searchedPaths)
 
-    return try {
+    val document = try {
       BinaryDocument(Files.readAllBytes(source), mimeType, fileName)
     } catch (_: IOException) {
       null
     }
+    return BinaryDocumentLookup(document, searchedPaths)
   }
 
-  private fun resolveFile(root: Path, filename: String): Path? {
+  private fun resolveFile(root: Path, filename: String, searchedPaths: MutableList<Path>): Path? {
     val relativePath = try {
       Path.of(filename)
     } catch (_: RuntimeException) {
@@ -109,7 +117,9 @@ class PaperlessDocumentBinaryService(
     if (relativePath.isAbsolute) return null
 
     val candidate = root.resolve(relativePath).normalize()
-    if (!candidate.startsWith(root) || !Files.isRegularFile(candidate)) return null
+    if (!candidate.startsWith(root)) return null
+    searchedPaths.add(candidate)
+    if (!Files.isRegularFile(candidate)) return null
 
     return try {
       val realRoot = root.toRealPath()

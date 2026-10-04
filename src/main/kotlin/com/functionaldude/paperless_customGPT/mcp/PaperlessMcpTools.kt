@@ -39,11 +39,17 @@ class PaperlessMcpTools(
   ): CallToolResult {
     val result = CallToolResult.builder()
 
-    val documents = ids
-      .mapNotNull { documentId ->
-        documentId to (paperlessDocumentBinaryService.findDocument(documentId) ?: return@mapNotNull null)
-      }
-      .takeIf { it.isNotEmpty() } ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found")
+    val lookups = ids.map { documentId -> documentId to paperlessDocumentBinaryService.findDocument(documentId) }
+    val documents = lookups.mapNotNull { (documentId, lookup) ->
+      lookup.document?.let { documentId to it }
+    }
+    if (documents.isEmpty()) {
+      val searchedPaths = lookups.joinToString("; ") { (documentId, lookup) ->
+        val paths = lookup.searchedPaths.joinToString().ifEmpty { "none (no file path resolved)" }
+        "document $documentId: $paths"
+      }.ifEmpty { "none (no document IDs supplied)" }
+      throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found. Searched file paths: $searchedPaths")
+    }
 
     documents.forEach { (documentId, document) ->
       val content = BlobResourceContents

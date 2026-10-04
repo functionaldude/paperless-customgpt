@@ -8,6 +8,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
+import org.springframework.http.HttpStatus
+import org.springframework.web.server.ResponseStatusException
+import java.nio.file.Path
 import java.time.LocalDate
 import java.util.*
 
@@ -22,21 +25,26 @@ class PaperlessMcpToolsTest {
     val document = "PK\\u0003\\u0004office document".toByteArray()
     val secondDocument = "second document".toByteArray()
     `when`(binaryService.findDocument(262)).thenReturn(
-      BinaryDocument(
-        document,
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "Quarterly report #1 (final).docx",
+      BinaryDocumentLookup(
+        BinaryDocument(
+          document,
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "Quarterly report #1 (final).docx",
+        )
       )
     )
     `when`(binaryService.findDocument(263)).thenReturn(
-      BinaryDocument(
-        secondDocument,
-        "image/png",
-        "scan überblick.png"
+      BinaryDocumentLookup(
+        BinaryDocument(
+          secondDocument,
+          "image/png",
+          "scan überblick.png"
+        )
       )
     )
+    `when`(binaryService.findDocument(404)).thenReturn(BinaryDocumentLookup(null))
 
-    val result = tools.getRawDocuments(listOf(262, 263))
+    val result = tools.getRawDocuments(listOf(262, 404, 263))
 
     assertThat(result.content()).hasSize(2)
     val firstContent = (result.content()[0] as EmbeddedResource).resource() as BlobResourceContents
@@ -52,10 +60,28 @@ class PaperlessMcpToolsTest {
 
   @Test
   fun `get raw document rejects missing ids`() {
-    `when`(binaryService.findDocument(404)).thenReturn(null)
+    `when`(binaryService.findDocument(404)).thenReturn(BinaryDocumentLookup(null))
 
     assertThatThrownBy { tools.getRawDocuments(listOf(404)) }
       .hasMessageContaining("Document not found")
+      .hasMessageContaining("document 404: none (no file path resolved)")
+  }
+
+  @Test
+  fun `get raw documents includes searched file paths for each missing document in the 404`() {
+    val original = Path.of("/media/documents/originals/2026/missing original.pdf")
+    val archive = Path.of("/media/documents/archive/2026/missing archive.pdf")
+    `when`(binaryService.findDocument(42)).thenReturn(BinaryDocumentLookup(null, listOf(original, archive)))
+    `when`(binaryService.findDocument(404)).thenReturn(BinaryDocumentLookup(null))
+
+    assertThatThrownBy { tools.getRawDocuments(listOf(42, 404)) }
+      .isInstanceOfSatisfying(ResponseStatusException::class.java) { exception ->
+        assertThat(exception.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
+        assertThat(exception.reason).isEqualTo(
+          "Document not found. Searched file paths: document 42: $original, $archive; " +
+              "document 404: none (no file path resolved)"
+        )
+      }
   }
 
   @Test

@@ -29,7 +29,7 @@ class PaperlessDocumentBinaryServiceTest {
       mediaRoot.toString(),
     )
 
-    val document = service.findDocument(42)
+    val document = service.findDocument(42).document
 
     assertThat(document).isEqualTo(BinaryDocument("original".toByteArray(), "image/png", "My scan #1.png"))
   }
@@ -47,9 +47,30 @@ class PaperlessDocumentBinaryServiceTest {
       mediaRoot.toString(),
     )
 
-    val document = service.findDocument(42)
+    val document = service.findDocument(42).document
 
     assertThat(document).isEqualTo(BinaryDocument("archived".toByteArray(), "application/pdf", "invoice.pdf"))
+  }
+
+  @Test
+  fun `missing document files report both absolute paths searched`() {
+    val service = PaperlessDocumentBinaryService(
+      documentDsl(
+        filename = "2026/missing original.pdf",
+        archiveFilename = "2026/missing archive.pdf",
+        originalFilename = "invoice.pdf",
+        mimeType = "application/pdf",
+      ),
+      mediaRoot.toString(),
+    )
+
+    val lookup = service.findDocument(42)
+
+    assertThat(lookup.document).isNull()
+    assertThat(lookup.searchedPaths).containsExactly(
+      mediaRoot.resolve("documents/originals/2026/missing original.pdf").toAbsolutePath().normalize(),
+      mediaRoot.resolve("documents/archive/2026/missing archive.pdf").toAbsolutePath().normalize(),
+    )
   }
 
   private fun createFile(relativePath: String, content: String): Path {
