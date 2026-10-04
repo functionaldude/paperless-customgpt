@@ -18,7 +18,7 @@ class PaperlessDocumentBinaryServiceTest {
   @Test
   fun `find document prefers the original and exposes only the original filename basename`() {
     val original = createFile("documents/originals/stored/original.png", "original")
-    createFile("documents/archive/stored/archive.pdf", "archive")
+    val archive = createFile("documents/archive/stored/archive.pdf", "archive")
     val service = PaperlessDocumentBinaryService(
       documentDsl(
         filename = "stored/${original.fileName}",
@@ -32,7 +32,10 @@ class PaperlessDocumentBinaryServiceTest {
     val lookup = service.findDocument(42)
 
     assertThat(lookup.document).isEqualTo(BinaryDocument("original".toByteArray(), "image/png", "My scan #1.png"))
-    assertThat(lookup.searchedPaths).containsExactly(original.toAbsolutePath().normalize())
+    assertThat(lookup.searchedPaths).containsExactly(
+      original.toAbsolutePath().normalize(),
+      archive.toAbsolutePath().normalize(),
+    )
     assertThat(lookup.pathResolutionErrors).isEmpty()
   }
 
