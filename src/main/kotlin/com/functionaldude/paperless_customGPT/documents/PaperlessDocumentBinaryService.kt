@@ -39,7 +39,7 @@ data class BinaryDocument(
 }
 
 data class BinaryDocumentLookup(
-  val document: BinaryDocument?,
+  val document: BinaryDocument? = null,
   val searchedPaths: List<Path> = emptyList(),
   val pathResolutionErrors: List<String> = emptyList(),
 )
@@ -97,47 +97,71 @@ class PaperlessDocumentBinaryService(
       ?: return BinaryDocumentLookup(null)
     val mimeType = record.get("effective_mime_type", String::class.java)
       ?: PaperlessDocumentService.DEFAULT_MIME_TYPE
-    val searchedPaths = mutableListOf<Path>()
-    val pathResolutionErrors = mutableListOf<String>()
-    val source = filename?.let { resolveFile(originalsRoot, it, searchedPaths, pathResolutionErrors) }
-      ?: archiveFilename?.let { resolveFile(archiveRoot, it, searchedPaths, pathResolutionErrors) }
-      ?: return BinaryDocumentLookup(null, searchedPaths, pathResolutionErrors)
+
+    val resolutions = buildList {
+      val originalResolution = filename?.let { resolveFile(originalsRoot, it) }
+      if (originalResolution != null) add(originalResolution)
+
+      val archiveResolution = archiveFilename?.let { resolveFile(archiveRoot, it) }
+      if (archiveResolution != null) add(archiveResolution)
+    }
+    val source = resolutions
+      .filterIsInstance<FileResolution.Resolved>()
+      .firstOrNull()?.path
+      ?: return BinaryDocumentLookup(
+        searchedPaths = resolutions.mapNotNull { it.searchedPath },
+        pathResolutionErrors = resolutions.filterIsInstance<FileResolution.InvalidPath>().map { it.error }
+      )
 
     val document = try {
       BinaryDocument(Files.readAllBytes(source), mimeType, fileName)
     } catch (_: IOException) {
       null
     }
-    return BinaryDocumentLookup(document, searchedPaths, pathResolutionErrors)
+    return BinaryDocumentLookup(
+      document = document,
+      searchedPaths = resolutions.mapNotNull { it.searchedPath },
+      pathResolutionErrors = resolutions.filterIsInstance<FileResolution.InvalidPath>().map { it.error }
+    )
   }
 
-  private fun resolveFile(
-    root: Path,
-    filename: String,
-    searchedPaths: MutableList<Path>,
-    pathResolutionErrors: MutableList<String>,
-  ): Path? {
+  private fun resolveFile(root: Path, filename: String): FileResolution {
     val relativePath = try {
       Path.of(filename)
     } catch (exception: InvalidPathException) {
-      pathResolutionErrors.add(
+      return FileResolution.InvalidPath(
         "Cannot resolve stored path '$root/$filename': ${exception.reason} " +
             "(sun.jnu.encoding=${System.getProperty("sun.jnu.encoding")})"
       )
-      return null
     }
-    if (relativePath.isAbsolute) return null
+    if (relativePath.isAbsolute) return FileResolution.Rejected()
 
     val candidate = root.resolve(relativePath).normalize()
-    if (!candidate.startsWith(root)) return null
-    searchedPaths.add(candidate)
-    if (!Files.isRegularFile(candidate)) return null
+    if (!candidate.startsWith(root)) return FileResolution.Rejected()
+    if (!Files.isRegularFile(candidate)) return FileResolution.Unavailable(candidate)
 
     return try {
       val realRoot = root.toRealPath()
-      candidate.toRealPath().takeIf { it.startsWith(realRoot) && Files.isRegularFile(it) }
+      val realCandidate = candidate.toRealPath()
+      when {
+        !realCandidate.startsWith(realRoot) -> FileResolution.Rejected(candidate)
+        !Files.isRegularFile(realCandidate) -> FileResolution.Unavailable(candidate)
+        else -> FileResolution.Resolved(realCandidate, candidate)
+      }
     } catch (_: IOException) {
-      null
+      FileResolution.Unavailable(candidate)
     }
+  }
+
+  private sealed class FileResolution {
+    open val searchedPath: Path? = null
+
+    data class Resolved(val path: Path, override val searchedPath: Path) : FileResolution()
+
+    data class Unavailable(override val searchedPath: Path) : FileResolution()
+
+    data class InvalidPath(val error: String) : FileResolution()
+
+    data class Rejected(override val searchedPath: Path? = null) : FileResolution()
   }
 }

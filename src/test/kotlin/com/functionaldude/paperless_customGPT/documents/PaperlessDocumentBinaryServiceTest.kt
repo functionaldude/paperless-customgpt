@@ -29,9 +29,11 @@ class PaperlessDocumentBinaryServiceTest {
       mediaRoot.toString(),
     )
 
-    val document = service.findDocument(42).document
+    val lookup = service.findDocument(42)
 
-    assertThat(document).isEqualTo(BinaryDocument("original".toByteArray(), "image/png", "My scan #1.png"))
+    assertThat(lookup.document).isEqualTo(BinaryDocument("original".toByteArray(), "image/png", "My scan #1.png"))
+    assertThat(lookup.searchedPaths).containsExactly(original.toAbsolutePath().normalize())
+    assertThat(lookup.pathResolutionErrors).isEmpty()
   }
 
   @Test
@@ -47,9 +49,14 @@ class PaperlessDocumentBinaryServiceTest {
       mediaRoot.toString(),
     )
 
-    val document = service.findDocument(42).document
+    val lookup = service.findDocument(42)
 
-    assertThat(document).isEqualTo(BinaryDocument("archived".toByteArray(), "application/pdf", "invoice.pdf"))
+    assertThat(lookup.document).isEqualTo(BinaryDocument("archived".toByteArray(), "application/pdf", "invoice.pdf"))
+    assertThat(lookup.searchedPaths).containsExactly(
+      mediaRoot.resolve("documents/originals/2026/missing.pdf").toAbsolutePath().normalize(),
+      mediaRoot.resolve("documents/archive/2026/archive.pdf").toAbsolutePath().normalize(),
+    )
+    assertThat(lookup.pathResolutionErrors).isEmpty()
   }
 
   @Test
@@ -117,6 +124,78 @@ class PaperlessDocumentBinaryServiceTest {
       "Nul character not allowed",
       "sun.jnu.encoding=${System.getProperty("sun.jnu.encoding")}",
     )
+  }
+
+  @Test
+  fun `invalid original path preserves its error when falling back to the archive`() {
+    val archive = createFile("documents/archive/2026/archive.pdf", "archived")
+    val service = PaperlessDocumentBinaryService(
+      documentDsl(
+        filename = "invalid\u0000.pdf",
+        archiveFilename = "2026/archive.pdf",
+        originalFilename = "invoice.pdf",
+        mimeType = "application/pdf",
+      ),
+      mediaRoot.toString(),
+    )
+
+    val lookup = service.findDocument(42)
+
+    assertThat(lookup.document).isEqualTo(BinaryDocument("archived".toByteArray(), "application/pdf", "invoice.pdf"))
+    assertThat(lookup.searchedPaths).containsExactly(archive.toAbsolutePath().normalize())
+    assertThat(lookup.pathResolutionErrors).hasSize(1)
+    assertThat(lookup.pathResolutionErrors.single()).contains("Nul character not allowed")
+  }
+
+  @Test
+  fun `absolute and traversal paths are rejected before falling back to the archive`() {
+    val outside = createFile("outside.pdf", "outside")
+    val archive = createFile("documents/archive/archive.pdf", "archived")
+
+    listOf(outside.toAbsolutePath().toString(), "../../outside.pdf").forEach { filename ->
+      val service = PaperlessDocumentBinaryService(
+        documentDsl(
+          filename = filename,
+          archiveFilename = "archive.pdf",
+          originalFilename = "invoice.pdf",
+          mimeType = "application/pdf",
+        ),
+        mediaRoot.toString(),
+      )
+
+      val lookup = service.findDocument(42)
+
+      assertThat(lookup.document).isEqualTo(BinaryDocument("archived".toByteArray(), "application/pdf", "invoice.pdf"))
+      assertThat(lookup.searchedPaths).containsExactly(archive.toAbsolutePath().normalize())
+      assertThat(lookup.pathResolutionErrors).isEmpty()
+    }
+  }
+
+  @Test
+  fun `symlinks outside the originals root are rejected but retain the searched path`() {
+    val outside = createFile("outside.pdf", "outside")
+    val archive = createFile("documents/archive/archive.pdf", "archived")
+    val original = mediaRoot.resolve("documents/originals/linked.pdf")
+    Files.createDirectories(original.parent)
+    Files.createSymbolicLink(original, outside.toAbsolutePath())
+    val service = PaperlessDocumentBinaryService(
+      documentDsl(
+        filename = "linked.pdf",
+        archiveFilename = "archive.pdf",
+        originalFilename = "invoice.pdf",
+        mimeType = "application/pdf",
+      ),
+      mediaRoot.toString(),
+    )
+
+    val lookup = service.findDocument(42)
+
+    assertThat(lookup.document).isEqualTo(BinaryDocument("archived".toByteArray(), "application/pdf", "invoice.pdf"))
+    assertThat(lookup.searchedPaths).containsExactly(
+      original.toAbsolutePath().normalize(),
+      archive.toAbsolutePath().normalize(),
+    )
+    assertThat(lookup.pathResolutionErrors).isEmpty()
   }
 
   private fun createFile(relativePath: String, content: String): Path {
