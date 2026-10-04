@@ -85,6 +85,21 @@ class PaperlessMcpToolsTest {
   }
 
   @Test
+  fun `get raw documents includes path conversion errors in the 404`() {
+    val error = "Cannot resolve stored path '/media/documents/originals/2023/none/Fodor utca átadás.pdf': " +
+        "Malformed input or input contains unmappable characters (sun.jnu.encoding=ANSI_X3.4-1968)"
+    `when`(binaryService.findDocument(432)).thenReturn(
+      BinaryDocumentLookup(null, pathResolutionErrors = listOf(error))
+    )
+
+    assertThatThrownBy { tools.getRawDocuments(listOf(432)) }
+      .isInstanceOfSatisfying(ResponseStatusException::class.java) { exception ->
+        assertThat(exception.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
+        assertThat(exception.reason).contains("document 432:", "path resolution errors: $error")
+      }
+  }
+
+  @Test
   fun `find documents returns available documents for each requested id`() {
     val firstDocument = document(262, "First document")
     val secondDocument = document(263, "Second document")

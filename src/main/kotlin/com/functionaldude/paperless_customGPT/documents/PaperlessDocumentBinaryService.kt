@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.IOException
 import java.nio.file.Files
+import java.nio.file.InvalidPathException
 import java.nio.file.Path
 
 data class BinaryDocument(
@@ -40,6 +41,7 @@ data class BinaryDocument(
 data class BinaryDocumentLookup(
   val document: BinaryDocument?,
   val searchedPaths: List<Path> = emptyList(),
+  val pathResolutionErrors: List<String> = emptyList(),
 )
 
 @Service
@@ -96,22 +98,32 @@ class PaperlessDocumentBinaryService(
     val mimeType = record.get("effective_mime_type", String::class.java)
       ?: PaperlessDocumentService.DEFAULT_MIME_TYPE
     val searchedPaths = mutableListOf<Path>()
-    val source = filename?.let { resolveFile(originalsRoot, it, searchedPaths) }
-      ?: archiveFilename?.let { resolveFile(archiveRoot, it, searchedPaths) }
-      ?: return BinaryDocumentLookup(null, searchedPaths)
+    val pathResolutionErrors = mutableListOf<String>()
+    val source = filename?.let { resolveFile(originalsRoot, it, searchedPaths, pathResolutionErrors) }
+      ?: archiveFilename?.let { resolveFile(archiveRoot, it, searchedPaths, pathResolutionErrors) }
+      ?: return BinaryDocumentLookup(null, searchedPaths, pathResolutionErrors)
 
     val document = try {
       BinaryDocument(Files.readAllBytes(source), mimeType, fileName)
     } catch (_: IOException) {
       null
     }
-    return BinaryDocumentLookup(document, searchedPaths)
+    return BinaryDocumentLookup(document, searchedPaths, pathResolutionErrors)
   }
 
-  private fun resolveFile(root: Path, filename: String, searchedPaths: MutableList<Path>): Path? {
+  private fun resolveFile(
+    root: Path,
+    filename: String,
+    searchedPaths: MutableList<Path>,
+    pathResolutionErrors: MutableList<String>,
+  ): Path? {
     val relativePath = try {
       Path.of(filename)
-    } catch (_: RuntimeException) {
+    } catch (exception: InvalidPathException) {
+      pathResolutionErrors.add(
+        "Cannot resolve stored path '$root/$filename': ${exception.reason} " +
+            "(sun.jnu.encoding=${System.getProperty("sun.jnu.encoding")})"
+      )
       return null
     }
     if (relativePath.isAbsolute) return null

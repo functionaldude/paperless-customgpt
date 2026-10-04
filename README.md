@@ -92,7 +92,28 @@ Use the Spring Boot Gradle plugin to build an OCI image with Cloud Native Buildp
 ./gradlew bootBuildImage --imageName ghcr.io/<owner>/<repo>:local
 ```
 
-The image includes the Java 25 runtime required by the project and the packaged `application.yaml`. Run it locally with
+The image uses `paketobuildpacks/ubuntu-noble-run:latest` with the `en_US.utf8` runtime locale and includes Java 25 and
+the
+packaged `application.yaml`. The locale-capable run image is required for Paperless filenames containing accented or
+other non-ASCII characters; Paketo's tiny run image has no locale data. `bootBuildImage` embeds `LANG` and `LC_ALL`
+through
+the Paketo environment variables buildpack so the same locale applies in local and CI-built images.
+
+Java's filename encoding (`sun.jnu.encoding`) should be `UTF-8`. Setting `file.encoding=UTF-8` alone controls text
+encoding
+and does not fix filesystem path conversion. After deploying a rebuilt image, check the runtime through its launcher:
+
+```bash
+docker exec <container-id> /cnb/lifecycle/launcher -- \
+  java -XshowSettings:properties -version 2>&1 \
+  | grep -E 'sun\.jnu\.encoding|native\.encoding|file\.encoding'
+```
+
+If a stored filename cannot be converted to a filesystem path, `getRawDocuments` includes the stored path, the
+conversion
+error, and `sun.jnu.encoding` in its 404 message.
+
+Run it locally with
 the required environment variables:
 
 ```bash

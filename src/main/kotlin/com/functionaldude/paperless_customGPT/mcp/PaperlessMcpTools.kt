@@ -46,7 +46,9 @@ class PaperlessMcpTools(
     if (documents.isEmpty()) {
       val searchedPaths = lookups.joinToString("; ") { (documentId, lookup) ->
         val paths = lookup.searchedPaths.joinToString().ifEmpty { "none (no file path resolved)" }
-        "document $documentId: $paths"
+        val errors = if (lookup.pathResolutionErrors.isEmpty()) "" else
+          lookup.pathResolutionErrors.joinToString("; ", prefix = "; path resolution errors: ")
+        "document $documentId: $paths$errors"
       }.ifEmpty { "none (no document IDs supplied)" }
       throw ResponseStatusException(HttpStatus.NOT_FOUND, "Document not found. Searched file paths: $searchedPaths")
     }

@@ -73,6 +73,52 @@ class PaperlessDocumentBinaryServiceTest {
     )
   }
 
+  @Test
+  fun `find document reads the original with accented characters in its stored path`() {
+    createFile("documents/originals/2023/none/Fodor utca átadás.pdf", "document content")
+    val service = PaperlessDocumentBinaryService(
+      documentDsl(
+        filename = "2023/none/Fodor utca átadás.pdf",
+        archiveFilename = null,
+        originalFilename = "Fodor utca átadás.pdf",
+        mimeType = "application/pdf",
+      ),
+      mediaRoot.toString(),
+    )
+
+    val lookup = service.findDocument(432)
+
+    assertThat(lookup.document).isEqualTo(
+      BinaryDocument("document content".toByteArray(), "application/pdf", "Fodor utca átadás.pdf")
+    )
+    assertThat(lookup.pathResolutionErrors).isEmpty()
+  }
+
+  @Test
+  fun `invalid stored path reports the path conversion error and filesystem encoding`() {
+    val filename = "2023/none/invalid\u0000.pdf"
+    val service = PaperlessDocumentBinaryService(
+      documentDsl(
+        filename = filename,
+        archiveFilename = null,
+        originalFilename = "invoice.pdf",
+        mimeType = "application/pdf",
+      ),
+      mediaRoot.toString(),
+    )
+
+    val lookup = service.findDocument(432)
+
+    assertThat(lookup.document).isNull()
+    assertThat(lookup.searchedPaths).isEmpty()
+    assertThat(lookup.pathResolutionErrors).hasSize(1)
+    assertThat(lookup.pathResolutionErrors.single()).contains(
+      "$mediaRoot/documents/originals/$filename",
+      "Nul character not allowed",
+      "sun.jnu.encoding=${System.getProperty("sun.jnu.encoding")}",
+    )
+  }
+
   private fun createFile(relativePath: String, content: String): Path {
     val path = mediaRoot.resolve(relativePath)
     Files.createDirectories(path.parent)

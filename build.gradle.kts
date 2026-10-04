@@ -1,4 +1,5 @@
 import org.jooq.meta.jaxb.Logging.WARN
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
   kotlin("jvm") version "2.3.21"
@@ -118,6 +119,13 @@ fun env(key: String, default: String? = null): String {
     ?: dotenv[key] // fallback to .env
     ?: default
     ?: error("Missing env var '$key'")
+}
+
+tasks.named<BootBuildImage>("bootBuildImage") {
+  // The tiny run image has no locale data; Java then rejects non-ASCII filenames.
+  runImage.set("paketobuildpacks/ubuntu-noble-run:latest")
+  environment.put("BPE_OVERRIDE_LANG", "en_US.utf8")
+  environment.put("BPE_OVERRIDE_LC_ALL", "en_US.utf8")
 }
 
 tasks.test {
