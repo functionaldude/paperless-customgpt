@@ -56,6 +56,7 @@ dependencies {
   implementation("dev.langchain4j:langchain4j-pgvector:${langchain4jBetaVersion}")
   implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc")
   implementation("org.springaicommunity:mcp-server-security:${mcpSecurityVersion}")
+  implementation("org.apache.pdfbox:pdfbox:3.0.8")
 
   developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.springframework.modulith:spring-modulith-actuator")

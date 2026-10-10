@@ -1,9 +1,6 @@
 package com.functionaldude.paperless_customGPT.mcp
 
-import com.functionaldude.paperless_customGPT.documents.DocumentList
-import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentBinaryService
-import com.functionaldude.paperless_customGPT.documents.PaperlessDocumentService
-import com.functionaldude.paperless_customGPT.documents.TagList
+import com.functionaldude.paperless_customGPT.documents.*
 import com.functionaldude.paperless_customGPT.rag.RagQueryResponse
 import com.functionaldude.paperless_customGPT.rag.RagQueryService
 import io.modelcontextprotocol.spec.McpSchema.*
@@ -12,6 +9,7 @@ import org.springframework.ai.mcp.annotation.McpToolParam
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ResponseStatusException
+import java.io.IOException
 import java.net.URI
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
@@ -22,10 +20,11 @@ class PaperlessMcpTools(
   private val paperlessDocumentService: PaperlessDocumentService,
   private val ragQueryService: RagQueryService,
   private val paperlessDocumentBinaryService: PaperlessDocumentBinaryService,
+  private val paperlessDocumentVisualService: PaperlessDocumentVisualService,
 ) {
   @McpTool(
     name = "getRawDocuments",
-    description = "Returns the original visual Paperless documents. Use this when layout, scans, handwriting, tables, or OCR accuracy matter.",
+    description = "Returns original Paperless documents as embedded binary resources by default (format=original). Use this when layout, scans, handwriting, tables, or OCR accuracy matter. If the client cannot consume embedded binary resources, retry with format=visual for native images, including rendered PDF pages. Visual output defaults to all pages per document; use startPage and pageLimit to request a smaller range if the response is too large.",
     annotations = McpTool.McpAnnotations(
       readOnlyHint = true,
       destructiveHint = false,
@@ -36,7 +35,33 @@ class PaperlessMcpTools(
   fun getRawDocuments(
     @McpToolParam(description = "Numeric Paperless document ids.")
     ids: List<Int>,
+    @McpToolParam(
+      description = "Output format: original (default, embedded binary resources) or visual (native images for PDF, PNG, JPEG, and WebP; use if the client cannot consume the original response).",
+      required = false
+    )
+    format: String? = null,
+    @McpToolParam(
+      description = "First page to return for each document, starting at 1. Defaults to 1; applies to visual output.",
+      required = false
+    )
+    startPage: Int? = null,
+    @McpToolParam(
+      description = "Maximum pages per document for visual output. Omit to return all remaining pages; when supplied, must be between 1 and 10.",
+      required = false
+    )
+    pageLimit: Int? = null,
   ): CallToolResult {
+    val outputFormat = format?.trim()?.lowercase()?.takeIf { it.isNotEmpty() } ?: "original"
+    if (outputFormat !in setOf("visual", "original")) {
+      throw ResponseStatusException(HttpStatus.BAD_REQUEST, "format must be visual or original")
+    }
+    val firstPage = startPage ?: 1
+    if (firstPage <= 0) {
+      throw ResponseStatusException(HttpStatus.BAD_REQUEST, "startPage must be greater than zero")
+    }
+    if (pageLimit != null && pageLimit !in 1..PaperlessDocumentVisualService.MAX_PAGE_LIMIT) {
+      throw ResponseStatusException(HttpStatus.BAD_REQUEST, "pageLimit must be between 1 and 10")
+    }
     val result = CallToolResult.builder()
 
     val lookups = ids.map { documentId -> documentId to paperlessDocumentBinaryService.findDocument(documentId) }
@@ -54,25 +79,68 @@ class PaperlessMcpTools(
     }
 
     documents.forEach { (documentId, document) ->
-      val content = BlobResourceContents
-        .builder(
-          URI("paperless", "documents", "/$documentId/$documentId-${document.fileName}", null, null).toASCIIString(),
-          Base64.getEncoder().encodeToString(document.content),
-        )
-        .mimeType(document.mimeType)
-        .build()
+      when (outputFormat) {
+        "visual" -> {
+          try {
+            val rendered = paperlessDocumentVisualService.render(document, firstPage, pageLimit)
+            val lastPage = rendered.pages.last().pageNumber
+            result.addTextContent(
+              buildString {
+                append("Document $documentId (${document.fileName}): showing pages $firstPage-$lastPage of ${rendered.totalPages}.")
+                if (lastPage < rendered.totalPages) {
+                  append(" More pages remain; call getRawDocuments with ids=[$documentId], format=visual, startPage=${lastPage + 1}, pageLimit=$pageLimit.")
+                }
+              }
+            )
+            rendered.pages.forEach { page ->
+              result.addTextContent("Document $documentId, page ${page.pageNumber} of ${rendered.totalPages}.")
+              result.addContent(
+                ImageContent.builder(Base64.getEncoder().encodeToString(page.content), page.mimeType)
+                  .annotations(Annotations.builder().audience(listOf(Role.USER, Role.ASSISTANT)).priority(1.0).build())
+                  .build()
+              )
+            }
+          } catch (exception: IOException) {
+            result.isError(true).addTextContent(
+              "Cannot render document $documentId: ${exception.message ?: "invalid or unreadable PDF"}. " +
+                  "Use fetch or findDocumentsByIds for extracted text, or format=original in a client that supports embedded binary resources."
+            )
+          } catch (exception: IllegalArgumentException) {
+            result.isError(true).addTextContent("Cannot render document $documentId: ${exception.message}")
+          }
+          return@forEach
+        }
 
-      result.addContent(
-        EmbeddedResource
-          .builder(content)
-          .annotations(
-            Annotations.builder()
-              .audience(listOf(Role.USER, Role.ASSISTANT))
-              .priority(1.0)
+        "original" -> {
+          val content = BlobResourceContents
+            .builder(
+              URI(
+                "paperless",
+                "documents",
+                "/$documentId/$documentId-${document.fileName}",
+                null,
+                null
+              ).toASCIIString(),
+              Base64.getEncoder().encodeToString(document.content),
+            )
+            .mimeType(document.mimeType)
+            .build()
+
+          result.addContent(
+            EmbeddedResource
+              .builder(content)
+              .annotations(
+                Annotations.builder()
+                  .audience(listOf(Role.USER, Role.ASSISTANT))
+                  .priority(1.0)
+                  .build(),
+              )
               .build(),
           )
-          .build(),
-      )
+        }
+
+        else -> result.isError(true).addTextContent("Unsupported format: $outputFormat")
+      }
     }
 
     return result.build()

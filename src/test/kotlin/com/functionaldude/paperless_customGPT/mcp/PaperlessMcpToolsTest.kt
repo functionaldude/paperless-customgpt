@@ -2,23 +2,32 @@ package com.functionaldude.paperless_customGPT.mcp
 
 import com.functionaldude.paperless_customGPT.documents.*
 import com.functionaldude.paperless_customGPT.rag.RagQueryService
-import io.modelcontextprotocol.spec.McpSchema.BlobResourceContents
-import io.modelcontextprotocol.spec.McpSchema.EmbeddedResource
+import io.modelcontextprotocol.spec.McpSchema.*
+import org.apache.pdfbox.pdmodel.PDDocument
+import org.apache.pdfbox.pdmodel.PDPage
+import org.apache.pdfbox.pdmodel.PDPageContentStream
+import org.apache.pdfbox.pdmodel.common.PDRectangle
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
+import org.springframework.ai.util.JacksonUtils
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
+import java.awt.Color
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.nio.file.Path
 import java.time.LocalDate
 import java.util.*
+import javax.imageio.ImageIO
 
 class PaperlessMcpToolsTest {
   private val documentService = mock(PaperlessDocumentService::class.java)
   private val ragQueryService = mock(RagQueryService::class.java)
   private val binaryService = mock(PaperlessDocumentBinaryService::class.java)
-  private val tools = PaperlessMcpTools(documentService, ragQueryService, binaryService)
+  private val tools =
+    PaperlessMcpTools(documentService, ragQueryService, binaryService, PaperlessDocumentVisualService())
 
   @Test
   fun `get raw documents returns each binary with its stored MIME type`() {
@@ -56,6 +65,172 @@ class PaperlessMcpToolsTest {
     assertThat(secondContent.uri()).isEqualTo("paperless://documents/263/263-scan%20%C3%BCberblick.png")
     assertThat(secondContent.mimeType()).isEqualTo("image/png")
     assertThat(Base64.getDecoder().decode(secondContent.blob())).isEqualTo(secondDocument)
+  }
+
+  @Test
+  fun `PDF response defaults to the unchanged original binary resource`() {
+    val document = pdf(12)
+    `when`(binaryService.findDocument(518)).thenReturn(BinaryDocumentLookup(document))
+
+    val results = listOf(
+      tools.getRawDocuments(listOf(518)),
+      tools.getRawDocuments(listOf(518), format = null),
+      tools.getRawDocuments(listOf(518), format = " "),
+      tools.getRawDocuments(listOf(518), format = "original"),
+    )
+
+    for (result in results) {
+      val resource = (result.content().single() as EmbeddedResource).resource() as BlobResourceContents
+      assertThat(resource.mimeType()).isEqualTo("application/pdf")
+      assertThat(Base64.getDecoder().decode(resource.blob())).isEqualTo(document.content)
+    }
+  }
+
+  @Test
+  fun `visual PDF response returns labelled native images and survives MCP serialization`() {
+    val document = pdf(3)
+    `when`(binaryService.findDocument(518)).thenReturn(BinaryDocumentLookup(document))
+
+    val result = tools.getRawDocuments(listOf(518), format = "visual")
+    val mapper = JacksonUtils.getDefaultJsonMapper()
+    val json = mapper.readTree(mapper.writeValueAsString(result))
+
+    assertThat(result.isError()).isNotEqualTo(true)
+    assertThat(result.content()).hasSize(7)
+    assertThat((result.content()[0] as TextContent).text()).contains("Document 518", "pages 1-3 of 3")
+    assertThat(List(json.path("content").size()) { index -> json.path("content")[index].path("type").asText() })
+      .containsExactly("text", "text", "image", "text", "image", "text", "image")
+    assertThat(json.toString()).doesNotContain("\"blob\"", "\"resource\"", "paperless://")
+    for (page in 1..3) {
+      assertThat((result.content()[page * 2 - 1] as TextContent).text()).contains("page $page of 3")
+      val image = result.content()[page * 2] as ImageContent
+      assertThat(image.mimeType()).isEqualTo("image/png")
+      val decoded = ImageIO.read(ByteArrayInputStream(Base64.getDecoder().decode(image.data())))
+      assertThat(decoded.width).isEqualTo(208)
+      assertThat(decoded.height).isEqualTo(208)
+      assertThat(Color(decoded.getRGB(10, 10))).isEqualTo(Color(page * 60, 0, 0))
+    }
+  }
+
+  @Test
+  fun `visual PDF response returns all pages by default even beyond the explicit page limit cap`() {
+    `when`(binaryService.findDocument(518)).thenReturn(BinaryDocumentLookup(pdf(12)))
+
+    val result = tools.getRawDocuments(listOf(518), format = "visual")
+
+    assertThat(result.content().filterIsInstance<ImageContent>()).hasSize(12)
+    assertThat((result.content()[0] as TextContent).text())
+      .contains("pages 1-12 of 12")
+      .doesNotContain("More pages remain")
+  }
+
+  @Test
+  fun `PDF pages can be retrieved without silently omitting the remainder`() {
+    `when`(binaryService.findDocument(518)).thenReturn(BinaryDocumentLookup(pdf(12)))
+
+    val first = tools.getRawDocuments(listOf(518), format = "visual", pageLimit = 5)
+    assertThat(first.content().filterIsInstance<ImageContent>()).hasSize(5)
+    assertThat((first.content()[0] as TextContent).text())
+      .contains("pages 1-5 of 12", "format=visual", "startPage=6", "pageLimit=5", "More pages remain")
+
+    val remaining = tools.getRawDocuments(listOf(518), format = "visual", startPage = 6)
+    assertThat(remaining.content().filterIsInstance<ImageContent>()).hasSize(7)
+    assertThat((remaining.content()[0] as TextContent).text())
+      .contains("pages 6-12 of 12")
+      .doesNotContain("More pages remain")
+
+    val nextBatch = tools.getRawDocuments(listOf(518), format = "visual", startPage = 6, pageLimit = 5)
+    assertThat(nextBatch.content().filterIsInstance<ImageContent>()).hasSize(5)
+    assertThat((nextBatch.content()[0] as TextContent).text())
+      .contains("pages 6-10 of 12", "format=visual", "startPage=11", "pageLimit=5", "More pages remain")
+  }
+
+  @Test
+  fun `native image response preserves the image bytes`() {
+    val content = byteArrayOf(1, 2, 3)
+    `when`(binaryService.findDocument(263)).thenReturn(
+      BinaryDocumentLookup(BinaryDocument(content, "image/png", "scan.png"))
+    )
+
+    val result = tools.getRawDocuments(listOf(263), format = "visual")
+
+    val image = result.content().filterIsInstance<ImageContent>().single()
+    assertThat(image.mimeType()).isEqualTo("image/png")
+    assertThat(Base64.getDecoder().decode(image.data())).isEqualTo(content)
+  }
+
+  @Test
+  fun `visual errors produce readable tool errors instead of embedded resources`() {
+    `when`(binaryService.findDocument(518)).thenReturn(
+      BinaryDocumentLookup(BinaryDocument("invalid PDF".toByteArray(), "application/pdf", "broken.pdf"))
+    )
+    `when`(binaryService.findDocument(262)).thenReturn(
+      BinaryDocumentLookup(BinaryDocument(byteArrayOf(1), "application/octet-stream", "document.bin"))
+    )
+
+    for (id in listOf(518, 262)) {
+      val result = tools.getRawDocuments(listOf(id), format = "visual")
+      assertThat(result.isError()).isTrue()
+      assertThat(result.content()).allMatch { it is TextContent }
+      assertThat((result.content().single() as TextContent).text()).contains("document $id", "format=original")
+    }
+  }
+
+  @Test
+  fun `raw document rejects invalid format and pagination before reading files`() {
+    assertThatThrownBy { tools.getRawDocuments(listOf(518), format = "pdf") }
+      .hasMessageContaining("format must be visual or original")
+    assertThatThrownBy { tools.getRawDocuments(listOf(518), startPage = 0) }
+      .hasMessageContaining("startPage must be greater than zero")
+    for (limit in listOf(0, 11, Int.MAX_VALUE)) {
+      assertThatThrownBy { tools.getRawDocuments(listOf(518), pageLimit = limit) }
+        .hasMessageContaining("pageLimit must be between 1 and 10")
+    }
+    verifyNoInteractions(binaryService)
+  }
+
+  @Test
+  fun `page beyond the end of a PDF returns a tool error`() {
+    `when`(binaryService.findDocument(518)).thenReturn(BinaryDocumentLookup(pdf(3)))
+
+    val result = tools.getRawDocuments(listOf(518), format = "visual", startPage = Int.MAX_VALUE)
+
+    assertThat(result.isError()).isTrue()
+    assertThat((result.content().single() as TextContent).text()).contains("exceeds the document's 3 pages")
+  }
+
+  @Test
+  fun `large PDF pages are scaled to a bounded image size`() {
+    val content = PDDocument().use { pdf ->
+      pdf.addPage(PDPage(PDRectangle(3000f, 1000f)))
+      ByteArrayOutputStream().use { output -> pdf.save(output); output.toByteArray() }
+    }
+    `when`(binaryService.findDocument(518)).thenReturn(
+      BinaryDocumentLookup(BinaryDocument(content, "application/pdf", "large.pdf"))
+    )
+
+    val result = tools.getRawDocuments(listOf(518), format = "visual")
+
+    val image = result.content().filterIsInstance<ImageContent>().single()
+    val decoded = ImageIO.read(ByteArrayInputStream(Base64.getDecoder().decode(image.data())))
+    assertThat(decoded.width).isLessThanOrEqualTo(2048)
+    assertThat(decoded.height).isLessThanOrEqualTo(2048)
+  }
+
+  private fun pdf(pages: Int): BinaryDocument = PDDocument().use { pdf ->
+    repeat(pages) { index ->
+      val page = PDPage(PDRectangle(100f, 100f))
+      pdf.addPage(page)
+      PDPageContentStream(pdf, page).use { stream ->
+        stream.setNonStrokingColor(Color(((index + 1) * 60).coerceAtMost(255), 0, 0))
+        stream.addRect(0f, 0f, 100f, 100f)
+        stream.fill()
+      }
+    }
+    ByteArrayOutputStream().use { output ->
+      pdf.save(output)
+      BinaryDocument(output.toByteArray(), "application/pdf", "statement.pdf")
+    }
   }
 
   @Test

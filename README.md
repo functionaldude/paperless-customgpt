@@ -69,11 +69,25 @@ list, allowing the agent to reconstruct the full hierarchy. Counts include only 
 assigned to each tag, matching `findDocumentsByTag` without date filters; document versions and documents tagged only
 with descendants are excluded. Tags with no matching documents are returned with a count of zero.
 
-Use `getRawDocuments(ids)` to retrieve one or more documents' original binary content through `tools/call` as
-base64-encoded
-embedded resource with its MIME type. All Paperless document formats are eligible; documents without a stored MIME type
-are sent as `application/octet-stream`. Mount the Paperless media directory read-only at `PAPERLESS_MEDIA_ROOT`;
-original files are preferred, with Paperless archive files used as a fallback.
+Use `getRawDocuments(ids)` to retrieve the unchanged file bytes through `tools/call`. The default (`format=original`)
+returns a base64-encoded embedded binary resource with its MIME type. All Paperless document formats are eligible;
+documents without a stored MIME type are sent as `application/octet-stream`.
+
+If the client cannot consume the original response, retry with `getRawDocuments(ids, format=visual)`. In visual mode,
+PDF pages are rendered as PNG images and PNG, JPEG, and WebP documents are returned as native MCP image content.
+Each image is labelled with its document ID and page number. PDF rendering uses up to 150 DPI with a maximum image
+dimension of 2048 pixels. All pages are returned by default. If the response is too large, set `startPage` (one-based)
+and `pageLimit` (1–10) to inspect a smaller range. Omitting `pageLimit` returns all remaining pages from `startPage`.
+The response reports the total page count and how to fetch any remaining pages when an explicit limit is used.
+
+Codex's connector currently fails with `Unexpected response type` when the tool returns an embedded PDF blob,
+even when the same response succeeds in MCPJam. Native image content avoids that binary-resource response format
+and lets the agent inspect scans, tables, and layout without relying on extracted text. Other formats return a
+readable tool error in visual mode; use `fetch` or `findDocumentsByIds` for their extracted text.
+
+Mount the Paperless media directory read-only at `PAPERLESS_MEDIA_ROOT`; original files are preferred, with
+Paperless archive files used as a fallback. After deploying a change to the tool's parameters, refresh the plugin's
+tool definitions before using the new options.
 
 For ChatGPT, deploy the endpoint at a remote HTTPS URL or connect a private deployment through OpenAI Secure MCP Tunnel.
 Enable Developer mode, add the `/mcp` URL as an OAuth-protected app, and grant the `paperless_gpt` scope. Ensure the
