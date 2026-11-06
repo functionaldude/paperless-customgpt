@@ -2,8 +2,8 @@ import org.jooq.meta.jaxb.Logging.WARN
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-  kotlin("jvm") version "2.3.21"
-  kotlin("plugin.spring") version "2.3.21"
+  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.kotlin.spring)
   id("org.springframework.boot") version "4.1.1"
 	id("io.spring.dependency-management") version "1.1.7"
   id("org.jooq.jooq-codegen-gradle") version "3.19.26"
@@ -23,13 +23,6 @@ repositories {
 	mavenCentral()
 }
 
-extra["springModulithVersion"] = "2.1.1"
-extra["springAiVersion"] = "2.0.1"
-
-val langchain4jVersion = "1.19.0"
-val langchain4jBetaVersion = "${langchain4jVersion}-beta29"
-val mcpSecurityVersion = "0.1.14"
-
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.aspectj:aspectjweaver")
@@ -43,19 +36,19 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.modulith:spring-modulith-starter-core")
 
-  implementation("org.postgresql:postgresql:42.7.3")
+  implementation(libs.postgresql)
   implementation("com.pgvector:pgvector:0.1.6")
   implementation("org.flywaydb:flyway-database-postgresql")
-  jooqCodegen("org.postgresql:postgresql:42.7.3")
+  jooqCodegen(libs.postgresql)
 
-  implementation("dev.langchain4j:langchain4j:${langchain4jVersion}")
-  implementation("dev.langchain4j:langchain4j-open-ai:${langchain4jVersion}")
-  implementation("dev.langchain4j:langchain4j-http-client:${langchain4jVersion}")
-  implementation("dev.langchain4j:langchain4j-http-client-jdk:${langchain4jVersion}")
-  implementation("dev.langchain4j:langchain4j-ollama:${langchain4jVersion}")
-  implementation("dev.langchain4j:langchain4j-pgvector:${langchain4jBetaVersion}")
+  implementation("dev.langchain4j:langchain4j")
+  implementation("dev.langchain4j:langchain4j-open-ai")
+  implementation("dev.langchain4j:langchain4j-http-client")
+  implementation("dev.langchain4j:langchain4j-http-client-jdk")
+  implementation("dev.langchain4j:langchain4j-ollama")
+  implementation("dev.langchain4j:langchain4j-pgvector")
   implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc")
-  implementation("org.springaicommunity:mcp-server-security:${mcpSecurityVersion}")
+  implementation("org.springaicommunity:mcp-server-security:0.1.14")
   implementation("org.apache.pdfbox:pdfbox:3.0.8")
 
   developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -76,8 +69,9 @@ dependencies {
 
 dependencyManagement {
 	imports {
-		mavenBom("org.springframework.modulith:spring-modulith-bom:${property("springModulithVersion")}")
-    mavenBom("org.springframework.ai:spring-ai-bom:${property("springAiVersion")}")
+		mavenBom("org.springframework.modulith:spring-modulith-bom:2.1.1")
+    mavenBom("org.springframework.ai:spring-ai-bom:2.0.1")
+    mavenBom("dev.langchain4j:langchain4j-bom:1.19.0")
 	}
 }
 

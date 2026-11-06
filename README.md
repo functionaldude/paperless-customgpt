@@ -207,9 +207,23 @@ generation tasks or when running the application.
    Remember to pass the runtime environment variables described earlier; Swarm/stack deployments can inject them through
    secrets/configs as needed.
 
+## Dependency updates with Renovate
+
+The Renovate workflow checks Gradle dependencies, plugins, BOMs, and the wrapper every day at 06:23 Vienna time on
+the self-hosted runner. It opens up to five routine update PRs at a time for manual review and merge.
+
+After the setup lands on `master`, open **Actions → Renovate → Run workflow** and leave **Preview updates in the logs**
+enabled to inspect the proposed PRs. Before running it live, enable **Allow GitHub Actions to create and approve pull
+requests** under **Settings → Actions → General → Workflow permissions** so the built-in token can open PRs.
+[GitHub repository settings](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#preventing-github-actions-from-creating-or-approving-pull-requests)
+
+Run the workflow again with the preview unchecked to open the PRs. Select **Approve workflows to run** on a Renovate PR
+when GitHub prompts you to start its unit tests and JAR build.
+[GitHub workflow approval behavior](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow)
+
 ## Local development without Docker
 
-Use a Java 25 JDK and the checked-in Gradle 9.2.1 wrapper. The default checks run isolated unit tests and package the
+Use a Java 25 JDK and the checked-in Gradle wrapper. The default checks run isolated unit tests and package the
 application without external services:
 
 ```bash
