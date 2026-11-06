@@ -179,8 +179,11 @@ the resulting image to the GitHub Container Registry (GHCR).
 
 - **Triggers:** every push to `master` and manual `workflow_dispatch`.
 - **Image name:** `ghcr.io/${{ github.repository }}`.
-- **Tags:** managed automatically by `docker/metadata-action` (branch names, SHA, semver tags when applicable).
+- **Image tags** include the exact-match Git tag when present. The workflow reserves `latest` for `master` runs.
 - **Runner:** executes on the repository's self-hosted runner (update the `runs-on` stanza if you need extra labels).
+
+Each branch or tag has one active image run and one pending slot. The active run can finish, and newly queued runs
+replace any pending run for the same ref.
 
 The image workflow runs unit tests before registry login, image building, or publishing. If tests fail, these steps are
 skipped and available test reports are uploaded. This applies to both pushes to `master` and manual runs.
@@ -255,8 +258,9 @@ dependencies.
 ### Pull request validation
 
 `.github/workflows/unit-tests.yml` runs `./gradlew --no-daemon test bootJar` on a self-hosted runner with Temurin 25 and Gradle
-caching only for pull requests targeting `master`. Failed runs upload available test reports. Pushes to `master` run unit
-tests in the image publishing workflow described above, so each push runs tests in only one workflow.
+caching only for pull requests targeting `master`. New commits cancel any in-progress run for the same pull request.
+Failed runs upload available test reports. Pushes to `master` run unit tests in the image publishing workflow described
+above, so each push runs tests in only one workflow.
 
 ### Running the service
 

@@ -6,6 +6,8 @@ on:
       - master
   workflow_dispatch:
 
+concurrency: ghcr-docker-image-publish-${{ github.ref }}
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -66,9 +68,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # Give version tags priority so they publish before latest.
           tags: |
-            type=raw,value=latest
             ${{ steps.git_tag.outputs.tag != '' && format('type=raw,value={0}', steps.git_tag.outputs.tag) || '' }}
+            type=raw,value=latest,priority=100
 
       - name: Build image with Spring Boot Buildpacks
         env:
@@ -84,31 +87,23 @@ jobs:
           ./gradlew --no-daemon bootBuildImage -x test --imageName "${IMAGE}:${SHORT_SHA}"
 
       - name: Tag and push
+        shell: bash
         env:
           IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           SHA_TAG: ${{ github.sha }}
           TAGS: ${{ steps.meta.outputs.tags }}
         run: |
           set -euo pipefail
-          SHORT_SHA="${SHA_TAG::12}"
-          SRC="${IMAGE}:${SHORT_SHA}"
-
-          echo "Tags from metadata-action:"
-          echo "${TAGS}"
-
-          # TAGS is newline-separated
-          while IFS= read -r tag; do
-            [ -z "$tag" ] && continue
-            echo "Tagging ${SRC} -> ${tag}"
-            docker tag "${SRC}" "${tag}"
-          done <<EOF
-          ${TAGS}
-          EOF
+          SRC="${IMAGE}:${SHA_TAG::12}"
 
           while IFS= read -r tag; do
-            [ -z "$tag" ] && continue
-            echo "Pushing ${tag}"
-            docker push "${tag}"
-          done <<EOF
-          ${TAGS}
-          EOF
+            [[ -n "$tag" ]] || continue
+            if [[ "$tag" == *:latest && "$GITHUB_REF" != refs/heads/master ]]; then
+              echo "Skipping latest for ref ${GITHUB_REF}."
+              continue
+            fi
+
+            docker tag "$SRC" "$tag"
+            echo "Pushing ${tag} from ${SRC}"
+            docker push "$tag"
+          done <<< "$TAGS"
