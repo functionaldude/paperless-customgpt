@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.3.21"
+kotlin = "2.4.21"
 
 [libraries]
 postgresql = { module = "org.postgresql:postgresql", version = "42.7.14" }
