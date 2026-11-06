@@ -40,7 +40,7 @@ jobs:
             args+=(--dry-run=full)
           fi
 
-          docker run --rm \
+          docker run --rm --name renovate_paperless-customGPT \
             --env RENOVATE_TOKEN \
             --env RENOVATE_USERNAME \
             --env RENOVATE_GIT_AUTHOR \
