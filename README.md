@@ -179,11 +179,11 @@ the resulting image to the GitHub Container Registry (GHCR).
 
 - **Triggers:** every push to `master` and manual `workflow_dispatch`.
 - **Image name:** `ghcr.io/${{ github.repository }}`.
-- **Image tags** include the exact-match Git tag when present. The workflow reserves `latest` for `master` runs whose
-  commit matches the remote `master` tip at publish time.
+- **Image tags** include the exact-match Git tag when present. The workflow reserves `latest` for `master` runs.
 - **Runner:** executes on the repository's self-hosted runner (update the `runs-on` stanza if you need extra labels).
 
-GitHub Actions cancels pending and in-progress image runs when another run for the same ref enters the concurrency group.
+Each branch or tag has one active image run and one pending slot. The active run can finish, and newly queued runs
+replace any pending run for the same ref.
 
 The image workflow runs unit tests before registry login, image building, or publishing. If tests fail, these steps are
 skipped and available test reports are uploaded. This applies to both pushes to `master` and manual runs.

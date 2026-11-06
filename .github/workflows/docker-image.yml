@@ -6,9 +6,7 @@ on:
       - master
   workflow_dispatch:
 
-concurrency:
-  group: ghcr-docker-image-publish-${{ github.ref }}
-  cancel-in-progress: true
+concurrency: ghcr-docker-image-publish-${{ github.ref }}
 
 env:
   REGISTRY: ghcr.io
@@ -100,20 +98,9 @@ jobs:
 
           while IFS= read -r tag; do
             [[ -n "$tag" ]] || continue
-            if [[ "$tag" == *:latest ]]; then
-              if [[ "$GITHUB_REF" != refs/heads/master ]]; then
-                echo "Skipping latest for ref ${GITHUB_REF}."
-                continue
-              fi
-
-              master_sha="$(
-                git ls-remote --exit-code --refs origin refs/heads/master |
-                  awk '$2 == "refs/heads/master" { print $1 }'
-              )"
-              if [[ "$SHA_TAG" != "${master_sha:?Could not resolve refs/heads/master on origin}" ]]; then
-                echo "Skipping latest for ${SHA_TAG} because master is at ${master_sha}."
-                continue
-              fi
+            if [[ "$tag" == *:latest && "$GITHUB_REF" != refs/heads/master ]]; then
+              echo "Skipping latest for ref ${GITHUB_REF}."
+              continue
             fi
 
             docker tag "$SRC" "$tag"
