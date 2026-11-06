@@ -7,9 +7,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ghcr-docker-image-publish
-  queue: max
-  cancel-in-progress: false
+  group: ghcr-docker-image-publish-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   REGISTRY: ghcr.io
@@ -71,9 +70,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # Give version tags priority so they publish before latest.
           tags: |
-            type=raw,value=latest
             ${{ steps.git_tag.outputs.tag != '' && format('type=raw,value={0}', steps.git_tag.outputs.tag) || '' }}
+            type=raw,value=latest,priority=100
 
       - name: Build image with Spring Boot Buildpacks
         env:
@@ -96,38 +96,27 @@ jobs:
           TAGS: ${{ steps.meta.outputs.tags }}
         run: |
           set -euo pipefail
-          SHORT_SHA="${SHA_TAG::12}"
-          SRC="${IMAGE}:${SHORT_SHA}"
+          SRC="${IMAGE}:${SHA_TAG::12}"
 
-          latest_tag=
           while IFS= read -r tag; do
             [[ -n "$tag" ]] || continue
             if [[ "$tag" == *:latest ]]; then
-              latest_tag="$tag"
-              continue
+              if [[ "$GITHUB_REF" != refs/heads/master ]]; then
+                echo "Skipping latest for ref ${GITHUB_REF}."
+                continue
+              fi
+
+              master_sha="$(
+                git ls-remote --exit-code --refs origin refs/heads/master |
+                  awk '$2 == "refs/heads/master" { print $1 }'
+              )"
+              if [[ "$SHA_TAG" != "${master_sha:?Could not resolve refs/heads/master on origin}" ]]; then
+                echo "Skipping latest for ${SHA_TAG} because master is at ${master_sha}."
+                continue
+              fi
             fi
+
             docker tag "$SRC" "$tag"
             echo "Pushing ${tag} from ${SRC}"
             docker push "$tag"
           done <<< "$TAGS"
-
-          if [[ "$GITHUB_REF" != refs/heads/master ]]; then
-            echo "Skipping latest for ref ${GITHUB_REF}."
-            exit 0
-          fi
-
-          if ! master_sha="$(
-            git ls-remote --exit-code --refs origin refs/heads/master |
-              awk '$2 == "refs/heads/master" { print $1 }'
-          )" || [[ -z "$master_sha" ]]; then
-            echo "::error::Could not resolve refs/heads/master on origin."
-            exit 1
-          fi
-          if [[ "$SHA_TAG" != "$master_sha" ]]; then
-            echo "Skipping latest for ${SHA_TAG} because master is at ${master_sha}."
-            exit 0
-          fi
-
-          docker tag "$SRC" "${latest_tag:?Missing latest metadata tag}"
-          echo "Pushing ${latest_tag} from ${SRC}"
-          docker push "$latest_tag"

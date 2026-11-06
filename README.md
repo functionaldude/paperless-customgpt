@@ -183,6 +183,8 @@ the resulting image to the GitHub Container Registry (GHCR).
   commit matches the remote `master` tip at publish time.
 - **Runner:** executes on the repository's self-hosted runner (update the `runs-on` stanza if you need extra labels).
 
+GitHub Actions cancels pending and in-progress image runs when another run for the same ref enters the concurrency group.
+
 The image workflow runs unit tests before registry login, image building, or publishing. If tests fail, these steps are
 skipped and available test reports are uploaded. This applies to both pushes to `master` and manual runs.
 
