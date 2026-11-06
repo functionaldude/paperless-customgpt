@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["gradle", "gradle-wrapper"],
+  "constraints": {
+    "java": "25"
+  },
+  "ignoreUnstable": true,
+  "separateMajorMinor": true,
+  "separateMinorPatch": true,
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 0,
+  "automerge": false
+}

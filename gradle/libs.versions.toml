@@ -1,0 +1,9 @@
+[versions]
+kotlin = "2.3.21"
+
+[libraries]
+postgresql = { module = "org.postgresql:postgresql", version = "42.7.3" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
