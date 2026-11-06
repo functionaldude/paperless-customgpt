@@ -6,7 +6,7 @@ plugins {
   alias(libs.plugins.kotlin.spring)
   id("org.springframework.boot") version "4.1.1"
 	id("io.spring.dependency-management") version "1.1.7"
-  id("org.jooq.jooq-codegen-gradle") version "3.19.26"
+  id("org.jooq.jooq-codegen-gradle") version "3.19.39"
 }
 
 group = "com.functionaldude"
