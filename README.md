@@ -179,7 +179,8 @@ the resulting image to the GitHub Container Registry (GHCR).
 
 - **Triggers:** every push to `master` and manual `workflow_dispatch`.
 - **Image name:** `ghcr.io/${{ github.repository }}`.
-- **Tags:** managed automatically by `docker/metadata-action` (branch names, SHA, semver tags when applicable).
+- **Image tags** include the exact-match Git tag when present. The workflow reserves `latest` for `master` runs whose
+  commit matches the remote `master` tip at publish time.
 - **Runner:** executes on the repository's self-hosted runner (update the `runs-on` stanza if you need extra labels).
 
 The image workflow runs unit tests before registry login, image building, or publishing. If tests fail, these steps are

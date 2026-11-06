@@ -6,6 +6,11 @@ on:
       - master
   workflow_dispatch:
 
+concurrency:
+  group: ghcr-docker-image-publish
+  queue: max
+  cancel-in-progress: false
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -84,6 +89,7 @@ jobs:
           ./gradlew --no-daemon bootBuildImage -x test --imageName "${IMAGE}:${SHORT_SHA}"
 
       - name: Tag and push
+        shell: bash
         env:
           IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           SHA_TAG: ${{ github.sha }}
@@ -93,22 +99,35 @@ jobs:
           SHORT_SHA="${SHA_TAG::12}"
           SRC="${IMAGE}:${SHORT_SHA}"
 
-          echo "Tags from metadata-action:"
-          echo "${TAGS}"
-
-          # TAGS is newline-separated
+          latest_tag=
           while IFS= read -r tag; do
-            [ -z "$tag" ] && continue
-            echo "Tagging ${SRC} -> ${tag}"
-            docker tag "${SRC}" "${tag}"
-          done <<EOF
-          ${TAGS}
-          EOF
+            [[ -n "$tag" ]] || continue
+            if [[ "$tag" == *:latest ]]; then
+              latest_tag="$tag"
+              continue
+            fi
+            docker tag "$SRC" "$tag"
+            echo "Pushing ${tag} from ${SRC}"
+            docker push "$tag"
+          done <<< "$TAGS"
 
-          while IFS= read -r tag; do
-            [ -z "$tag" ] && continue
-            echo "Pushing ${tag}"
-            docker push "${tag}"
-          done <<EOF
-          ${TAGS}
-          EOF
+          if [[ "$GITHUB_REF" != refs/heads/master ]]; then
+            echo "Skipping latest for ref ${GITHUB_REF}."
+            exit 0
+          fi
+
+          if ! master_sha="$(
+            git ls-remote --exit-code --refs origin refs/heads/master |
+              awk '$2 == "refs/heads/master" { print $1 }'
+          )" || [[ -z "$master_sha" ]]; then
+            echo "::error::Could not resolve refs/heads/master on origin."
+            exit 1
+          fi
+          if [[ "$SHA_TAG" != "$master_sha" ]]; then
+            echo "Skipping latest for ${SHA_TAG} because master is at ${master_sha}."
+            exit 0
+          fi
+
+          docker tag "$SRC" "${latest_tag:?Missing latest metadata tag}"
+          echo "Pushing ${latest_tag} from ${SRC}"
+          docker push "$latest_tag"
