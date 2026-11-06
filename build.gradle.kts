@@ -4,9 +4,9 @@ import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 plugins {
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.kotlin.spring)
-  id("org.springframework.boot") version "4.1.1"
+  id("org.springframework.boot") version "4.1.2"
 	id("io.spring.dependency-management") version "1.1.7"
-  id("org.jooq.jooq-codegen-gradle") version "3.19.39"
+  id("org.jooq.jooq-codegen-gradle") version "3.21.9"
 }
 
 group = "com.functionaldude"
@@ -70,8 +70,8 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom("org.springframework.modulith:spring-modulith-bom:2.1.2")
-    mavenBom("org.springframework.ai:spring-ai-bom:2.0.1")
-    mavenBom("dev.langchain4j:langchain4j-bom:1.19.5")
+    mavenBom("org.springframework.ai:spring-ai-bom:2.0.2")
+    mavenBom("dev.langchain4j:langchain4j-bom:1.23.0")
 	}
 }
 
